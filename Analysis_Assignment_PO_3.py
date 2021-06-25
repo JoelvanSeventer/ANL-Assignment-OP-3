@@ -1,9 +1,4 @@
-class Book:
-    def __init__(self, Title, Author, ISBN):
-        self.Title = Title
-        self.Author = Author
-        self.ISBN = ISBN
-        print("Title: ", self.Title, self.Author, self.ISBN)
+import Books
 
 while True:
     print("Welcome, choose one of the following options:\n\n\
@@ -53,7 +48,6 @@ while True:
         print("ISBN:")
         ISBN = input()
         book = Book(Title, Author, ISBN)
-        books.append(book)
 
 
     elif UserInput == "5":
