@@ -8,6 +8,7 @@ import csv
 
 class Librarian():
     def __init__(self):
+        #assign fields
         self.person = Person()
         self.book = Book()
         self.loan = LoanAdministration()
