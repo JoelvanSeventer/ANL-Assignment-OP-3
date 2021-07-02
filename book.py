@@ -90,7 +90,7 @@ class Book():
             print("This book does not exist")
 
     def viewBooktitles(self):
-        #View all Booktitles
+        #View all booktitles
         with open("data/books.json", "r") as f:
             data = json.load(f)
 
@@ -98,6 +98,7 @@ class Book():
             print(book["title"])
     
     def findBook(self):
+        #Search for a book
         with open("data/books.json", "r") as f:
             data = json.load(f)
         subject = input("\nWith which term would you like to search? Author, Country, Imagelink, Language, Link, Pages, Title or Year:\n\nEnter term: ").lower()

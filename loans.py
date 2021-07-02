@@ -5,7 +5,7 @@ class LoanAdministration():
     def __init__(self):
         #assign fields
         self.item = LoanItem()
-        self.loan_path = 'database/loans.json'
+        self.loan_path = 'data/loans.json'
 
     #view the loaned books
     def viewLoans(self):
@@ -56,7 +56,7 @@ class LoanItem():
     def returnthisbook(self, BookTitle_return):
         # load file and add the book back to the file
         item = False
-        with open("database/loans.json", 'r') as f:
+        with open("data/loans.json", 'r') as f:
             data = json.load(f)
         
         for idx, book in enumerate(data):
@@ -67,15 +67,15 @@ class LoanItem():
                 break
 
         if item:
-            with open('database/loans.json', "w+") as f:
+            with open('data/loans.json', "w+") as f:
                 jsoned_data = json.dumps(data, indent=True)
                 f.write(jsoned_data)
             
             # add to books json
-            with open("database/bookcopies.json", 'r') as f:
+            with open("data/bookcopies.json", 'r') as f:
                 data = json.load(f)
 
-            with open('database/bookcopies.json', "w+") as f:
+            with open('data/bookcopies.json', "w+") as f:
                 data.append(item)
                 jsoned_data = json.dumps(data, indent=True)
                 f.write(jsoned_data)
@@ -88,7 +88,7 @@ class LoanItem():
     def loanbook(self, BookTitle_Loan):
         item = False
         #open bookcopies.json, load it and assign it to the variable data
-        with open("database/bookcopies.json", 'r') as f:
+        with open("data/bookcopies.json", 'r') as f:
             data = json.load(f)
         
         for idx, book in enumerate(data):
@@ -99,7 +99,7 @@ class LoanItem():
                 break
         #if there's a book left
         if item:
-            with open('database/bookcopies.json', "w+") as f:
+            with open('data/bookcopies.json', "w+") as f:
                 jsoned_data = json.dumps(data, indent=True)
                 f.write(jsoned_data)
             print(f"\nYou've succesfully loaned the book {item['title']}")
