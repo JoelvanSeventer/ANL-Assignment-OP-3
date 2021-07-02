@@ -1,9 +1,9 @@
 import json
 
 class Book():
-    def addBook(self):
-
-        print("To add book fill in the following.")
+    def addNewBook(self):
+        
+        print("To add a book fill in the following.")
         author = input("Author: ")
         country = input("Country: ")
         imagelink = input("ImageLink: ")
@@ -14,48 +14,48 @@ class Book():
         year = int(input("Year: "))
         copies = int(input("Amount of copies: "))
 
-        #add to books.json
+        #Add book to json file
         data = {"author":author, "country":country, "imagelink":imagelink, "language":language, "link":link, "pages":pages, "title":title, "year":year}
-        with open("database/books.json", "r") as f:
+        with open("data/books.json", "r") as f:
             oldData = json.load(f)
-        with open("database/books.json", "w+") as f:
+        with open("data/books.json", "w+") as f:
             oldData.append(data)
             jsoned_data = json.dumps(oldData, indent=True)
             f.write(jsoned_data)
 
-        #add to bookcopies.json
+        #Add copies to json file
         self.addCopies(copies, data)
 
-    def removeBook(self, name):
-        #remove book
+    def removeOldBook(self, name):
+        #Remove a book
         item = False
-        with open("database/books.json", 'r') as f:
+        with open("data/books.json", 'r') as f:
             data = json.load(f)
         
 
         for idx, book in enumerate(data):
-                if name == book['title'].lower():
+                if name == book["title"].lower():
                     data.pop(idx)
                     item = book
             
         if item:
-            with open('database/books.json', "w+") as f:
+            with open("data/books.json", "w+") as f:
                 jsoned_data = json.dumps(data, indent=True)
                 f.write(jsoned_data)
             print(f"\nYou've succesfully removed the book {item['title']}.")
         else:
-            print("\nThis book doesn't exist!")
+            print("\nThis book does not exist!")
 
-        #remove copies
+        #Remove the copies
         self.removeCopies(name, 2)
     
     def addCopies(self, copies, data):
         
         for i in range(copies):
-            with open("database/bookcopies.json", "r") as f:
+            with open("data/bookcopies.json", "r") as f:
                 oldData = json.load(f)
 
-            with open("database/bookcopies.json", "w+") as f:
+            with open("data/bookcopies.json", "w+") as f:
                 oldData.append(data)
                 jsoned_data = json.dumps(oldData, indent=True)
                 f.write(jsoned_data)
@@ -63,7 +63,7 @@ class Book():
     def removeCopies(self, title, copies):
         item = False
         count = 0
-        with open("database/bookcopies.json", 'r') as f:
+        with open("data/bookcopies.json", 'r') as f:
             data = json.load(f)
         
         if copies == 1:
@@ -82,43 +82,44 @@ class Book():
                             item = book
                             count+= 1
         if item:
-            with open('database/bookcopies.json', "w+") as f:
+            with open('data/bookcopies.json', "w+") as f:
                 jsoned_data = json.dumps(data, indent=True)
                 f.write(jsoned_data)
-            print(f"You've succesfully removed {count} copies of the book {item['title']}.")
+            print(f"You've succesfully removed the copies of the book")
         else:
-            print("This book doesn't exist!")
+            print("This book does not exist")
 
-    def viewBooks(self):
-        with open("database/books.json", 'r') as f:
+    def viewBooktitles(self):
+        #View all Booktitles
+        with open("data/books.json", "r") as f:
             data = json.load(f)
 
         for book in data:
-            print(book['title'])
+            print(book["title"])
     
-    def searchBook(self):
-        with open('database/books.json', 'r') as f:
+    def findBook(self):
+        with open("data/books.json", "r") as f:
             data = json.load(f)
-        subject = input("\nVia what term would you like to search? Author, Country, Imagelink, Language, Link, Pages, Title or Year:\n\nEnter term: ").lower()
+        subject = input("\nWith which term would you like to search? Author, Country, Imagelink, Language, Link, Pages, Title or Year:\n\nEnter term: ").lower()
         content = input(f"\nPlease enter the {subject}:\n").lower()
         found = False
         for book in data:
-            if subject == 'author':
+            if subject == "author":
                 if content == book["author"].lower():
                     found = True
                     print(book)
 
-            if subject == 'country':
+            if subject == "country":
                 if content == book["country"].lower():
                     found = True
                     print(book)
 
-            if subject == 'imagelink':
+            if subject == "imagelink":
                 if content == book["imageLink"].lower():
                     found = True
                     print(book)
             
-            if subject == 'language':
+            if subject == "language":
                 if content == book["language"].lower():
                     found = True
                     print(book)
@@ -144,7 +145,7 @@ class Book():
                     print(book)
 
         if found == False:
-            print("This book doesn't exist!")
+            print("This book does not exist")
 
 class BookItem():
     def __init__(self):
@@ -155,19 +156,19 @@ class BookItem():
         title = input("\nPlease enter the title of the book you would like to make copies of:\n").lower()
         amount = int(input("\nPlease enter the amount of copies you would like to make:\n"))
 
-        with open("database/books.json", 'r') as f:
+        with open("data/books.json", "r") as f:
             alldata = json.load(f)
 
         for book in alldata:
-            if title == book['title'].lower():
+            if title == book["title"].lower():
                 data = book
                 check = True
                 self.book.addCopies(amount, data)
-                print(f"Succesfully added {amount} copies of the book {book['title']}")
+                print(f"Succesfully added the copies of the book")
                 break
 
         if not check:
-            print("That book doesn't exist!")
+            print("That book does not exist")
         
     def removeCopies(self):
         title = input("\nPlease enter the title of the book:\n").lower()
@@ -179,4 +180,4 @@ class BookItem():
                 running = False
                 break
             else:
-                print("Please a number higher than 0.")
+                print("Please enter a number higher than 0.")
