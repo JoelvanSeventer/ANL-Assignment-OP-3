@@ -1,55 +1,54 @@
 import csv
 class Person():
     
-    def addCustomer(self):
-        print("\nFill in the following")
+    # Add new customer
+    def addNewCustomer(self):
+        print("\nFill in your information below: ")
         gender = input("Gender: ")
         nameset = input("Nameset: ")
-        givenname = input('Givenname: ')
-        surname = input('Surname: ')
-        streetaddress = input('Streetaddress: ')
+        givenname = input("Givenname: ")
+        surname = input("Surname: ")
+        streetaddress = input("Streetaddress: ")
         zipcode = input("Zipcode: ")
         city = input("City: ")
         emailaddress = input("Emailaddress: ")
 
+        #Fill in Username and check if available 
         running = True
         while running:
-            username = input('Username: ')
-            count = 0
-            with open('database/customers.csv', 'r') as f:
+            username = input("Username: ")
+            with open("data/customers.csv", "r") as f:
                 csvdata = list(csv.reader(f))
             for user in csvdata:
                 if username == user[9]:
                     print("This username is already in use.")
-                    count = 1
-                else: 
-                    count = 0
-            if count == 0:
-                running = False
+                    running = False
+            if running == True:
                 break
 
-        telephonenumber = input('Telephonenumber: ')
+        telephonenumber = input("Telephonenumber: ")
 
-        with open('database/customers.csv', 'r') as f:
+        with open("data/customers.csv", "r") as f:
             csvdata = list(csv.reader(f))
             index = len(csvdata)
             
         data = f"\n{str(index)},{gender},{nameset},{givenname},{surname},{streetaddress},{zipcode},{city},{emailaddress},{username},{telephonenumber}"
 
-        with open('database/customers.csv', 'a') as f:
+        with open("data/customers.csv", "a") as f:
             f.write(data)
-      
-    def searchCustomer(self):
-        with open('database/customers.csv', 'r') as f:
+
+    #Search customer 
+    def findCustomer(self):
+        with open("data/customers.csv", "r") as f:
             csvdata = list(csv.reader(f))
         running = True
         while running:
-            check = input("\nVia what term would you like to search? Gender, Nameset, Givenname, Surname, Streetaddress, Zipcode, City, Emailaddress, Username, Telephonenumber:\n").lower()
+            check = input("\nWith which term would you like to search? Gender, Nameset, Givenname, Surname, Streetaddress, Zipcode, City, Emailaddress, Username, Telephonenumber:\n").lower()
             if check == 'gender' or check == 'nameset' or check == 'givenname' or check == 'surname' or check == 'streetaddress' or check == 'zipcode' or check == 'city' or check == 'emailaddress' or check == 'username' or check == 'telephonenumber':
                 running = False
                 break
             else:
-                print("Please choose one of the given terms!")
+                print("Please choose one of the terms")
         
         usercheck = input(f"\nFill in the {check}:\n").lower()
         for user in csvdata:
