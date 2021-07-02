@@ -91,7 +91,7 @@ class Subscriber(Person):
         if action == "1":
             self.loan.loanBook()
         if action == "2":
-            self.loan.returnBook()
+            self.loan.return_this_book()
     
     def checkLoanStatus(self):
         self.loan.viewLoans()
