@@ -16,7 +16,7 @@ class Librarian():
         self.bookitem = BookItem()
 
     def books(self):
-        action = input("\n[1] To add a book\n[2] To remove a book\n")
+        action = input("\n1. Add a book\n2. Remove a book\n")
         if action == '1':
             self.book.addNewBook()
         elif action == '2':
@@ -24,20 +24,20 @@ class Librarian():
             self.book.removeOldBook(name)
 
     def copies(self):
-        action = input("\n[1] To add copies\n[2] To remove copies\n")
+        action = input("\n1. Add copies\n2. Remove copies\n")
         if action == '1':
             self.bookitem.addCopies()
         elif action == '2':
             self.bookitem.removeCopies()
 
     def customer(self): 
-        self.person.addNewCustomer()
+        self.person.NewCustomer()
 
     def findCustomer(self):
         self.person.findCustomer()
 
     def checkLoanStatus(self):
-        self.loan.viewLoans()
+        self.loan.Loans()
 
     def makeBackup(self):
         self.catalog.makeBackup()
@@ -51,7 +51,7 @@ class Librarian():
     def run(self):
         running = True
         while running:
-            action = input("""\nFill in the action you want to execute:\n[1] To add or remove a book\n[2] To add or remove copies\n[3] To add customer\n[4] To view all books\n[5] To search a customer\n[6] To check loan status\n[7] To make backup\n[8] To restore data\n[9] Exit\n\nEnter a number: """)
+            action = input("""\nFill in the action you want to execute:\n2. Add or remove a book\n2. Add or remove copies\n3. Add customer\n4. View all books\n5. Search a customer\n6. Check loan status\n7. Make backup\n8. Restore data\n9. Exit -->\n\nEnter a number: """)
 
             if action == '1':
                 self.books()
@@ -70,6 +70,7 @@ class Librarian():
             elif action == '8':
                 self.restoreDB()
             elif action == '9':
+                print("Thanks for visiting! See you next time!")
                 running = False
                 break
 
@@ -87,14 +88,14 @@ class Subscriber(Person):
         self.book.findBook()
 
     def loanBook(self):
-        action = input("\n[1] To loan a book\n[2] To return a book\n")
+        action = input("\n1. Loan a book\n2. Return a book\n")
         if action == "1":
             self.loan.loanBook()
         if action == "2":
             self.loan.return_this_book()
     
     def checkLoanStatus(self):
-        self.loan.viewLoans()
+        self.loan.Loans()
     
     def viewBooktitles(self):
         self.book.viewBooktitles()
@@ -102,7 +103,7 @@ class Subscriber(Person):
     def run(self):
         running = True
         while running:
-            action = input("""\nFill in the action you want to execute:\n[1] To search a book\n[2] To loan or return a book\n[3] To check loan status\n[4] To view all books\n[5] Exit\n""")
+            action = input("""\nFill in the action you want to execute:\n1. Search a book\n2. Loan or return a book\n3. Check loan status\n4. View all books\n5. Exit -->\n""")
             if action == '1':
                 self.findBook()
             if action == '2':
@@ -112,6 +113,7 @@ class Subscriber(Person):
             if action == '4':
                 self.viewBooktitles()
             if action == '5':
+                print("Thanks for visiting! See you next time!")
                 running = False
                 break
 
@@ -133,7 +135,7 @@ class Publisher():
         self.librarian.books()
     
     def copies(self):
-        action = input("\n[1] To add copies\n[2] To remove copies\n")
+        action = input("\n1. Add copies\n2. Remove copies\n")
         if action == '1':
             self.bookitem.addCopies()
         elif action == '2':
@@ -142,13 +144,14 @@ class Publisher():
     def run(self):
         running = True
         while running:
-            action = input("""\nFill in the action you want to execute:\n[1] To view books\n[2] To add or remove a books\n[3] Exit\n""")
+            action = input("""\nFill in the action you want to execute:\n1. View books\n2. Add or remove a books\n3. Exit -->\n""")
 
             if action == '1':
                 self.viewBooktitles()
             elif action == '2':
                 self.books()
             if action == '3':
+                print("Thanks for visiting! See you next time!")
                 running = False
                 break
 

@@ -8,7 +8,7 @@ class LoanAdministration():
         self.loan_path = 'data/loans.json'
 
     #view the loaned books
-    def viewLoans(self):
+    def Loans(self):
         #open json file loans
         with open(self.loan_path, 'r') as f:
             #load loans

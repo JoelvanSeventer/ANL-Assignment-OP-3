@@ -2,7 +2,7 @@ import csv
 class Person():
     
     # Add new customer
-    def addNewCustomer(self):
+    def NewCustomer(self):
         print("\nFill in your information below: ")
         gender = input("Gender: ")
         nameset = input("Nameset: ")

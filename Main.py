@@ -18,13 +18,17 @@ class PublicLibrary():
             Publisher().run()
 
         else: #bij verkeerde input
-            print("Please select an available role!")
+            print("Please enter a valid number!\n\n")
             main()
     
 # main vraagt om de role
 def main():
-    print("Welcome to our public library\nHopefully you can find everything you're looking for!\n")
-    role = input("Please select your role:\n1. Librarian\n2. Subscriber\n3. Publisher\n").lower()
+    print("-----------------------------")
+    print("------ Welcome to our -------")
+    print("------ Public Library -------")
+    print("-----------------------------\n")
+    print("Welcome to our public library!\nHopefully you can find everything you're looking for!\n")
+    role = input("Please select your role by typing one of the following numbers:\n1. Librarian\n2. Subscriber\n3. Publisher\n").lower()
     
     PublicLibrary(role)
 
