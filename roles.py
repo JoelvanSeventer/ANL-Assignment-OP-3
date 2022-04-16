@@ -7,9 +7,8 @@ from book import BookItem
 import csv 
 
 class LibraryAdmin():
-    def __init__(self, un):
+    def __init__(self):
         #assign fields
-        self.un = un
         self.person = Person()
         self.book = Book()
         self.loan = LoanAdministration()
@@ -51,7 +50,7 @@ class LibraryAdmin():
     
     #edit a customer
     def editCustomer(self):
-        self.person.editCustomer(self.un)
+        self.person.editCustomer()
 
     #check the loan status
     def checkLoanStatus(self):
