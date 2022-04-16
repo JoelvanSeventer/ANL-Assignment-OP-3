@@ -72,7 +72,7 @@ class LibraryAdmin():
     def run(self):
         running = True
         while running:
-            action = input("""\nFill in the action you want to execute:\n2. Add or remove a book\n2. Add or remove copies\n3. Add customer\n4. View all books\n5. Search a customer\n6. Check loan status\n7. Make backup\n8. Restore data\n9. Delete a customer\n10. Show all customers\n11. Edit customer\n12. Exit -->\n\nEnter a number: """)
+            action = input("""\nFill in the action you want to execute:\n1. Add or remove a book\n2. Add or remove copies\n3. Add customer\n4. View all books\n5. Search a customer\n6. Check loan status\n7. Make backup\n8. Restore data\n9. Delete a customer\n10. Show all customers\n11. Edit customer\n12. Exit -->\n\nEnter a number: """)
 
             if action == '1':
                 self.AddOrRemoveBook()
@@ -133,7 +133,7 @@ class Member(Person):
         self.book.viewBooktitles()
 
     #main function of member
-    def run(self, un):
+    def run(self):
         running = True
         while running:
             action = input("""\nFill in the action you want to execute:\n1. Search a book\n2. Loan or return a book\n3. Check loan status\n4. View all books\n5. Exit -->\n""")
