@@ -6,6 +6,7 @@ class LoanAdministration():
         #assign fields
         self.item = LoanItem()
         self.loan_path = 'data/loans.json'
+        self.ownedbooks = []
 
     #view the loaned books
     def Loans(self):
@@ -25,27 +26,32 @@ class LoanAdministration():
     def loanBook(self):
         #ask for title
         titleLoan = input("\nPlease enter the title of the book you want to loan: ").lower()
-        book = self.item.loanbook(titleLoan)
-        data = []
+        if titleLoan in self.ownedbooks:
+            print("\nYou already have this book.")
+        else:
+            self.ownedbooks.append(titleLoan)
+            #loan the book
+            book = self.item.loanbook(titleLoan)
+            data = []
 
-        #try in case its empty
-        try:
-            with open(self.loan_path, 'r') as f:
-                data = json.load(f)
-        except:
-            pass
+            #try in case its empty
+            try:
+                with open(self.loan_path, 'r') as f:
+                    data = json.load(f)
+            except:
+                pass
 
-        #add a book to the loans file
-        with open(self.loan_path, "w+") as f:
-            data.append(book)
-            jsoned_data = json.dumps(data, indent=True)
-            f.write(jsoned_data)
+            #add a book to the loans file
+            with open(self.loan_path, "w+") as f:
+                data.append(book)
+                jsoned_data = json.dumps(data, indent=True)
+                f.write(jsoned_data)
 
     #return a book you loaned
     def return_this_book(self):
         #ask for the title
         titleReturn = input("\nPlease enter the title of the book you want to return: ").lower()
-
+        self.ownedbooks.remove(titleReturn)
         #return the book
         self.item.returnthisbook(titleReturn)
 
