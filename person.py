@@ -4,8 +4,6 @@ class Person():
     # Add new customer
     def NewCustomer(self):
         print("\nFill in your information below: ")
-        gender = input("Gender: ")
-        nameset = input("Nameset: ")
         givenname = input("Givenname: ")
         surname = input("Surname: ")
         streetaddress = input("Streetaddress: ")
@@ -16,7 +14,7 @@ class Person():
         #Fill in Username and check if available 
         running = True
         while running:
-            username = input("Username: ")
+            username = input("Username: ").lower()
             with open("data/customers.csv", "r") as f:
                 csvdata = list(csv.reader(f))
             for user in csvdata:
@@ -25,14 +23,13 @@ class Person():
                     running = False
             if running == True:
                 break
-
+        password = input("Password: ").lower()
         telephonenumber = input("Telephonenumber: ")
 
         with open("data/customers.csv", "r") as f:
             csvdata = list(csv.reader(f))
             index = len(csvdata)
-            
-        data = f"\n{str(index)},{gender},{nameset},{givenname},{surname},{streetaddress},{zipcode},{city},{emailaddress},{username},{telephonenumber}"
+        data = f"\n{str(index)},{givenname},{surname},{streetaddress},{zipcode},{city},{emailaddress},{username}, {password}, {telephonenumber}"
 
         with open("data/customers.csv", "a") as f:
             f.write(data)
@@ -43,52 +40,61 @@ class Person():
             csvdata = list(csv.reader(f))
         running = True
         while running:
-            check = input("\nWith which term would you like to search? Gender, Nameset, Givenname, Surname, Streetaddress, Zipcode, City, Emailaddress, Username, Telephonenumber:\n").lower()
-            if check == 'gender' or check == 'nameset' or check == 'givenname' or check == 'surname' or check == 'streetaddress' or check == 'zipcode' or check == 'city' or check == 'emailaddress' or check == 'username' or check == 'telephonenumber':
+            check = input("\nWith which term would you like to search?\n1.Givenname\n2. Surname\n3. Streetaddress\n4. Zipcode\n5. City\n6. Emailaddress\n7. Username\n8. Telephonenumber\n")
+            if check == '1' or check == '2' or check == '3' or check == '4' or check == '5' or check == '6' or check == '7' or check == '8':
                 running = False
                 break
             else:
                 print("Please choose one of the terms")
+            
+        terms = ['Givenname', 'Surname', 'Streetaddress', 'Zipcode', 'City', 'Emailaddress', 'Username', 'Telephonenumber']
         
-        usercheck = input(f"\nFill in the {check}:\n").lower()
+        usercheck = input(f"\nFill in the {terms[check-1]}:\n").lower()
         for user in csvdata:
-            if check == "gender":
+            if check == "1":
                 if usercheck in user[1].lower():
                     print(user)
 
-            if check == "nameset":
+            if check == "2":
                 if usercheck in user[2].lower():
                     print(user)
 
-            if check == "givenname":
+            if check == "3":
                 if usercheck in user[3].lower():
                     print(user)
 
-            if check == "surname":
+            if check == "4":
                 if usercheck in user[4].lower():
                     print(user)
 
-            if check == "streetaddress":
+            if check == "5":
                 if usercheck in user[5].lower():
                     print(user)
 
-            if check == "zipcode":
+            if check == "6":
                 if usercheck in user[6].lower():
                     print(user)
 
-            if check == "city":
+            if check == "7":
                 if usercheck in user[7].lower():
                     print(user)
-
-            if check == "emailaddress":
-                if usercheck in user[8].lower():
-                    print(user)
-
-            if check == "username":
+            
+            if check == "8":
                 if usercheck in user[9].lower():
                     print(user)
+    
+    #Delete customer
+    def deleteCustomer(self):
+        lines = list()
+        members= input("Please enter a member's name to be deleted.")
+        with open("data/customers.csv", "r") as f:
+            reader = csv.reader(f)
+            for row in reader:
+                lines.append(row)
+                for mem in row:
+                    if mem == members:
+                        lines.remove(row)
 
-            if check == "telephonenumber":
-                if usercheck in user[10].lower():
-                    print(user)
-            
+        with open('mycsv.csv', 'w') as writeFile:
+            writer = csv.writer(writeFile)
+            writer.writerows(lines)

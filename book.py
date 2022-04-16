@@ -15,6 +15,7 @@ class Book():
         copies = int(input("Amount of copies: "))
 
         #Add book to json file
+        
         data = {"author":author, "country":country, "imagelink":imagelink, "language":language, "link":link, "pages":pages, "title":title, "year":year}
         with open("data/books.json", "r") as f:
             oldData = json.load(f)
@@ -24,13 +25,17 @@ class Book():
             f.write(jsoned_data)
 
         #Add copies to json file
-        self.addCopies(copies, data)
+        i = 3
+        while(i > 0):
+            self.addCopies(copies, data)
+            i-=1
 
     def removeOldBook(self, name):
         #Remove a book
         item = False
         with open("data/books.json", 'r') as f:
             data = json.load(f)
+            
         
 
         for idx, book in enumerate(data):
@@ -105,43 +110,35 @@ class Book():
         content = input(f"\nPlease enter the {subject}:\n").lower()
         found = False
         for book in data:
-            if subject == "author":
-                if content == book["author"].lower():
+            if subject == "author" and content == book["author"].lower():
                     found = True
                     print(book)
 
-            if subject == "country":
-                if content == book["country"].lower():
+            if subject == "country" and content == book["country"].lower():
                     found = True
                     print(book)
 
-            if subject == "imagelink":
-                if content == book["imageLink"].lower():
+            if subject == "imagelink" and content == book["imageLink"].lower():
                     found = True
                     print(book)
             
-            if subject == "language":
-                if content == book["language"].lower():
+            if subject == "language" and content == book["language"].lower():
                     found = True
                     print(book)
 
-            if subject == "link":
-                if content == book["link"].lower():
+            if subject == "link" and content == book["link"].lower():
                     found = True
                     print(book)
 
-            if subject == "pages":
-                if int(content) == book["pages"]:
+            if subject == "pages" and int(content) == book["pages"]:
                     found = True
                     print(book)
 
-            if subject == "title":
-                if content == book["title"].lower():
+            if subject == "title" and content == book["title"].lower():
                     found = True
                     print(book)
 
-            if subject == "year":
-                if int(content) == book["year"]:
+            if subject == "year" and int(content) == book["year"]:
                     found = True
                     print(book)
 

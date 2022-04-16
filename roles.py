@@ -15,14 +15,16 @@ class Librarian():
         self.catalog = Catalog()
         self.bookitem = BookItem()
 
-    def books(self):
+    #add or remove a book from the library(json file)
+    def AddOrRemoveBook(self):
         action = input("\n1. Add a book\n2. Remove a book\n")
         if action == '1':
             self.book.addNewBook()
         elif action == '2':
-            name = input("\nPlease enter the title of the book you would like to remove:\n")
-            self.book.removeOldBook(name)
+            RemoveTitle = input("\nPlease enter the title of the book you would like to remove:\n")
+            self.book.removeOldBook(RemoveTitle)
 
+    #Add or Remove copies
     def copies(self):
         action = input("\n1. Add copies\n2. Remove copies\n")
         if action == '1':
@@ -30,31 +32,42 @@ class Librarian():
         elif action == '2':
             self.bookitem.removeCopies()
 
+    #add new customer
     def customer(self): 
         self.person.NewCustomer()
 
+    #find a customer
     def findCustomer(self):
         self.person.findCustomer()
 
+    #delete a customer
+    def deleteCustomer(self):
+        self.person.deleteCustomer()
+
+    #check the loan status
     def checkLoanStatus(self):
         self.loan.Loans()
 
+    #make a backup
     def makeBackup(self):
         self.catalog.makeBackup()
 
-    def restoreDB(self):
-        self.catalog.restoreDB()
+    #restore the backup
+    def RestoreBackup(self):
+        self.catalog.RestoreBackup()
     
+    #view all book titles 
     def viewBooktitles(self):
         self.book.viewBooktitles()
 
+    #main method of librarian
     def run(self):
         running = True
         while running:
-            action = input("""\nFill in the action you want to execute:\n2. Add or remove a book\n2. Add or remove copies\n3. Add customer\n4. View all books\n5. Search a customer\n6. Check loan status\n7. Make backup\n8. Restore data\n9. Exit -->\n\nEnter a number: """)
+            action = input("""\nFill in the action you want to execute:\n2. Add or remove a book\n2. Add or remove copies\n3. Add customer\n4. View all books\n5. Search a customer\n6. Check loan status\n7. Make backup\n8. Restore data\n9. Delete a customer\n10. Exit -->\n\nEnter a number: """)
 
             if action == '1':
-                self.books()
+                self.AddOrRemoveBook()
             elif action == '2':
                 self.copies()
             elif action == '3':
@@ -68,8 +81,10 @@ class Librarian():
             elif action == '7':
                 self.makeBackup()
             elif action == '8':
-                self.restoreDB()
+                self.RestoreBackup()
             elif action == '9':
+                self.deleteCustomer()
+            elif action == '10':
                 print("Thanks for visiting! See you next time!")
                 running = False
                 break
@@ -80,13 +95,16 @@ class Librarian():
 
 class Subscriber(Person):
     def __init__(self):
+        #assign fields
         super().__init__()
         self.book = Book()
         self.loan = LoanAdministration()
 
+    #find book
     def findBook(self):
         self.book.findBook()
 
+    #make a loan or return a book
     def loanBook(self):
         action = input("\n1. Loan a book\n2. Return a book\n")
         if action == "1":
@@ -94,12 +112,15 @@ class Subscriber(Person):
         if action == "2":
             self.loan.return_this_book()
     
+    #check loan status
     def checkLoanStatus(self):
         self.loan.Loans()
     
+    #view all booktitles
     def viewBooktitles(self):
         self.book.viewBooktitles()
 
+    #main function of subscriber
     def run(self):
         running = True
         while running:
@@ -124,16 +145,20 @@ class Subscriber(Person):
 
 class Publisher():
     def __init__(self):
+        #assign fields
         self.book = Book()
         self.librarian = Librarian()
         self.bookitem = BookItem()
 
+    #view all book titles
     def viewBooktitles(self):
         self.book.viewBooktitles()
     
-    def books(self):
-        self.librarian.books()
+    #add or remove a book
+    def AddOrRemoveBook(self):
+        self.librarian.AddOrRemoveBook()
     
+    #add or remove a copies
     def copies(self):
         action = input("\n1. Add copies\n2. Remove copies\n")
         if action == '1':
@@ -141,6 +166,7 @@ class Publisher():
         elif action == '2':
             self.bookitem.removeCopies()
 
+    #main function of Publisher
     def run(self):
         running = True
         while running:
@@ -149,7 +175,7 @@ class Publisher():
             if action == '1':
                 self.viewBooktitles()
             elif action == '2':
-                self.books()
+                self.AddOrRemoveBook()
             if action == '3':
                 print("Thanks for visiting! See you next time!")
                 running = False
