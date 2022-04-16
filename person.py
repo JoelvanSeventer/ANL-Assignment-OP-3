@@ -129,45 +129,46 @@ class Person():
                     active = False
         
     def EditMember(self, check, username):
-        csvdata = csv.reader(open('data/customers.csv', 'r+'))
+        csvdata = open('data/customers.csv', 'r+')
         terms = ['Givenname', 'Surname', 'Streetaddress', 'Zipcode', 'City', 'Emailaddress', 'Username', 'Telephonenumber']
         for user in csvdata:
-            if username == user[7]:
+            thisuser = user.split(';')
+            if username == thisuser[7]:
 
                 if check == "1":
-                    print("\nThe current Givenname is: " + user[1])
-                    user[1] = input(f"\nFill in the new {terms[int(check)-1]}:\n").lower()
+                    print("\nThe current Givenname is: " + thisuser[1])
+                    thisuser[1] = input(f"\nFill in the new {terms[int(check)-1]}:\n").lower()
+                    
 
                 elif check == "2":
-                    user[2] = input(f"\nFill in the new {terms[int(check)-1]}:\n").lower()
+                    thisuser[2] = input(f"\nFill in the new {terms[int(check)-1]}:\n").lower()
                     break
 
                 elif check == "3":
-                    user[3] = input(f"\nFill in the new {terms[int(check)-1]}:\n").lower()
+                    thisuser[3] = input(f"\nFill in the new {terms[int(check)-1]}:\n").lower()
                     break
 
                 elif check == "4":
-                    user[4] = input(f"\nFill in the new {terms[int(check)-1]}:\n").lower()
+                    thisuser[4] = input(f"\nFill in the new {terms[int(check)-1]}:\n").lower()
                     break
 
                 elif check == "5":
-                    user[5] = input(f"\nFill in the new {terms[int(check)-1]}:\n").lower()
+                    thisuser[5] = input(f"\nFill in the new {terms[int(check)-1]}:\n").lower()
                     break
 
                 elif check == "6":
-                    user[6] = input(f"\nFill in the new {terms[int(check)-1]}:\n").lower()
+                    thisuser[6] = input(f"\nFill in the new {terms[int(check)-1]}:\n").lower()
                     break
 
                 elif check == "7":
-                    user[7] = input(f"\nFill in the new {terms[int(check)-1]}:\n").lower()
+                    thisuser[7] = input(f"\nFill in the new {terms[int(check)-1]}:\n").lower()
                     break
                 
                 elif check == "8":
-                    user[8] = input(f"\nFill in the new {terms[int(check)-1]}:\n").lower()
+                    thisuser[8] = input(f"\nFill in the new {terms[int(check)-1]}:\n").lower()
                     break
 
-                user = ';'.join(user)
-                csvdata.replace(user,user)
-                print("Adjusted!")
+                thisuser = ';'.join(thisuser)
+                csvdata.write(thisuser)
                 break
         csvdata.close()
