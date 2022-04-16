@@ -6,7 +6,7 @@ from loans import LoanAdministration
 from book import BookItem
 import csv 
 
-class Librarian():
+class LibraryAdmin():
     def __init__(self):
         #assign fields
         self.person = Person()
@@ -60,7 +60,7 @@ class Librarian():
     def viewBooktitles(self):
         self.book.viewBooktitles()
 
-    #main method of librarian
+    #main method of library admin
     def run(self):
         running = True
         while running:
@@ -93,7 +93,7 @@ class Librarian():
             if running.lower() == "n" or running.lower() == "no":
                 running = False
 
-class Subscriber(Person):
+class Member(Person):
     def __init__(self):
         #assign fields
         super().__init__()
@@ -120,7 +120,7 @@ class Subscriber(Person):
     def viewBooktitles(self):
         self.book.viewBooktitles()
 
-    #main function of subscriber
+    #main function of member
     def run(self):
         running = True
         while running:
@@ -134,49 +134,6 @@ class Subscriber(Person):
             if action == '4':
                 self.viewBooktitles()
             if action == '5':
-                print("Thanks for visiting! See you next time!")
-                running = False
-                break
-
-            running = input("\nDo you want to continue y/n: ")
-            if running.lower() == "n" or running.lower() == "no":
-                running = False
-                
-
-class Publisher():
-    def __init__(self):
-        #assign fields
-        self.book = Book()
-        self.librarian = Librarian()
-        self.bookitem = BookItem()
-
-    #view all book titles
-    def viewBooktitles(self):
-        self.book.viewBooktitles()
-    
-    #add or remove a book
-    def AddOrRemoveBook(self):
-        self.librarian.AddOrRemoveBook()
-    
-    #add or remove a copies
-    def copies(self):
-        action = input("\n1. Add copies\n2. Remove copies\n")
-        if action == '1':
-            self.bookitem.addCopies()
-        elif action == '2':
-            self.bookitem.removeCopies()
-
-    #main function of Publisher
-    def run(self):
-        running = True
-        while running:
-            action = input("""\nFill in the action you want to execute:\n1. View books\n2. Add or remove a books\n3. Exit -->\n""")
-
-            if action == '1':
-                self.viewBooktitles()
-            elif action == '2':
-                self.AddOrRemoveBook()
-            if action == '3':
                 print("Thanks for visiting! See you next time!")
                 running = False
                 break

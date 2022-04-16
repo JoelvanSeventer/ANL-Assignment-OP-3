@@ -1,4 +1,4 @@
-from roles import Librarian, Subscriber
+from roles import LibraryAdmin, Member
 
 # main asks for the role
 def main():
@@ -12,13 +12,13 @@ def main():
             loggedin = True
             welcome()
             print("\nWelcome admin!\n")
-            Librarian().run()
+            LibraryAdmin().run()
             break
         elif un == thisuser[7] and pw == thisuser[8]:
             loggedin = True
             welcome()
             print("\nWelcome " + un + "!\n")
-            Subscriber().run()
+            Member().run()
             break
     if loggedin == False:
         print("\nWrong username or password!\n")
