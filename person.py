@@ -98,3 +98,62 @@ class Person():
         with open('mycsv.csv', 'w') as writeFile:
             writer = csv.writer(writeFile)
             writer.writerows(lines)
+    
+    #Show all customers
+    def showAllCustomers(self):
+        with open("data/customers.csv", "r") as f:
+            csvdata = list(csv.reader(f))
+        for user in csvdata:
+            print(user)
+
+    #Edit customer
+    def editCustomer(self):
+        with open("data/customers.csv", "r") as f:
+            csvdata = list(csv.reader(f))
+
+        running = True
+        while running:
+            check = input("\nWhich term would you like to edit?\n1.Givenname\n2. Surname\n3. Streetaddress\n4. Zipcode\n5. City\n6. Emailaddress\n7. Username\n8. Telephonenumber\n")
+            if check == '1' or check == '2' or check == '3' or check == '4' or check == '5' or check == '6' or check == '7' or check == '8':
+                running = False
+                break
+            else:
+                print("Please choose one of the options.")
+        active = True
+        while active:	
+            username = input("Please enter the username of the member you want to edit: ").lower()
+            for user in csvdata:
+                if username == user[7]:
+                    active = False
+                    break
+        terms = ['Givenname', 'Surname', 'Streetaddress', 'Zipcode', 'City', 'Emailaddress', 'Username', 'Telephonenumber']
+        for user in csvdata:
+            thisuser = user.split(';')
+            if un == thisuser[7]:
+
+                if check == "1":
+                    thisuser[1] = input("\nFill in the new {terms[check-1]}:\n").lower()
+
+                elif check == "2":
+                    thisuser[2] = input("\nFill in the new {terms[check-1]}:\n").lower()
+
+                elif check == "3":
+                    thisuser[3] = input("\nFill in the new {terms[check-1]}:\n").lower()
+
+                elif check == "4":
+                    thisuser[4] = input("\nFill in the new {terms[check-1]}:\n").lower()
+
+                elif check == "5":
+                    thisuser[5] = input("\nFill in the new {terms[check-1]}:\n").lower()
+
+                elif check == "6":
+                    thisuser[6] = input("\nFill in the new {terms[check-1]}:\n").lower()
+
+                elif check == "7":
+                    thisuser[7] = input("\nFill in the new {terms[check-1]}:\n").lower()
+                
+                elif check == "8":
+                    thisuser[8] = input("\nFill in the new {terms[check-1]}:\n").lower()
+                
+                else:
+                    print("Please choose one of the options.")

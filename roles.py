@@ -7,8 +7,9 @@ from book import BookItem
 import csv 
 
 class LibraryAdmin():
-    def __init__(self):
+    def __init__(self, un):
         #assign fields
+        self.un = un
         self.person = Person()
         self.book = Book()
         self.loan = LoanAdministration()
@@ -44,6 +45,14 @@ class LibraryAdmin():
     def deleteCustomer(self):
         self.person.deleteCustomer()
 
+    #show all customers
+    def showAllCustomers(self):
+        self.person.showAllCustomers()
+    
+    #edit a customer
+    def editCustomer(self):
+        self.person.editCustomer(self.un)
+
     #check the loan status
     def checkLoanStatus(self):
         self.loan.Loans()
@@ -64,7 +73,7 @@ class LibraryAdmin():
     def run(self):
         running = True
         while running:
-            action = input("""\nFill in the action you want to execute:\n2. Add or remove a book\n2. Add or remove copies\n3. Add customer\n4. View all books\n5. Search a customer\n6. Check loan status\n7. Make backup\n8. Restore data\n9. Delete a customer\n10. Exit -->\n\nEnter a number: """)
+            action = input("""\nFill in the action you want to execute:\n2. Add or remove a book\n2. Add or remove copies\n3. Add customer\n4. View all books\n5. Search a customer\n6. Check loan status\n7. Make backup\n8. Restore data\n9. Delete a customer\n10. Show all customers\n11. Edit customer\n12. Exit -->\n\nEnter a number: """)
 
             if action == '1':
                 self.AddOrRemoveBook()
@@ -85,6 +94,10 @@ class LibraryAdmin():
             elif action == '9':
                 self.deleteCustomer()
             elif action == '10':
+                self.showAllCustomers()
+            elif action == '11':
+                self.editCustomer()
+            elif action == '12':
                 print("Thanks for visiting! See you next time!")
                 running = False
                 break
@@ -121,7 +134,7 @@ class Member(Person):
         self.book.viewBooktitles()
 
     #main function of member
-    def run(self):
+    def run(self, un):
         running = True
         while running:
             action = input("""\nFill in the action you want to execute:\n1. Search a book\n2. Loan or return a book\n3. Check loan status\n4. View all books\n5. Exit -->\n""")
