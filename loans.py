@@ -60,7 +60,6 @@ class LoanItem():
             data = json.load(f)
         
         for idx, book in enumerate(data):
-            
             if BookTitle_return == book['title'].lower():
                 data.pop(idx)
                 item = book
@@ -71,7 +70,7 @@ class LoanItem():
                 jsoned_data = json.dumps(data, indent=True)
                 f.write(jsoned_data)
             
-            # add to books json
+            # add to copies json file
             with open("data/bookcopies.json", 'r') as f:
                 data = json.load(f)
 
