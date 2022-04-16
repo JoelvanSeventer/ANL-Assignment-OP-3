@@ -1,4 +1,4 @@
-from roles import Librarian, Subscriber, Publisher
+from roles import Librarian, Subscriber
 
 # main asks for the role
 def main():
