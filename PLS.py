@@ -5,7 +5,7 @@ def main():
     loggedin = False
     un = input("\nPlease enter your username: ")
     pw = input("\nPlease enter your password: ")
-    csvdata = open('data/customers.csv', 'r')
+    csvdata = open('data/members.csv', 'r')
     for user in csvdata:
         thisuser = user.split(';')
         if(un == "admin" and pw == "admin123"):

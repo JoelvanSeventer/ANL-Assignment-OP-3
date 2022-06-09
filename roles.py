@@ -23,6 +23,10 @@ class LibraryAdmin():
         elif action == '2':
             RemoveTitle = input("\nPlease enter the title of the book you would like to remove:\n")
             self.book.removeOldBook(RemoveTitle)
+        # Edit Book
+        #
+        #
+        #
 
     #Add or Remove copies
     def copies(self):
@@ -31,30 +35,48 @@ class LibraryAdmin():
             self.bookitem.addCopies()
         elif action == '2':
             self.bookitem.removeCopies()
+        # Edit Copies
+        #
+        #
+        #
 
-    #add new customer
-    def customer(self): 
-        self.person.NewCustomer()
+    #add new member
+    def addMember(self): 
+        self.person.addMember()
 
-    #find a customer
-    def findCustomer(self):
-        self.person.findCustomer()
+    #find a member
+    def findmember(self):
+        self.person.findmember()
 
-    #delete a customer
-    def deleteCustomer(self):
-        self.person.deleteCustomer()
+    #delete a member
+    def deleteMember(self):
+        self.person.deleteMember()
 
-    #show all customers
-    def showAllCustomers(self):
-        self.person.showAllCustomers()
+    #show all members
+    def showAllMembers(self):
+        self.person.showAllMembers()
     
-    #edit a customer
-    def editCustomer(self):
-        self.person.editCustomer()
+    #edit a member
+    def editMember(self):
+        self.person.editMember()
 
     #check the loan status
     def checkLoanStatus(self):
         self.loan.Loans()
+
+    #Load and Add list of members (all at once)
+    
+    #Load and Add list of books (all at once)
+
+    #Load all bookItems
+
+    #To search a bookItem and its availibility
+
+    def lendBook(self):
+        self.loan.loanBook()
+
+    def searchBook(self):
+        self.book.findBook()
 
     #make a backup
     def makeBackup(self):
@@ -72,18 +94,18 @@ class LibraryAdmin():
     def run(self):
         running = True
         while running:
-            action = input("""\nFill in the action you want to execute:\n1. Add or remove a book\n2. Add or remove copies\n3. Add customer\n4. View all books\n5. Search a customer\n6. Check loan status\n7. Make backup\n8. Restore data\n9. Delete a customer\n10. Show all customers\n11. Edit customer\n12. Exit -->\n\nEnter a number: """)
+            action = input("""\nFill in the action you want to execute:\n1. Add or remove a book\n2. Add or remove copies\n3. Add member\n4. View all books\n5. Search a member\n6. Check loan status\n7. Make backup\n8. Restore data\n9. Delete a member\n10. Show all members\n11. Edit member\n12. Exit -->\n\nEnter a number: """)
 
             if action == '1':
                 self.AddOrRemoveBook()
             elif action == '2':
                 self.copies()
             elif action == '3':
-                self.customer()
+                self.member()
             elif action == '4':
                 self.viewBooktitles()
             elif action == '5':
-                self.findCustomer()
+                self.findmember()
             elif action == '6':
                 self.checkLoanStatus()
             elif action == '7':
@@ -91,11 +113,11 @@ class LibraryAdmin():
             elif action == '8':
                 self.RestoreBackup()
             elif action == '9':
-                self.deleteCustomer()
+                self.deletemember()
             elif action == '10':
-                self.showAllCustomers()
+                self.showAllmembers()
             elif action == '11':
-                self.editCustomer()
+                self.editmember()
             elif action == '12':
                 print("Thanks for visiting! See you next time!")
                 running = False
@@ -112,9 +134,17 @@ class Member(Person):
         self.book = Book()
         self.loan = LoanAdministration()
 
+    #view all booktitles
+    def viewBooktitles(self):
+        self.book.viewBooktitles()
+
     #find book
     def findBook(self):
         self.book.findBook()
+
+    #Load all bookItems
+
+    #To search a bookItem and its availibility
 
     #make a loan or return a book
     def loanBook(self):
@@ -128,9 +158,6 @@ class Member(Person):
     def checkLoanStatus(self):
         self.loan.Loans()
     
-    #view all booktitles
-    def viewBooktitles(self):
-        self.book.viewBooktitles()
 
     #main function of member
     def run(self):

@@ -1,8 +1,8 @@
 import csv
 class Person():
     
-    # Add new customer
-    def NewCustomer(self):
+    # Add new member
+    def Newmember(self):
         print("\nFill in your information below: ")
         givenname = input("Givenname: ")
         surname = input("Surname: ")
@@ -15,7 +15,7 @@ class Person():
         running = True
         while running:
             username = input("Username: ").lower()
-            with open("data/customers.csv", "r") as f:
+            with open("data/members.csv", "r") as f:
                 csvdata = list(csv.reader(f))
             for user in csvdata:
                 if username == user[9]:
@@ -26,17 +26,17 @@ class Person():
         password = input("Password: ").lower()
         telephonenumber = input("Telephonenumber: ")
 
-        with open("data/customers.csv", "r") as f:
+        with open("data/members.csv", "r") as f:
             csvdata = list(csv.reader(f))
             index = len(csvdata)
         data = f"\n{str(index)},{givenname},{surname},{streetaddress},{zipcode},{city},{emailaddress},{username}, {password}, {telephonenumber}"
 
-        with open("data/customers.csv", "a") as f:
+        with open("data/members.csv", "a") as f:
             f.write(data)
 
-    #Search customer 
-    def findCustomer(self):
-        with open("data/customers.csv", "r") as f:
+    #Search member 
+    def findmember(self):
+        with open("data/members.csv", "r") as f:
             csvdata = list(csv.reader(f))
         running = True
         while running:
@@ -83,11 +83,11 @@ class Person():
                 if usercheck in user[9].lower():
                     print(user)
     
-    #Delete customer
-    def deleteCustomer(self):
+    #Delete member
+    def deletemember(self):
         lines = list()
         members= input("Please enter a member's name to be deleted.")
-        with open("data/customers.csv", "r") as f:
+        with open("data/members.csv", "r") as f:
             reader = csv.reader(f)
             for row in reader:
                 lines.append(row)
@@ -99,16 +99,16 @@ class Person():
             writer = csv.writer(writeFile)
             writer.writerows(lines)
     
-    #Show all customers
-    def showAllCustomers(self):
-        with open("data/customers.csv", "r") as f:
+    #Show all members
+    def showAllmembers(self):
+        with open("data/members.csv", "r") as f:
             csvdata = list(csv.reader(f))
         for user in csvdata:
             print(user)
 
-    #Edit customer
-    def editCustomer(self):
-        csvdata = open('data/customers.csv', 'r')
+    #Edit member
+    def editmember(self):
+        csvdata = open('data/members.csv', 'r')
 
         running = True
         while running:
@@ -129,7 +129,7 @@ class Person():
                     active = False
         
     def EditMember(self, check, username):
-        csvdata = open('data/customers.csv', 'r+')
+        csvdata = open('data/members.csv', 'r+')
         terms = ['Givenname', 'Surname', 'Streetaddress', 'Zipcode', 'City', 'Emailaddress', 'Username', 'Telephonenumber']
         for user in csvdata:
             thisuser = user.split(';')
