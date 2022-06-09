@@ -50,15 +50,15 @@ class LibraryAdmin():
 
     #delete a member
     def deleteMember(self):
-        self.person.deleteMember()
+        self.person.deletemember()
 
     #show all members
     def showAllMembers(self):
-        self.person.showAllMembers()
+        self.person.showAllmembers()
     
     #edit a member
     def editMember(self):
-        self.person.editMember()
+        self.person.editmember()
 
     #check the loan status
     def checkLoanStatus(self):
@@ -113,11 +113,11 @@ class LibraryAdmin():
             elif action == '8':
                 self.RestoreBackup()
             elif action == '9':
-                self.deletemember()
+                self.deleteMember()
             elif action == '10':
-                self.showAllmembers()
+                self.showAllMembers()
             elif action == '11':
-                self.editmember()
+                self.editMember()
             elif action == '12':
                 print("Thanks for visiting! See you next time!")
                 running = False
@@ -144,7 +144,9 @@ class Member(Person):
 
     #Load all bookItems
 
+
     #To search a bookItem and its availibility
+    
 
     #make a loan or return a book
     def loanBook(self):
