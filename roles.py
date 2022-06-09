@@ -40,7 +40,7 @@ class LibraryAdmin():
 
     #add new member
     def addMember(self): 
-        self.person.addMember()
+        self.person.newMember()
 
     #find a member
     def findmember(self):
@@ -99,7 +99,7 @@ class LibraryAdmin():
             elif action == '2':
                 self.copies()
             elif action == '3':
-                self.member()
+                self.addMember()
             elif action == '4':
                 self.viewBooktitles()
             elif action == '5':

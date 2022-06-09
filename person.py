@@ -2,7 +2,7 @@ import csv
 class Person():
     
     # Add new member
-    def Newmember(self):
+    def newMember(self):
         print("\nFill in your information below: ")
         givenname = input("Givenname: ")
         surname = input("Surname: ")
@@ -10,26 +10,29 @@ class Person():
         zipcode = input("Zipcode: ")
         city = input("City: ")
         emailaddress = input("Emailaddress: ")
-
         #Fill in Username and check if available 
         running = True
         while running:
+            exists = False
             username = input("Username: ").lower()
             with open("data/members.csv", "r") as f:
                 csvdata = list(csv.reader(f))
             for user in csvdata:
-                if username == user[9]:
+                split_user = user[0].split(';') 
+                if username == split_user[7].lower():
+                    exists = True
                     print("This username is already in use.")
-                    running = False
-            if running == True:
-                break
+                    break
+            if exists == False:
+                running = False
+
         password = input("Password: ").lower()
         telephonenumber = input("Telephonenumber: ")
 
         with open("data/members.csv", "r") as f:
             csvdata = list(csv.reader(f))
             index = len(csvdata)
-        data = f"\n{str(index)},{givenname},{surname},{streetaddress},{zipcode},{city},{emailaddress},{username}, {password}, {telephonenumber}"
+        data = f"\n{str(index)};{givenname};{surname};{streetaddress};{zipcode};{city};{emailaddress};{username};{password};{telephonenumber}"
 
         with open("data/members.csv", "a") as f:
             f.write(data)
