@@ -111,8 +111,10 @@ class Person():
 
     #Edit member
     def editmember(self):
-        csvdata = open('data/members.csv', 'r')
+        with open("data/members.csv", "r") as f:
+            csvdata = list(csv.reader(f))
 
+        check = ""
         running = True
         while running:
             check = input("\nWhich term would you like to edit?\n1.Givenname\n2. Surname\n3. Streetaddress\n4. Zipcode\n5. City\n6. Emailaddress\n7. Username\n8. Telephonenumber\n")
@@ -121,15 +123,72 @@ class Person():
                 break
             else:
                 print("Please choose one of the options.")
+
         active = True
-        while active:	
+        while active:
+            exists = False	
             username = input("Please enter the username of the member you want to edit: ").lower()
             for user in csvdata:
-                thisuser = user.split(';')
-                if username == thisuser[7]:
+                thisuser = user[0].split(';')
+                if username == thisuser[7].lower():
                     print("User found!")
-                    self.EditMember(check, username)
-                    active = False
+                    exists = True
+                    new_value = input("What new value do you want to insert?")
+
+                    with open ('data/members.csv', 'w') as f:
+                        writer = csv.writer(f)
+                        index = thisuser[0]
+                        s = ""
+                        for row in csvdata:
+                            row_list = row[0].split(';')
+                            print(index)
+                            print(row_list[0])
+                            if row_list[0] == index:
+                                for i in range(len(thisuser)):
+                                    if i == int(check) and i == len(thisuser) - 1:
+                                        s += new_value
+                                    elif i == int(check) and i != len(thisuser) - 1:
+                                        s += new_value + ";"
+                                    elif i == len(thisuser) - 1:
+                                        s += thisuser[i]
+                                    else: 
+                                        s += thisuser[i] + ";"
+                                print("s = ", s)
+                                for line in csvdata:
+                                    line_list = line[0].split(';')
+                                    if line_list[0] == index:
+                                        writer.writerow(s)
+                                
+            if exists:
+                active = False
+
+                
+                    #     index = int(thisuser[0])
+                    #     thisuser[int(check)] = new_value
+                    #     s = ""
+                    #     for i in range(len(thisuser)):
+                    #         if i == len(thisuser) - 1:
+                    #             s += thisuser[i]
+                    #             break
+                    #         s += thisuser[i] + ";"
+                    #     f[index].write(s)
+                    # active = False
+                    
+        
+        # while running:
+        #     exists = False
+        #     username = input("Username: ").lower()
+        #     with open("data/members.csv", "r") as f:
+        #         csvdata = list(csv.reader(f))
+        #     for user in csvdata:
+        #         split_user = user[0].split(';') 
+        #         if username == split_user[7].lower():
+        #             exists = True
+        #             print("This username is already in use.")
+        #             break
+        #     if exists == False:
+        #         running = False
+        
         
     def EditMember(self, check, username):
         csvdata = open('data/members.csv', 'r+')
