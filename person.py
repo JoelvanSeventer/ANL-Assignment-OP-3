@@ -49,7 +49,7 @@ class Person():
             
         terms = ['Givenname', 'Surname', 'Streetaddress', 'Zipcode', 'City', 'Emailaddress', 'Username', 'Telephonenumber']
         
-        usercheck = input(f"\nFill in the {terms[check-1]}:\n").lower()
+        usercheck = input(f"\nFill in the {terms[int(check) - 1]}:\n").lower()
         for user in csvdata:
             if check == "1":
                 if usercheck in user[1].lower():
