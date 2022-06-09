@@ -73,7 +73,7 @@ class Book():
                     if bookName == book["title"].lower():
                         break
 
-                print("What do you want to edit?")
+                print("What do you want to edit?\n")
                 inputEdit = input("\n1. author\n2. country\n3. imagelink\n4. language\n5. link\n6. pages\n7. title\n8. year\n")
                 if inputEdit == "1":
                     newAuthor = input("\nNew author: ")
@@ -82,7 +82,6 @@ class Book():
                         oldData = json.load(f)
                     with open("data/books.json", "w+") as f:
                         oldData[index] = newData
-                        # oldData.append(newData)
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
                 elif inputEdit == "2":
@@ -91,7 +90,7 @@ class Book():
                     with open("data/books.json", "r") as f:
                         oldData = json.load(f)
                     with open("data/books.json", "w+") as f:
-                        oldData.append(newData)
+                        oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
                 elif inputEdit == "3":
@@ -100,7 +99,7 @@ class Book():
                     with open("data/books.json", "r") as f:
                         oldData = json.load(f)
                     with open("data/books.json", "w+") as f:
-                        oldData.append(newData)
+                        oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
                 elif inputEdit == "4":
@@ -109,7 +108,7 @@ class Book():
                     with open("data/books.json", "r") as f:
                         oldData = json.load(f)
                     with open("data/books.json", "w+") as f:
-                        oldData.append(newData)
+                        oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
                 elif inputEdit == "5":
@@ -118,7 +117,7 @@ class Book():
                     with open("data/books.json", "r") as f:
                         oldData = json.load(f)
                     with open("data/books.json", "w+") as f:
-                        oldData.append(newData)
+                        oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
                 elif inputEdit == "6":
@@ -127,7 +126,7 @@ class Book():
                     with open("data/books.json", "r") as f:
                         oldData = json.load(f)
                     with open("data/books.json", "w+") as f:
-                        oldData.append(newData)
+                        oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
                 elif inputEdit == "7":
@@ -136,7 +135,7 @@ class Book():
                     with open("data/books.json", "r") as f:
                         oldData = json.load(f)
                     with open("data/books.json", "w+") as f:
-                        oldData.append(newData)
+                        oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
                 elif inputEdit == "8":
@@ -145,7 +144,7 @@ class Book():
                     with open("data/books.json", "r") as f:
                         oldData = json.load(f)
                     with open("data/books.json", "w+") as f:
-                        oldData.append(newData)
+                        oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
                 
