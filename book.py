@@ -275,3 +275,54 @@ class BookItem():
                 break
             else:
                 print("Please enter a number higher than 0.")
+
+    def readAndWrite(self, index, newBook):
+        with open("data/bookcopies.json", "r") as f:
+            oldData = json.load(f)
+        with open("data/bookcopies.json", "w+") as f:
+            oldData[index] = newBook
+            jsoned_data = json.dumps(oldData, indent=True)
+            f.write(jsoned_data)
+
+    def editCopies(self):
+        bookName = input("\nFill in the name of the bookcopy you want to edit: ").lower()
+        with open("data/bookcopies.json", "r") as f:
+            data = json.load(f)
+        for book in data:
+            if bookName == book["title"].lower():
+                newBook = book
+                print("What do you want to edit?\n")
+                inputEdit = input("\n1. author\n2. country\n3. imagelink\n4. language\n5. link\n6. pages\n7. title\n8. year\n")
+
+                if inputEdit == "1":
+                    newAuthor = input("\nNew author: ")
+                    newBook["author"] = newAuthor
+                elif inputEdit == "2":
+                    newCountry = input("\nNew country: ")
+                    newBook["country"] = newCountry
+                elif inputEdit == "3":
+                    newImageLink = input("\nNew imagelink: ")
+                    newBook["imageLink"] = newImageLink
+                elif inputEdit == "4":
+                    newLanguage = input("\nNew language: ")
+                    newBook["language"] = newLanguage
+                elif inputEdit == "5":
+                    newLink = input("\nNew link: ")
+                    newBook["link"] = newLink
+                elif inputEdit == "6":
+                    newPages = input("\nNew pages: ")
+                    newBook["pages"] = newPages
+                elif inputEdit == "7":
+                    newTitle = input("\nNew title: ")
+                    newBook["title"] = newTitle
+                elif inputEdit == "8":
+                    newYear = input("\nNew year: ")
+                    newBook["year"] = newYear
+            
+                for index, book in enumerate(data):
+                    if bookName == book["title"].lower():
+                        self.readAndWrite(index, newBook)
+
+                print("\n\nSuccesfully edited the copies of the book!\n\n")
+
+                

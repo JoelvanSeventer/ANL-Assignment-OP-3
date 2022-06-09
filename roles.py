@@ -29,15 +29,14 @@ class LibraryAdmin():
 
     #Add or Remove copies
     def copies(self):
-        action = input("\n1. Add copies\n2. Remove copies\n")
+        action = input("\n1. Add copies\n2. Remove copies\n3. Edit copies\n")
         if action == '1':
             self.bookitem.addCopies()
         elif action == '2':
             self.bookitem.removeCopies()
         # Edit Copies
-        #
-        #
-        #
+        elif action == '3':
+            self.bookitem.editCopies()
 
     #add new member
     def addMember(self): 
@@ -93,7 +92,7 @@ class LibraryAdmin():
     def run(self):
         running = True
         while running:
-            action = input("""\nFill in the action you want to execute:\n1. Add, remove, edit a book\n2. Add or remove copies\n3. Add member\n4. View all books\n5. Search a member\n6. Check loan status\n7. Make backup\n8. Restore data\n9. Delete a member\n10. Show all members\n11. Edit member\n12. Exit -->\n\nEnter a number: """)
+            action = input("""\nFill in the action you want to execute:\n1. Add, remove, edit a book\n2. Add, remove, edit copies\n3. Add member\n4. View all books\n5. Search a member\n6. Check loan status\n7. Make backup\n8. Restore data\n9. Delete a member\n10. Show all members\n11. Edit member\n12. Exit -->\n\nEnter a number: """)
 
             if action == '1':
                 self.AddOrRemoveBook()
