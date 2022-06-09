@@ -17,16 +17,15 @@ class LibraryAdmin():
 
     #add or remove a book from the library(json file)
     def AddOrRemoveBook(self):
-        action = input("\n1. Add a book\n2. Remove a book\n")
+        action = input("\n1. Add a book\n2. Remove a book\n3. Edit a book\n")
         if action == '1':
             self.book.addNewBook()
         elif action == '2':
             RemoveTitle = input("\nPlease enter the title of the book you would like to remove:\n")
             self.book.removeOldBook(RemoveTitle)
         # Edit Book
-        #
-        #
-        #
+        elif action == '3':
+            self.book.editBook()
 
     #Add or Remove copies
     def copies(self):

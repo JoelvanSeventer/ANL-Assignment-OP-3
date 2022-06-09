@@ -53,7 +53,59 @@ class Book():
 
         #Remove the copies
         self.removeCopies(name, 2)
-    
+
+    def editBook(self):
+        bookName = input("\nFill in the name of the book you want to edit: ").lower()
+        with open("data/books.json", "r") as f:
+            data = json.load(f)
+        for book in data:
+            if bookName == book["title"].lower():
+                oldAuthor = book["author"]
+                oldCountry = book["country"]
+                oldImageLink = book["imageLink"]
+                oldLanguage = book["language"]
+                oldLink = book["link"]
+                oldPages = book["pages"]
+                oldTitle = book["title"]
+                oldYear = book["year"]
+
+                data.pop(book)
+
+                print("What do you want to edit?")
+                inputEdit = input("\n1. author\n2. country\n3. imagelink\n4. language\n5. link\n6. pages\n7. title\n8. year\n")
+                if inputEdit == "1":
+                    newAuthor = input("\nNew author: ")
+                    data = {"author":newAuthor, "country":oldCountry, "imagelink":oldImagelink, "language":oldLanguage, "link":oldLink, "pages":oldPages, "title":oldTitle, "year":oldYear}
+                    with open("data/books.json", "r") as f:
+                        oldData = json.load(f)
+                    with open("data/books.json", "w+") as f:
+                        oldData.append(data)
+                        jsoned_data = json.dumps(oldData, indent=True)
+                        f.write(jsoned_data)
+                elif inputEdit == "2":
+                    newCountry = input("\nNew country: ")
+                    book["country"] = country
+                elif inputEdit == "3":
+                    newImagelink = input("\nNew imagelink: ")
+                    book["imagelink"] = imagelink
+                elif inputEdit == "4":
+                    newLanguage = input("\nNew language: ")
+                    book["language"] = language
+                elif inputEdit == "5":
+                    newLink = input("\nNew link: ")
+                    book["link"] = link
+                elif inputEdit == "6":
+                    newPages = int(input("\nNew pages: "))
+                    book["pages"] = pages
+                elif inputEdit == "7":
+                    newTitle = input("\nNew title: ")
+                    book["title"] = title
+                elif inputEdit == "8":
+                    newYear = int(input("\nNew year: "))
+                    book["year"] = year
+                
+
+
     def addCopies(self, copies, data):
         
         for i in range(copies):
