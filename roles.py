@@ -60,7 +60,7 @@ class LibraryAdmin():
 
     #check the loan status
     def checkLoanStatus(self):
-        self.loan.Loans()
+        self.loan.view_loaned_books()
 
     #Load and Add list of members (all at once)
     
@@ -92,7 +92,7 @@ class LibraryAdmin():
     def run(self):
         running = True
         while running:
-            action = input("""\nFill in the action you want to execute:\n1. Add, remove, edit a book\n2. Add, remove, edit copies\n3. Add member\n4. View all books\n5. Search a member\n6. Check loan status\n7. Make backup\n8. Restore data\n9. Delete a member\n10. Show all members\n11. Edit member\n12. Exit -->\n\nEnter a number: """)
+            action = input("""\nFill in the action you want to execute:\n1. Add, remove or edit a book\n2. Add, remove or edit copies\n3. Add member\n4. View all books\n5. Search a member\n6. Check loan status\n7. Make backup\n8. Restore data\n9. Delete a member\n10. Show all members\n11. Edit member\n12. Exit -->\n\nEnter a number: """)
 
             if action == '1':
                 self.AddOrRemoveBook()

@@ -19,9 +19,28 @@ class LoanAdministration():
             print("No books are being loaned out.")
         # Otherwise, show all books
         else:
+            print("Currently loaned book(s):")
             for book in data:
-                print(book)
+                print(book["title"])
     
+    #view the books loaned by a member
+    def view_loaned_books(self):
+        #ask for the member
+        memName = input("Please enter the username of the member: ").lower()
+        #open json file loans
+        with open(self.loan_path, 'r') as f:
+            #load loans
+            data = json.load(f)
+        #if the file is empty, there are no book being loaned
+        if len(data) == 0:
+            print("No books are being loaned out.")
+        # Otherwise, show all books
+        else:
+            print("Currently loaned book(s):")
+            for book in data:
+                if book["username"] == memName:
+                    print(book["title"])
+
     #loan a book
     def loanBook(self):
         #ask for title
@@ -107,6 +126,8 @@ class LoanItem():
             with open('data/bookcopies.json', "w+") as f:
                 jsoned_data = json.dumps(data, indent=True)
                 f.write(jsoned_data)
+                #add username to json file
+                item['username'] = input("\nPlease enter your username again: ")
             print(f"\nYou've succesfully loaned the book {item['title']}")
             return item
         #when there are no copies to loan

@@ -106,8 +106,13 @@ class Person():
     def showAllmembers(self):
         with open("data/members.csv", "r") as f:
             csvdata = list(csv.reader(f))
+        index = 0
         for user in csvdata:
-            print(user)
+            for i in user:
+                if index > 0:
+                    memlist = i.split(';')
+                    print(memlist[0] + ". " + memlist[1] + " " + memlist[2])
+                index += 1
 
     #Edit member
     def editmember(self):
