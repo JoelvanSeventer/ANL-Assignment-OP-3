@@ -292,7 +292,7 @@ class BookItem():
             if bookName == book["title"].lower():
                 newBook = book
                 print("What do you want to edit?\n")
-                inputEdit = input("\n1. author\n2. country\n3. imagelink\n4. language\n5. link\n6. pages\n7. title\n8. year\n")
+                inputEdit = input("\n1. Author\n2. Country\n3. Imagelink\n4. Language\n5. Link\n6. Pages\n7. Title\n8. ISBN9. Year\n10. Exit\n")
 
                 if inputEdit == "1":
                     newAuthor = input("\nNew author: ")
@@ -316,8 +316,15 @@ class BookItem():
                     newTitle = input("\nNew title: ")
                     newBook["title"] = newTitle
                 elif inputEdit == "8":
+                    newISBN = input("\nNew ISBN: ")
+                    newBook["ISBN"] = newISBN
+                elif inputEdit == "9":
                     newYear = input("\nNew year: ")
                     newBook["year"] = newYear
+                elif inputEdit == "10":
+                    break
+                else:
+                    print("Please enter a number between 1 and 9")
             
                 for index, book in enumerate(data):
                     if bookName == book["title"].lower():
@@ -353,7 +360,7 @@ class BookItem():
             print(f"Language: {book['language']}")
             print(f"Year: {book['year']}")
             print(f"Pages: {book['pages']}")
-            print(f"Link: {book['link']}")
+            print(f"Link: {book['link']}ISBN: {book['ISBN']}")
             print(f"ImageLink: {book['imageLink']}")
             print("\n")
                 

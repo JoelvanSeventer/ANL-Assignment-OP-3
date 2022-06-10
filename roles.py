@@ -111,34 +111,6 @@ class LibraryAdmin():
             print("\nInvalid input!\n")
             self.catalogMenu()
 
-    def loanMenu(self):
-        print("\n1. Check loan status\n2. Lend a book\n3. Return a book\n4. Exit -->\n")
-        action = input("Enter a number: ")
-        if action == '1':
-            self.checkLoanStatus()
-        elif action == '2':
-            self.lendBook()
-        elif action == '3':
-            self.loan.returnBook()
-        elif action == '4':
-            return
-        else:
-            print("\nInvalid input!\n")
-            self.loanMenu()
-
-    def systemAdministrationMenu(self):
-        print("\n1. Make backup\n2. Restore backup\n3. Exit -->\n")
-        action = input("Enter a number: ")
-        if action == '1':
-            self.makeBackup()
-        elif action == '2':
-            self.RestoreBackup()
-        elif action == '3':
-            return
-        else:
-            print("\nInvalid input!\n")
-            self.systemAdministrationMenu()
-
     def bookItemMenu(self):
         print("\n1. Add copies\n2. Remove copies\n3. Edit copies\n4. Search bookitem and its availability\n5. Show all copies\n6. Lend a book to a member\n7. Exit -->\n")
         action = input("Enter a number: ")
@@ -160,13 +132,25 @@ class LibraryAdmin():
         else:
             print("\nInvalid input!\n")
             self.bookItemMenu()
-    
+
+    def systemAdministrationMenu(self):
+        print("\n1. Make backup\n2. Restore backup\n3. Exit -->\n")
+        action = input("Enter a number: ")
+        if action == '1':
+            self.makeBackup()
+        elif action == '2':
+            self.RestoreBackup()
+        elif action == '3':
+            return
+        else:
+            print("\nInvalid input!\n")
+            self.systemAdministrationMenu()
 
     def run(self):
         running = True
         while running:
             print("\nWelcome to the library admin menu.\n")
-            action = input("Fill in the menu number to select an option.\n1. Members\n2. Catalog\n3. Book Items\n4. System Administration\n5. Loan\n6. Exit\n")
+            action = input("Fill in the menu number to select an option.\n1. Members\n2. Catalog\n3. Book Items\n4. System Administration\n5. Exit\n")
             if action == '1':
                 self.memberMenu()
             elif action == '2':
@@ -176,8 +160,6 @@ class LibraryAdmin():
             elif action == '4':
                 self.systemAdministrationMenu()
             elif action == '5':
-                self.loanMenu()
-            elif action == '6':
                 print("\nThank you for using the library admin menu.\n")
                 running = False
                 break
