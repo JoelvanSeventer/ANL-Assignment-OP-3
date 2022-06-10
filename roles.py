@@ -84,7 +84,8 @@ class LibraryAdmin():
         self.bookitem.searchBookItem()
 
     def lendBook(self):
-        self.loan.loanBook()
+        username = input("Please enter the username of the member you would like to lend a book to: ")
+        self.loan.loanBook(username)
 
     def searchBook(self):
         self.book.findBook()
@@ -93,7 +94,7 @@ class LibraryAdmin():
     def run(self):
         running = True
         while running:
-            action = input("""\nFill in the action you want to execute:\n1. Add, remove or edit a book\n2. Add, remove or edit copies\n3. Add member\n4. View all books\n5. Search a member\n6. Check loan status\n7. Make backup\n8. Restore data\n9. Delete a member\n10. Show all members\n11. Edit member\n12. Search a book item and its availibility\n13. Exit -->\n\nEnter a number: """)
+            action = input("""\nFill in the action you want to execute:\n1. Add, remove or edit a book\n2. Add, remove or edit copies\n3. Add member\n4. View all books\n5. Search a member\n6. Check loan status\n7. Make backup\n8. Restore data\n9. Delete a member\n10. Show all members\n11. Edit member\n12. Search a book item and its availibility\n13. Lend a book to a member\n14. Exit -->\n\nEnter a number: """)
 
             if action == '1':
                 self.AddRemoveOrEditBook()
@@ -120,6 +121,8 @@ class LibraryAdmin():
             elif action == '12':
                 self.searchBookItem()
             elif action == '13':
+                self.lendBook()
+            elif action == '14':
                 print("Thanks for visiting! See you next time!")
                 running = False
                 break
@@ -150,10 +153,10 @@ class Member(Person):
     
 
     #make a loan or return a book
-    def loanBook(self):
+    def loanBook(self, username):
         action = input("\n1. Loan a book\n2. Return a book\n")
         if action == "1":
-            self.loan.loanBook()
+            self.loan.loanBook(username)
         if action == "2":
             self.loan.return_this_book()
     
@@ -163,14 +166,14 @@ class Member(Person):
     
 
     #main function of member
-    def run(self):
+    def run(self, username):
         running = True
         while running:
             action = input("""\nFill in the action you want to execute:\n1. Search a book\n2. Loan or return a book\n3. Check loan status\n4. View all books\n5. Exit -->\n""")
             if action == '1':
                 self.findBook()
             if action == '2':
-                self.loanBook()
+                self.loanBook(username)
             if action == '3':
                 self.checkLoanStatus()
             if action == '4':

@@ -42,7 +42,7 @@ class LoanAdministration():
                     print(book["title"])
 
     #loan a book
-    def loanBook(self):
+    def loanBook(self, username):
         #ask for title
         titleLoan = input("\nPlease enter the title of the book you want to loan: ").lower()
         if titleLoan in self.ownedbooks:
@@ -50,7 +50,7 @@ class LoanAdministration():
         else:
             self.ownedbooks.append(titleLoan)
             #loan the book
-            book = self.item.loanbook(titleLoan)
+            book = self.item.loanbook(titleLoan, username)
             data = []
 
             #try in case its empty
@@ -109,7 +109,7 @@ class LoanItem():
             print("That book hasn't been loaned out!")
 
 
-    def loanbook(self, BookTitle_Loan):
+    def loanbook(self, BookTitle_Loan, username):
         item = False
         #open bookcopies.json, load it and assign it to the variable data
         with open("data/bookcopies.json", 'r') as f:
@@ -127,7 +127,7 @@ class LoanItem():
                 jsoned_data = json.dumps(data, indent=True)
                 f.write(jsoned_data)
                 #add username to json file
-                item['username'] = input("\nPlease enter your username again: ")
+                item['username'] = username
             print(f"\nYou've succesfully loaned the book {item['title']}")
             return item
         #when there are no copies to loan

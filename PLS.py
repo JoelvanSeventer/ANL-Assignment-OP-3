@@ -18,7 +18,7 @@ def main():
             loggedin = True
             welcome()
             print("\nWelcome " + un + "!\n")
-            Member().run()
+            Member().run(un)
             break
     if loggedin == False:
         print("\nWrong username or password!\n")
