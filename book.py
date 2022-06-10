@@ -94,7 +94,7 @@ class Book():
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
                 elif inputEdit == "3":
-                    newImagelink = input("\nNew imageLink: ")
+                    newImageLink = input("\nNew imageLink: ")
                     newData = {"author":oldAuthor, "country":oldCountry, "imageLink":newImageLink, "language":oldLanguage, "link":oldLink, "pages":oldPages, "title":oldTitle, "year":oldYear}
                     with open("data/books.json", "r") as f:
                         oldData = json.load(f)
