@@ -341,5 +341,19 @@ class BookItem():
             print("This book does not exist")
         elif found == True:
             print("This book is available")
-
+    
+    #show all copies
+    def showAllCopies(self):
+        with open("data/bookcopies.json", "r") as f:
+            data = json.load(f)
+        for book in data:
+            print(f"Title: {book['title']}")
+            print(f"Author: {book['author']}")
+            print(f"Country: {book['country']}")
+            print(f"Language: {book['language']}")
+            print(f"Year: {book['year']}")
+            print(f"Pages: {book['pages']}")
+            print(f"Link: {book['link']}")
+            print(f"ImageLink: {book['imageLink']}")
+            print("\n")
                 
