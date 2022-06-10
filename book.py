@@ -325,4 +325,21 @@ class BookItem():
 
                 print("\n\nSuccesfully edited the copies of the book!\n\n")
 
+    def searchBookItem(self):
+        #search a book item and check its availibility
+        with open("data/bookcopies.json", "r") as f:
+            data = json.load(f)
+        with open("data/books.json", "r") as f:
+            books = json.load(f)
+        found = False
+        Enter = input("\nPlease enter the title of the book you would like to search for:\n").lower()
+        for i in books:
+            if Enter == i["title"].lower():
+                found = True
+        
+        if found == False:
+            print("This book does not exist")
+        elif found == True:
+            print("This book is available")
+
                 

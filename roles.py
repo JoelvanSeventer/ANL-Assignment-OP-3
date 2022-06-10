@@ -15,8 +15,8 @@ class LibraryAdmin():
         self.catalog = Catalog()
         self.bookitem = BookItem()
 
-    #add or remove a book from the library(json file)
-    def AddOrRemoveBook(self):
+    #add, remove or edit a book from the library(json file)
+    def AddRemoveOrEditBook(self):
         action = input("\n1. Add a book\n2. Remove a book\n3. Edit a book\n")
         if action == '1':
             self.book.addNewBook()
@@ -27,7 +27,7 @@ class LibraryAdmin():
         elif action == '3':
             self.book.editBook()
 
-    #Add or Remove copies
+    #Add, Remove or edit copies
     def copies(self):
         action = input("\n1. Add copies\n2. Remove copies\n3. Edit copies\n")
         if action == '1':
@@ -41,10 +41,26 @@ class LibraryAdmin():
     #add new member
     def addMember(self): 
         self.person.newMember()
+    
+    #Load all bookItems
+    def viewBooktitles(self):
+        self.book.viewBooktitles()
 
     #find a member
     def findmember(self):
         self.person.findmember()
+    
+    #check the loan status
+    def checkLoanStatus(self):
+        self.loan.view_loaned_books()
+
+    #make a backup
+    def makeBackup(self):
+        self.catalog.makeBackup()
+
+    #restore the backup
+    def RestoreBackup(self):
+        self.catalog.RestoreBackup()
 
     #delete a member
     def deleteMember(self):
@@ -58,17 +74,14 @@ class LibraryAdmin():
     def editMember(self):
         self.person.editmember()
 
-    #check the loan status
-    def checkLoanStatus(self):
-        self.loan.view_loaned_books()
 
     #Load and Add list of members (all at once)
     
     #Load and Add list of books (all at once)
 
-    #Load all bookItems
-
     #To search a bookItem and its availibility
+    def searchBookItem(self):
+        self.bookitem.searchBookItem()
 
     def lendBook(self):
         self.loan.loanBook()
@@ -76,26 +89,14 @@ class LibraryAdmin():
     def searchBook(self):
         self.book.findBook()
 
-    #make a backup
-    def makeBackup(self):
-        self.catalog.makeBackup()
-
-    #restore the backup
-    def RestoreBackup(self):
-        self.catalog.RestoreBackup()
-    
-    #view all book titles 
-    def viewBooktitles(self):
-        self.book.viewBooktitles()
-
     #main method of library admin
     def run(self):
         running = True
         while running:
-            action = input("""\nFill in the action you want to execute:\n1. Add, remove or edit a book\n2. Add, remove or edit copies\n3. Add member\n4. View all books\n5. Search a member\n6. Check loan status\n7. Make backup\n8. Restore data\n9. Delete a member\n10. Show all members\n11. Edit member\n12. Exit -->\n\nEnter a number: """)
+            action = input("""\nFill in the action you want to execute:\n1. Add, remove or edit a book\n2. Add, remove or edit copies\n3. Add member\n4. View all books\n5. Search a member\n6. Check loan status\n7. Make backup\n8. Restore data\n9. Delete a member\n10. Show all members\n11. Edit member\n12. Search a book item and its availibility\n13. Exit -->\n\nEnter a number: """)
 
             if action == '1':
-                self.AddOrRemoveBook()
+                self.AddRemoveOrEditBook()
             elif action == '2':
                 self.copies()
             elif action == '3':
@@ -117,6 +118,8 @@ class LibraryAdmin():
             elif action == '11':
                 self.editMember()
             elif action == '12':
+                self.searchBookItem()
+            elif action == '13':
                 print("Thanks for visiting! See you next time!")
                 running = False
                 break
