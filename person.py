@@ -43,7 +43,7 @@ class Person():
             csvdata = list(csv.reader(f))
         running = True
         while running:
-            check = input("\nWith which term would you like to search?\n1.Givenname\n2. Surname\n3. Streetaddress\n4. Zipcode\n5. City\n6. Emailaddress\n7. Username\n8. Telephonenumber\n")
+            check = input("\nWith which term would you like to search?\n1. Firstname\n2. Surname\n3. Streetaddress\n4. Zipcode\n5. City\n6. Emailaddress\n7. Username\n8. Telephonenumber\n")
             if check == '1' or check == '2' or check == '3' or check == '4' or check == '5' or check == '6' or check == '7' or check == '8':
                 running = False
                 break
@@ -54,37 +54,30 @@ class Person():
         
         usercheck = input(f"\nFill in the {terms[int(check) - 1]}:\n").lower()
         for user in csvdata:
-            if check == "1":
-                if usercheck in user[1].lower():
-                    print(user)
-
-            if check == "2":
-                if usercheck in user[2].lower():
-                    print(user)
-
-            if check == "3":
-                if usercheck in user[3].lower():
-                    print(user)
-
-            if check == "4":
-                if usercheck in user[4].lower():
-                    print(user)
-
-            if check == "5":
-                if usercheck in user[5].lower():
-                    print(user)
-
-            if check == "6":
-                if usercheck in user[6].lower():
-                    print(user)
-
-            if check == "7":
-                if usercheck in user[7].lower():
-                    print(user)
+            split_user = user[0].split(';') 
+            if check == "1" and usercheck == split_user[1].lower():
+                    print(split_user[0] + ". " + split_user[1] + " " + split_user[2] + "\nStreetaddress: " + split_user[3] + "\nZipcode: " + split_user[4] + "\nCity: " + split_user[5] + "\nEmailaddress: " + split_user[6] + "\nUsername: " + split_user[7] + "\nTelephonenumber: " + split_user[9])
+                    
+            if check == "2" and usercheck == split_user[2].lower():
+                    print(split_user[0] + ". " + split_user[1] + " " + split_user[2] + "\nStreetaddress: " + split_user[3] + "\nZipcode: " + split_user[4] + "\nCity: " + split_user[5] + "\nEmailaddress: " + split_user[6] + "\nUsername: " + split_user[7] + "\nTelephonenumber: " + split_user[9])
             
-            if check == "8":
-                if usercheck in user[9].lower():
-                    print(user)
+            if check == "3" and usercheck == split_user[3].lower():
+                    print(split_user[0] + ". " + split_user[1] + " " + split_user[2] + "\nStreetaddress: " + split_user[3] + "\nZipcode: " + split_user[4] + "\nCity: " + split_user[5] + "\nEmailaddress: " + split_user[6] + "\nUsername: " + split_user[7] + "\nTelephonenumber: " + split_user[9])
+
+            if check == "4" and usercheck == split_user[4].lower():
+                    print(split_user[0] + ". " + split_user[1] + " " + split_user[2] + "\nStreetaddress: " + split_user[3] + "\nZipcode: " + split_user[4] + "\nCity: " + split_user[5] + "\nEmailaddress: " + split_user[6] + "\nUsername: " + split_user[7] + "\nTelephonenumber: " + split_user[9])
+            
+            if check == "5" and usercheck == split_user[5].lower():
+                    print(split_user[0] + ". " + split_user[1] + " " + split_user[2] + "\nStreetaddress: " + split_user[3] + "\nZipcode: " + split_user[4] + "\nCity: " + split_user[5] + "\nEmailaddress: " + split_user[6] + "\nUsername: " + split_user[7] + "\nTelephonenumber: " + split_user[9])
+
+            if check == "6" and usercheck == split_user[6].lower():
+                    print(split_user[0] + ". " + split_user[1] + " " + split_user[2] + "\nStreetaddress: " + split_user[3] + "\nZipcode: " + split_user[4] + "\nCity: " + split_user[5] + "\nEmailaddress: " + split_user[6] + "\nUsername: " + split_user[7] + "\nTelephonenumber: " + split_user[9])
+
+            if check == "7" and usercheck == split_user[7].lower():
+                    print(split_user[0] + ". " + split_user[1] + " " + split_user[2] + "\nStreetaddress: " + split_user[3] + "\nZipcode: " + split_user[4] + "\nCity: " + split_user[5] + "\nEmailaddress: " + split_user[6] + "\nUsername: " + split_user[7] + "\nTelephonenumber: " + split_user[9])
+            
+            if check == "8"and usercheck == split_user[9].lower():
+                    print(split_user[0] + ". " + split_user[1] + " " + split_user[2] + "\nStreetaddress: " + split_user[3] + "\nZipcode: " + split_user[4] + "\nCity: " + split_user[5] + "\nEmailaddress: " + split_user[6] + "\nUsername: " + split_user[7] + "\nTelephonenumber: " + split_user[9])
     
     #Delete member
     def deletemember(self):
