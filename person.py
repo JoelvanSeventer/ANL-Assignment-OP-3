@@ -232,3 +232,19 @@ class Person():
                 csvdata.write(thisuser)
                 break
         csvdata.close()
+
+    #add list of members
+    def addListOfMembers(self):
+        listofmembers = input(f"\nFill in the list of members you want to add:\n")
+        print(listofmembers)
+        with open("data/members.csv", "a") as f:
+            writer = csv.writer(f)
+            for i in range(len(listofmembers)):
+                addmem = []
+                for i in range(0, 10):
+                    print(listofmembers[i])
+                    addmem.append(listofmembers[i])
+                writer.writerow(addmem)
+                i+= 9
+        print("\nList of members added.")
+        return

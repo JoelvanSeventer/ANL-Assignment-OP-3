@@ -26,6 +26,10 @@ class LibraryAdmin():
     #find a member
     def findmember(self):
         self.person.findmember()
+
+    #add list of members
+    def addListOfMembers(self):
+        self.person.addListOfMembers()
     
     #check the loan status
     def checkLoanStatus(self):
@@ -72,7 +76,7 @@ class LibraryAdmin():
     #main method of library admin
 
     def memberMenu(self):
-        print("\n1. Add member\n2. Delete member\n3. Edit member\n4. Show all members\n5. Search member\n6.  Exit -->\n")
+        print("\n1. Add member\n2. Delete member\n3. Edit member\n4. Show all members\n5. Search member\n6. Add list of members\n7.  Exit -->\n")
         action = input("Enter a number: ")
         if action == '1':
             self.addMember()
@@ -85,6 +89,8 @@ class LibraryAdmin():
         elif action == '5':
             self.findmember()
         elif action == '6':
+            self.person.addListOfMembers()
+        elif action == '7':
             return
         else:
             print("\nInvalid input!\n")
