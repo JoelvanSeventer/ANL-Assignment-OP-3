@@ -70,11 +70,7 @@ class LibraryAdmin():
     def searchBook(self):
         self.book.findBook()
 
-    #Load and Add list of members (all at once)
-    
-    #Load and Add list of books (all at once)
     #main method of library admin
-
     def memberMenu(self):
         print("\n1. Add member\n2. Delete member\n3. Edit member\n4. Show all members\n5. Search member\n6. Add list of members\n7.  Exit -->\n")
         action = input("Enter a number: ")
@@ -97,7 +93,7 @@ class LibraryAdmin():
             self.memberMenu()
     
     def catalogMenu(self):
-        print("\n1. Add book\n2. Remove book\n3. Edit book\n4. Show all books\n5. Search book\n6. Exit -->\n")
+        print("\n1. Add book\n2. Remove book\n3. Edit book\n4. Show all books\n5. Search book\n6. Add a list of books\n7. Exit -->\n")
         action = input("Enter a number: ")
         if action == '1':
             self.book.addNewBook()
@@ -108,10 +104,12 @@ class LibraryAdmin():
         elif action == '3':
             self.book.editBook()
         elif action == '4':
-            self.book.showAllBooks()
+            self.book.viewBooktitles()
         elif action == '5':
             self.book.findBook()
         elif action == '6':
+            self.book.addListOfBooks()
+        elif action == '7':
             return
         else:
             print("\nInvalid input!\n")

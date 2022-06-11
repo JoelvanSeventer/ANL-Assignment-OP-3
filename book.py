@@ -1,4 +1,5 @@
 import json
+import os
 
 class Book():
     def addNewBook(self):
@@ -240,6 +241,29 @@ class Book():
 
         if found == False:
             print("This book does not exist")
+
+    #add list of books
+    def addListOfBooks(self):
+        filename = input("\nPlease enter the name of the file you want to add(for example: 'addbooks.json'):")
+        filepath = self.findfile(filename, "/")
+        with open(filepath, "r") as f:
+            data = json.load(f)
+        for book in data:
+            data.append(book)
+        with open("data/books.json", "w+") as f:
+            jsoned_data = json.dumps(data, indent=True)
+            f.write(jsoned_data)
+        print("\nThe books from the file have been added to the database.")
+    
+    def findfile(self, name, path):
+        global filepath
+        print("\nSearching for file...")
+        for dirpath, dirnames, filename in os.walk(path):
+            if name in filename:
+                print("\nFile found!")
+                filepath = os.path.join(dirpath, name)
+                return filepath
+        return "newbooks"
 
 class BookItem():
     def __init__(self):

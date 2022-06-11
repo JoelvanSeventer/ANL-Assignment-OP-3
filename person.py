@@ -239,11 +239,11 @@ class Person():
 
     #add list of members
     def addListOfMembers(self):
-        filename = input("\nPlease enter the name of the file you want to add:")
+        filename = input("\nPlease enter the name of the file you want to add(for example: 'addmembers.csv'):")
         filepath = self.findfile(filename, "/")
-        with open(f"{filepath}.csv", "r") as f:
+        with open(filepath, "r") as f:
             csvdata = list(csv.reader(f))
-        with open("data/members.csv", "a") as f:
+        with open("data/members.csv", "a", newline="") as f:
             writer = csv.writer(f)
             for user in csvdata:
                 writer.writerow(user)
@@ -251,9 +251,10 @@ class Person():
     
     def findfile(self, name, path):
         global filepath
-        for dirpath, dirname, filename in os.walk(path):
+        print("\nSearching for file...")
+        for dirpath, dirnames, filename in os.walk(path):
             if name in filename:
-                print("Succes!")
+                print("\nFile found!")
                 filepath = os.path.join(dirpath, name)
                 return filepath
         return "newmembers"
