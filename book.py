@@ -12,12 +12,12 @@ class Book():
         link = input("Link: ")
         pages = int(input("Pages: "))
         title = input("Title: ")
+        isbn = input("ISBN: ")
         year = int(input("Year: "))
-        copies = int(input("Amount of copies: "))
 
         #Add book to json file
         
-        data = {"author":author, "country":country, "imagelink":imagelink, "language":language, "link":link, "pages":pages, "title":title, "year":year}
+        data = {"author":author, "country":country, "imagelink":imagelink, "language":language, "link":link, "pages":pages, "title":title, "ISBN":isbn, "year":year}
         with open("data/books.json", "r") as f:
             oldData = json.load(f)
         with open("data/books.json", "w+") as f:
@@ -26,10 +26,9 @@ class Book():
             f.write(jsoned_data)
 
         #Add copies to json file
-        i = 3
-        while(i > 0):
-            self.addCopies(copies, data)
-            i-=1
+        
+        self.addCopies(3, data)
+            
 
     def removeOldBook(self, name):
         #Remove a book
@@ -76,74 +75,67 @@ class Book():
 
                 print("What do you want to edit?\n")
                 inputEdit = input("\n1. author\n2. country\n3. imagelink\n4. language\n5. link\n6. pages\n7. title\n8. year\n")
+                with open("data/books.json", "r") as f:
+                    oldData = json.load(f)
                 if inputEdit == "1":
                     newAuthor = input("\nNew author: ")
                     newData = {"author":newAuthor, "country":oldCountry, "imageLink":oldImageLink, "language":oldLanguage, "link":oldLink, "pages":oldPages, "title":oldTitle, "year":oldYear}
-                    with open("data/books.json", "r") as f:
-                        oldData = json.load(f)
                     with open("data/books.json", "w+") as f:
                         oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
+                        
                 elif inputEdit == "2":
                     newCountry = input("\nNew country: ")
                     newData = {"author":oldAuthor, "country":newCountry, "imageLink":oldImageLink, "language":oldLanguage, "link":oldLink, "pages":oldPages, "title":oldTitle, "year":oldYear}
-                    with open("data/books.json", "r") as f:
-                        oldData = json.load(f)
                     with open("data/books.json", "w+") as f:
                         oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
+
                 elif inputEdit == "3":
                     newImageLink = input("\nNew imageLink: ")
                     newData = {"author":oldAuthor, "country":oldCountry, "imageLink":newImageLink, "language":oldLanguage, "link":oldLink, "pages":oldPages, "title":oldTitle, "year":oldYear}
-                    with open("data/books.json", "r") as f:
-                        oldData = json.load(f)
                     with open("data/books.json", "w+") as f:
                         oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
+
                 elif inputEdit == "4":
                     newLanguage = input("\nNew language: ")
                     newData = {"author":oldAuthor, "country":oldCountry, "imagelink":oldImageLink, "language":newLanguage, "link":oldLink, "pages":oldPages, "title":oldTitle, "year":oldYear}
-                    with open("data/books.json", "r") as f:
-                        oldData = json.load(f)
                     with open("data/books.json", "w+") as f:
                         oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
+
                 elif inputEdit == "5":
                     newLink = input("\nNew link: ")
                     newData = {"author":oldAuthor, "country":oldCountry, "imagelink":oldImageLink, "language":oldLanguage, "link":newLink, "pages":oldPages, "title":oldTitle, "year":oldYear}
-                    with open("data/books.json", "r") as f:
-                        oldData = json.load(f)
                     with open("data/books.json", "w+") as f:
                         oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
+
                 elif inputEdit == "6":
                     newPages = int(input("\nNew pages: "))
                     newData = {"author":oldAuthor, "country":oldCountry, "imagelink":oldImageLink, "language":oldLanguage, "link":oldLink, "pages":newPages, "title":oldTitle, "year":oldYear}
-                    with open("data/books.json", "r") as f:
-                        oldData = json.load(f)
                     with open("data/books.json", "w+") as f:
                         oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
+
                 elif inputEdit == "7":
                     newTitle = input("\nNew title: ")
                     newData = {"author":oldAuthor, "country":oldCountry, "imagelink":oldImageLink, "language":oldLanguage, "link":oldLink, "pages":oldPages, "title":newTitle, "year":oldYear}
-                    with open("data/books.json", "r") as f:
-                        oldData = json.load(f)
                     with open("data/books.json", "w+") as f:
                         oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
+
                 elif inputEdit == "8":
                     newYear = int(input("\nNew year: "))
                     newData = {"author":oldAuthor, "country":oldCountry, "imagelink":oldImageLink, "language":oldLanguage, "link":oldLink, "pages":oldPages, "title":oldTitle, "year":newYear}
-                    with open("data/books.json", "r") as f:
-                        oldData = json.load(f)
                     with open("data/books.json", "w+") as f:
                         oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)

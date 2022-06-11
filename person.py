@@ -198,22 +198,42 @@ class Person():
     def addListOfMembers(self):
         filename = input("\nPlease enter the name of the file you want to add(for example: 'addmembers.csv'):")
         filepath = self.findfile(filename, "/")
+
         with open(filepath, "r") as f:
-            csvdata = list(csv.reader(f))
+            new_members = list(csv.reader(f))
+
         with open("data/members.csv", "r") as f:
-            csvdata2 = list(csv.reader(f))
-            index = len(csvdata2)
-        with open("data/members.csv", "a", newline='') as f:
-            writer = csv.writer(f)
-            for idx, user in enumerate(csvdata):
-                if idx != 0:
-                    splituser = user[0].split(';')
-                    splituser[0] = str(index)
-                    joineduser = ";".join(splituser)
-                    finaluser = [joineduser]
-                    writer.writerow(finaluser)
-                    index += 1
+            members = list(csv.reader(f))
+            index = len(members)
+
+        for idx, new_member in enumerate(new_members):
+            if idx != 0:
+
+                split_new_member = new_member[0].split(';')
+
+                username_taken = False
+
+                for old_member in members:
+                    split_old_member = old_member[0].split(';')
+
+                    if split_new_member[7].lower() == split_old_member[7].lower():
+                        username_taken = True
                 
+
+                if not username_taken:
+
+                    with open("data/members.csv", "a", newline='') as f:
+                        writer = csv.writer(f)
+                        split_new_member[0] = str(index)
+                        joined_new_member = ";".join(split_new_member)
+                        final_new_member = [joined_new_member]
+                        writer.writerow(final_new_member)
+                        index += 1
+                
+                else:
+                    print(f"\nMember {split_new_member[7]} already exists\n")
+                    print(f"Member {split_new_member[7]} is not added")
+               
                 
         print("\nThe file has been added to the database.")
     
@@ -226,18 +246,3 @@ class Person():
                 filepath = os.path.join(dirpath, name)
                 return filepath
         return "newmembers"
-
-        # listofmembers = list(input(f"\nFill in the list of members you want to add:\n"))
-        # print(len(listofmembers))
-        # with open("data/members.csv", "a") as f:
-        #     writer = csv.writer(f)
-        #     for i in range(len(listofmembers)):
-        #         addmem = []
-        #         j = 0
-        #         for j in range(0, 10):
-        #             #print(i + j)
-        #             addmem.append(listofmembers[i+j])
-        #         writer.writerow(addmem)
-        #         i+= 9
-        # print("\nList of members added.")
-        # return
