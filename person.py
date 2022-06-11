@@ -1,4 +1,8 @@
 import csv
+
+import os
+
+
 class Person():
     
     # Add new member
@@ -235,16 +239,36 @@ class Person():
 
     #add list of members
     def addListOfMembers(self):
-        listofmembers = input(f"\nFill in the list of members you want to add:\n")
-        print(listofmembers)
+        filename = input("\nPlease enter the name of the file you want to add:")
+        filepath = self.findfile(filename, "/")
+        with open(f"{filepath}.csv", "r") as f:
+            csvdata = list(csv.reader(f))
         with open("data/members.csv", "a") as f:
             writer = csv.writer(f)
-            for i in range(len(listofmembers)):
-                addmem = []
-                for i in range(0, 10):
-                    print(listofmembers[i])
-                    addmem.append(listofmembers[i])
-                writer.writerow(addmem)
-                i+= 9
-        print("\nList of members added.")
-        return
+            for user in csvdata:
+                writer.writerow(user)
+        print("\nThe file has been added to the database.")
+    
+    def findfile(self, name, path):
+        global filepath
+        for dirpath, dirname, filename in os.walk(path):
+            if name in filename:
+                print("Succes!")
+                filepath = os.path.join(dirpath, name)
+                return filepath
+        return "newmembers"
+
+        # listofmembers = list(input(f"\nFill in the list of members you want to add:\n"))
+        # print(len(listofmembers))
+        # with open("data/members.csv", "a") as f:
+        #     writer = csv.writer(f)
+        #     for i in range(len(listofmembers)):
+        #         addmem = []
+        #         j = 0
+        #         for j in range(0, 10):
+        #             #print(i + j)
+        #             addmem.append(listofmembers[i+j])
+        #         writer.writerow(addmem)
+        #         i+= 9
+        # print("\nList of members added.")
+        # return
