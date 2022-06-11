@@ -251,8 +251,9 @@ class Book():
         for book in data:
             data.append(book)
         with open("data/books.json", "w+") as f:
-            jsoned_data = json.dumps(data, indent=True)
-            f.write(jsoned_data)
+            for books in data:
+                jsoned_data = json.dumps(books, indent=True)
+                f.write(jsoned_data)
         print("\nThe books from the file have been added to the database.")
     
     def findfile(self, name, path):
