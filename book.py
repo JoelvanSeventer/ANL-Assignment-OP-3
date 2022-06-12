@@ -10,14 +10,59 @@ class Book():
         imagelink = input("ImageLink: ")
         language = input("Language: ")
         link = input("Link: ")
-        pages = int(input("Pages: "))
-        title = input("Title: ")
+        
+        running = True
+        while running:
+            invalidInput = False
+            pages = input("Pages: ")
+
+            if not pages.isnumeric():
+                invalidInput = True
+                print("\nInvalid input")
+                print("Please enter an integer\n")
+            
+            if invalidInput == False:
+                pages = int(pages)
+                running = False
+
+        running = True
+        while running:
+            isUnique = True
+            title = input("Title: ")
+
+            with open("data/books.json", "r") as f:
+                oldData = json.load(f)
+
+            for book in oldData:
+                if title.lower() == book["title"].lower():
+                    isUnique = False
+                    print("\nA book with this title already exists!")
+                    print("Please enter a unique book title:\n")
+                    break
+
+            if isUnique:
+                break
+
+            
         isbn = input("ISBN: ")
-        year = int(input("Year: "))
+
+        running = True
+        while running:
+            invalidInput = False
+            year = input("Year: ")
+
+            if not year.isnumeric():
+                invalidInput = True
+                print("\nInvalid input")
+                print("Please enter an integer\n")
+            
+            if invalidInput == False:
+                year = int(year)
+                running = False
 
         #Add book to json file
         
-        data = {"author":author, "country":country, "imagelink":imagelink, "language":language, "link":link, "pages":pages, "title":title, "ISBN":isbn, "year":year}
+        data = {"author":author, "country":country, "imageLink":imagelink, "language":language, "link":link, "pages":pages, "title":title, "ISBN":isbn, "year":year}
         with open("data/books.json", "r") as f:
             oldData = json.load(f)
         with open("data/books.json", "w+") as f:
@@ -66,6 +111,7 @@ class Book():
             if title.lower() == book["title"].lower():
                 data.pop(idx)
                 item = book
+                break
 
         if item:
             with open("data/bookcopies.json", "w+") as f:
@@ -159,51 +205,6 @@ class Book():
                         oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
-                
-
-
-    def addCopies(self, copies, data):
-        
-        for i in range(copies):
-            with open("data/bookcopies.json", "r") as f:
-                oldData = json.load(f)
-
-            with open("data/bookcopies.json", "w+") as f:
-                oldData.append(data)
-                jsoned_data = json.dumps(oldData, indent=True)
-                f.write(jsoned_data)
-
-    def removeCopies(self, title, copies):
-        item = False
-        count = 0
-        with open("data/bookcopies.json", 'r') as f:
-            data = json.load(f)
-        
-        if copies == 1:
-            for idx, book in enumerate(data):
-                if title.lower() == book['title'].lower():
-                    data.pop(idx)
-                    item = book
-                    break
-                    
-        if copies > 1:
-            for i in range(copies):
-                for idx, book in enumerate(data):
-                    if title.lower() == book['title'].lower():
-                        data.pop(idx)
-                        item = book
-                        break
-
-        if item:
-            print("\nRemoving copies...\n")
-
-            with open('data/bookcopies.json', "w+") as f:
-                jsoned_data = json.dumps(data, indent=True)
-                f.write(jsoned_data)
-            print(f"You've succesfully removed the copies of the book")
-        else:
-            print("This book does not have any copies")
-
 
     def viewBooktitles(self):
         #View all booktitles
@@ -217,41 +218,35 @@ class Book():
         #Search for a book
         with open("data/books.json", "r") as f:
             data = json.load(f)
-        subject = input("\nWith which term would you like to search? Author, Country, Imagelink, Language, Link, Pages, Title or Year:\n\nEnter term: ").lower()
-        content = input(f"\nPlease enter the {subject}:\n").lower()
+        print("\nWith which term would you like to search?\n")
+        running = True
+        while running:
+            wrongInput = False
+            searchterm = input("1. Author\n2. Title\n").lower()
+
+            if searchterm != "1" and searchterm != "2":
+                wrongInput = True
+                print("\nInvalid input\n")
+                print("Please enter a valid input:\n")
+
+            if wrongInput == False:
+                running = False
+        
+        if searchterm == "1":
+            searchvalue = input("\nPlease enter an author: \n")
+        else:
+            searchvalue = input("\nPlease enter a title: \n")
+            
         found = False
         for book in data:
-            if subject == "author" and content == book["author"].lower():
+            if searchterm == "1" and (searchvalue.lower() == book["author"].lower() or searchvalue.lower() in book["author"].lower()):
                     found = True
-                    print(book)
+                    print(f"\nAuthor: {book['author']}\nCountry: {book['country']}\nImageLink: {book['imageLink']}\nLanguage: {book['language']}\nLink: {book['link']}Pages: {book['pages']}\nTitle: {book['title']}\nISBN: {book['ISBN']}\nYear: {book['year']}\n")
 
-            if subject == "country" and content == book["country"].lower():
+            elif searchterm == "2" and (searchvalue.lower() == book["title"].lower() or searchvalue.lower() in book["title"].lower()):
                     found = True
-                    print(book)
+                    print(f"\nAuthor: {book['author']}\nCountry: {book['country']}\nImageLink: {book['imageLink']}\nLanguage: {book['language']}\nLink: {book['link']}Pages: {book['pages']}\nTitle: {book['title']}\nISBN: {book['ISBN']}\nYear: {book['year']}\n")
 
-            if subject == "imagelink" and content == book["imageLink"].lower():
-                    found = True
-                    print(book)
-            
-            if subject == "language" and content == book["language"].lower():
-                    found = True
-                    print(book)
-
-            if subject == "link" and content == book["link"].lower():
-                    found = True
-                    print(book)
-
-            if subject == "pages" and int(content) == book["pages"]:
-                    found = True
-                    print(book)
-
-            if subject == "title" and content == book["title"].lower():
-                    found = True
-                    print(book)
-
-            if subject == "year" and int(content) == book["year"]:
-                    found = True
-                    print(book)
 
         if found == False:
             print("This book does not exist")
@@ -260,15 +255,23 @@ class Book():
     def addListOfBooks(self):
         filename = input("\nPlease enter the name of the file you want to add(for example: 'addbooks.json'):")
         filepath = self.findfile(filename, "/")
+
         with open(filepath, "r") as f:
             data = json.load(f)
+
+        with open("data/books.json", "r") as f:
+            oldData = json.load(f)
+
         for book in data:
-            data.append(book)
+            oldData.append(book)
+
         with open("data/books.json", "w+") as f:
-            for books in data:
-                jsoned_data = json.dumps(books, indent=True)
-                f.write(jsoned_data)
+            jsoned_data = json.dumps(oldData, indent=True)
+            f.write(jsoned_data)
+
         print("\nThe books from the file have been added to the database.")
+
+
     
     def findfile(self, name, path):
         global filepath
@@ -286,91 +289,167 @@ class BookItem():
     
     def addCopies(self):
         check = False
-        title = input("\nPlease enter the title of the book you would like to make copies of:\n").lower()
-        amount = int(input("\nPlease enter the amount of copies you would like to make:\n"))
+        running = True
 
-        with open("data/books.json", "r") as f:
+        with open("data/bookcopies.json", "r") as f:
             alldata = json.load(f)
+
+        while running:
+            exists = False
+            title = input("\nPlease enter the title of the book you would like to make copies of:\n").lower()
+
+            for book in alldata:
+                if book["title"].lower() == title:
+                    exists = True
+                    break
+            
+            if exists:
+                running = False
+            else:
+                print("\nThat book doesn't exist.")
+                print("Please enter a existing book:\n")
+
+        running = True
+        while running:
+            invalidInput = False
+            amount = input("\nPlease enter the amount of copies you would like to make:\n")
+
+            if not amount.isnumeric():
+                invalidInput = True
+                print("\nInvalid input")
+                print("Please enter an integer\n")
+            
+            if invalidInput == False:
+                amount = int(amount)
+                running = False
+
 
         for book in alldata:
             if title == book["title"].lower():
-                data = book
+                book["copies"] += amount
                 check = True
-                self.book.addCopies(amount, data)
-                print(f"Succesfully added the copies of the book")
                 break
 
-        if not check:
-            print("That book does not exist")
-        
-    def removeCopies(self):
-        title = input("\nPlease enter the title of the book:\n").lower()
-        running = True
-        while running:
-            amount = int(input("\nPlease enter the amount of copies you would like to remove:\n"))
-            if amount > 0:
-                self.book.removeCopies(title, amount)
-                running = False
-                break
-            else:
-                print("Please enter a number higher than 0.")
-
-
-    def readAndWrite(self, index, newBook):
-        with open("data/bookcopies.json", "r") as f:
-            oldData = json.load(f)
         with open("data/bookcopies.json", "w+") as f:
-            oldData[index] = newBook
-            jsoned_data = json.dumps(oldData, indent=True)
+            jsoned_data = json.dumps(alldata, indent=True)
             f.write(jsoned_data)
 
+        if check == False:
+            print("That book does not exist")
+
+    
+        
+    def removeCopies(self):
+        title = input("\nPlease enter the title of the book you want to remove copies from:\n")
+        copies = int(input("\nEnter the amount of copies you want to remove:\n"))
+        bookitemFound = False
+        count = 0
+        with open("data/bookcopies.json", 'r') as f:
+            data = json.load(f)
+        
+        for bookitem in data:
+            if bookitem["title"].lower() == title.lower():
+                bookitemFound = True
+                if copies > bookitem["copies"]:
+                    bookitem["copies"] = 0
+                    break
+                else:
+                    bookitem["copies"] -= copies
+                    break
+               
+        if bookitemFound:
+            print("\nRemoving copies...\n")
+
+            with open('data/bookcopies.json', "w+") as f:
+                jsoned_data = json.dumps(data, indent=True)
+                f.write(jsoned_data)
+            print(f"You've succesfully removed the copies of the book")
+        else:
+            print("This book does not have any copies")
+
+
     def editCopies(self):
-        bookName = input("\nFill in the name of the bookcopy you want to edit: ").lower()
+
         with open("data/bookcopies.json", "r") as f:
             data = json.load(f)
+
+        running = True
+        while running:
+            exists = False
+            title = input("\nPlease enter the title of the bookcopy you would like to edit:\n").lower()
+
+            for book in data:
+                if book["title"].lower() == title:
+                    exists = True
+                    break
+            
+            if exists:
+                running = False
+            else:
+                print("\nThat book doesn't exist.")
+                print("Please enter a existing book:\n")
+
+        print("What do you want to edit?\n")
+        inputEdit = input("\n1. Author\n2. Country\n3. Imagelink\n4. Language\n5. Link\n6. Pages\n7. Title\n8. ISBN\n9. Year\n10. Exit\n")
+        
         for book in data:
-            if bookName == book["title"].lower():
-                newBook = book
-                print("What do you want to edit?\n")
-                inputEdit = input("\n1. Author\n2. Country\n3. Imagelink\n4. Language\n5. Link\n6. Pages\n7. Title\n8. ISBN9. Year\n10. Exit\n")
+            if title == book["title"].lower():            
 
                 if inputEdit == "1":
                     newAuthor = input("\nNew author: ")
-                    newBook["author"] = newAuthor
+                    book["author"] = newAuthor
+                    break
+
                 elif inputEdit == "2":
                     newCountry = input("\nNew country: ")
-                    newBook["country"] = newCountry
+                    book["country"] = newCountry
+                    break
+
                 elif inputEdit == "3":
                     newImageLink = input("\nNew imagelink: ")
-                    newBook["imageLink"] = newImageLink
+                    book["imageLink"] = newImageLink
+                    break
+
                 elif inputEdit == "4":
                     newLanguage = input("\nNew language: ")
-                    newBook["language"] = newLanguage
+                    book["language"] = newLanguage
+                    break
+
                 elif inputEdit == "5":
                     newLink = input("\nNew link: ")
-                    newBook["link"] = newLink
+                    book["link"] = newLink
+                    break
+
                 elif inputEdit == "6":
                     newPages = input("\nNew pages: ")
-                    newBook["pages"] = newPages
+                    book["pages"] = int(newPages)
+                    break
+
                 elif inputEdit == "7":
                     newTitle = input("\nNew title: ")
-                    newBook["title"] = newTitle
+                    book["title"] = newTitle
+                    break
+
                 elif inputEdit == "8":
                     newISBN = input("\nNew ISBN: ")
-                    newBook["ISBN"] = newISBN
+                    book["ISBN"] = newISBN
+                    break
+
                 elif inputEdit == "9":
                     newYear = input("\nNew year: ")
-                    newBook["year"] = newYear
+                    book["year"] = int(newYear)
+                    break
+
                 elif inputEdit == "10":
                     break
-                else:
-                    print("Please enter a number between 1 and 9")
-            
-                for index, book in enumerate(data):
-                    if bookName == book["title"].lower():
-                        self.readAndWrite(index, newBook)
 
-                print("\n\nSuccesfully edited the copies of the book!\n\n")
+            
+        with open("data/bookcopies.json", "w+") as f:
+            jsoned_data = json.dumps(data, indent=True)
+            f.write(jsoned_data)
+
+        print("\n\nSuccesfully edited the copies of the book!\n\n")
+
 
     def searchBookItem(self):
         #search a book item and check its availibility

@@ -18,7 +18,14 @@ class Person():
         running = True
         while running:
             exists = False
-            username = input("Username: ").lower()
+            correct_input = False
+            while not correct_input:
+                username = input("Username: ")
+                if username == username.lower():
+                    correct_input = True
+                    break
+                print("\nUsername must be lowercase\n")
+
             with open("data/members.csv", "r") as f:
                 csvdata = list(csv.reader(f))
             for user in csvdata:
