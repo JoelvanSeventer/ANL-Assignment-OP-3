@@ -199,7 +199,7 @@ class Member(Person):
         if action == "1":
             self.loan.loanBook(username)
         if action == "2":
-            self.loan.return_this_book()
+            self.loan.return_this_book(username)
     
     #check loan status
     def checkLoanStatus(self):
