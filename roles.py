@@ -193,7 +193,7 @@ class Member(Person):
         if action == "1":
             self.loan.loanBook(username)
         elif action == "2":
-            self.loan.return_this_book()
+            self.loan.return_this_book(username)
         elif action == "3":
             return
         else:
