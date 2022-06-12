@@ -195,11 +195,16 @@ class Member(Person):
 
     #make a loan or return a book
     def loanBook(self, username):
-        action = input("\n1. Loan a book\n2. Return a book\n")
+        action = input("\n1. Loan a book\n2. Return a book\n3. Exit -->\n")
         if action == "1":
             self.loan.loanBook(username)
-        if action == "2":
+        elif action == "2":
             self.loan.return_this_book(username)
+        elif action == "3":
+            return
+        else:
+            print("\nInvalid input!\n")
+            self.loanBook(username)
     
     #check loan status
     def checkLoanStatus(self):
@@ -213,13 +218,13 @@ class Member(Person):
             action = input("""\nFill in the action you want to execute:\n1. Search a book\n2. Loan or return a book\n3. Check loan status\n4. View all books\n5. Exit -->\n""")
             if action == '1':
                 self.findBook()
-            if action == '2':
+            elif action == '2':
                 self.loanBook(username)
-            if action == '3':
+            elif action == '3':
                 self.checkLoanStatus()
-            if action == '4':
+            elif action == '4':
                 self.viewBooktitles()
-            if action == '5':
+            elif action == '5':
                 print("Thanks for visiting! See you next time!")
                 running = False
                 break

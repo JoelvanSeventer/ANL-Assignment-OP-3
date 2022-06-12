@@ -142,9 +142,10 @@ class Person():
                             final_new_index = [joined_new_index]
                             writer.writerow(final_new_index)
                             index += 1
-
             if user_found == True:
                 running = False
+            else:
+                print("\nUser not found! Please try again.\n")
     
     #Show all members
     def showAllmembers(self):
