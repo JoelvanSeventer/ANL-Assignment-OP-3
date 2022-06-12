@@ -73,7 +73,23 @@ class Book():
         #Add copies to json file
         
         self.addCopies(3, data)
-            
+    
+    def addCopies(self, amount, data):
+
+        data["copies"] = amount
+
+        
+        with open("data/bookcopies.json", "r") as f:
+            book_copies = json.load(f)
+
+
+        with open("data/bookcopies.json", "w+") as f:
+            book_copies.append(data)
+            jsoned_data = json.dumps(book_copies, indent=True)
+            f.write(jsoned_data)
+            print(f"\nSuccesfully added {amount} copies\n")
+        
+        
 
     def removeOldBook(self, name):
 
@@ -291,12 +307,13 @@ class BookItem():
         check = False
         running = True
 
+        title = input("\nPlease enter the title of the book you would like to make copies of:\n").lower()
+
         with open("data/bookcopies.json", "r") as f:
             alldata = json.load(f)
 
         while running:
             exists = False
-            title = input("\nPlease enter the title of the book you would like to make copies of:\n").lower()
 
             for book in alldata:
                 if book["title"].lower() == title:
@@ -333,6 +350,7 @@ class BookItem():
         with open("data/bookcopies.json", "w+") as f:
             jsoned_data = json.dumps(alldata, indent=True)
             f.write(jsoned_data)
+            print(f"\nSuccesfully added {amount} copies\n")
 
         if check == False:
             print("That book does not exist")

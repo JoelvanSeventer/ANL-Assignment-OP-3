@@ -213,6 +213,9 @@ class Member(Person):
             self.loanBook(username)
     
     #check loan status
+    def checkLoanStatus(self):
+        self.loan.Loans()
+
     def checkLoans(self, username):
         self.loan.loanStatus(username)
     

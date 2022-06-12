@@ -116,7 +116,6 @@ class LoanAdministration():
         with open("data/loans.json", "r") as f:
             loans = json.load(f)
         
-        loaned_books = []
 
         for book in loans:
 
