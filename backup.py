@@ -3,7 +3,7 @@ from datetime import datetime as d
 import os.path
 import os
 
-class Catalog():
+class Backup():
     def __init__(self):
         self.backup_path = 'data/backup/'
         now = str(d.now())[:10]

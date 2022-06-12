@@ -1,6 +1,6 @@
 from person import Person
 import json
-from backup import Catalog
+from backup import Backup
 from book import Book
 from loans import LoanAdministration
 from book import BookItem
@@ -12,7 +12,7 @@ class LibraryAdmin():
         self.person = Person()
         self.book = Book()
         self.loan = LoanAdministration()
-        self.catalog = Catalog()
+        self.backup = Backup()
         self.bookitem = BookItem()
         
     #add new member
@@ -37,11 +37,11 @@ class LibraryAdmin():
 
     #make a backup
     def makeBackup(self):
-        self.catalog.makeBackup()
+        self.backup.makeBackup()
 
     #restore the backup
     def RestoreBackup(self):
-        self.catalog.RestoreBackup()
+        self.backup.RestoreBackup()
 
     #delete a member
     def deleteMember(self):
