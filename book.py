@@ -454,19 +454,21 @@ class BookItem():
     def searchBookItem(self):
         #search a book item and check its availibility
         with open("data/bookcopies.json", "r") as f:
-            data = json.load(f)
-        with open("data/books.json", "r") as f:
             books = json.load(f)
+
         found = False
         Enter = input("\nPlease enter the title of the book you would like to search for:\n").lower()
-        for i in books:
-            if Enter == i["title"].lower():
+
+        for book in books:
+
+            if book["copies"] > 0 and (Enter == book["title"].lower() or Enter in book["title"].lower()):
                 found = True
-        
+
         if found == False:
-            print("This book does not exist")
+            print("This bookcopy is not available")
+
         elif found == True:
-            print("This book is available")
+            print("This bookcopy is available")
     
     #show all copies
     def showAllCopies(self):
@@ -475,11 +477,5 @@ class BookItem():
         for book in data:
             print(f"Title: {book['title']}")
             print(f"Author: {book['author']}")
-            print(f"Country: {book['country']}")
-            print(f"Language: {book['language']}")
-            print(f"Year: {book['year']}")
-            print(f"Pages: {book['pages']}")
-            print(f"Link: {book['link']}ISBN: {book['ISBN']}")
-            print(f"ImageLink: {book['imageLink']}")
-            print("\n")
+            print(f"Copies: {book['copies']}\n")
                 

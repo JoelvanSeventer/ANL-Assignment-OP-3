@@ -1,5 +1,7 @@
 import json
 from datetime import datetime as d
+from datetime import date, timedelta
+import csv
 
 #loan administration class
 class LoanAdministration():
@@ -27,6 +29,53 @@ class LoanAdministration():
             for book in data:
                 print(book["title"])
     
+
+    def loanStatus(self, username):
+        
+        with open("data/loans.json", "r") as f:
+            loans = json.load(f)
+        
+        loaned_books = []
+
+        for book in loans:
+            if book["username"].lower() == username.lower():
+                loaned_books.append(book)
+        
+        overdue_loan = []
+
+        for book in loaned_books:
+            split_book = list(book["loandate"].split('-'))
+            start_date = date(int(split_book[0]), int(split_book[1]), int(split_book[2]))
+            end_date = start_date + timedelta(days=30)
+            
+            if date.today() >= end_date:
+                overdue_loan.append(book["title"])
+        
+
+        print("#####################################################")
+        print("##                                                 ##")
+        print("##         THESE BOOKS NEED TO BE RETURNED         ##")
+        print("##                                                 ##")
+        print("#####################################################")
+
+        for book in loaned_books:
+            print("\n", book["title"], "\n")
+
+        print("#####################################################")
+
+
+    def checkUser(self, username):
+        with open("data/members.csv", "r") as f:
+            members = list(csv.reader(f))
+        
+        username_list = []
+
+        for member in members:
+            split_user = member[0].split(';')
+            username_list.append(split_user[7].lower())
+
+        return username.lower() in username_list
+
     #view the books loaned by a member
     def view_loaned_books(self):
         #ask for the member
@@ -47,28 +96,49 @@ class LoanAdministration():
 
     #loan a book
     def loanBook(self, username):
+
+        #check if max loan amount
+        with open("data/loans.json", "r") as f:
+            loans = list(json.load(f))
+        
+        count = 0
+        for book in loans:
+            if book["username"] == username:
+                count += 1
+            
+        if count >= 3:
+            print("\nMax loan limit already reached\n")
+            return
+
         #ask for title
         titleLoan = input("\nPlease enter the title of the book you want to loan: ").lower()
 
-        with open("data/bookcopies.json", "r") as f:
-            bookcopies = list(json.load(f))
+        with open("data/loans.json", "r") as f:
+            loans = json.load(f)
         
-        booktitles = []
+        loaned_books = []
 
-        for book in bookcopies:
-            booktitles.append(book["title"].lower())
+        for book in loans:
+
+            if book["booktitle"].lower() == titleLoan and book["username"] == username:
+                print("\nYou already have this book.")
+                return
+
         
-        if titleLoan in self.ownedbooks and titleLoan in booktitles:
-            print("\nYou already have this book.")
+        with open("data/bookcopies.json", "r") as f:
+            bookcopies = json.load(f)
         
-        elif titleLoan not in booktitles:
+        bookcopy_titles = []
+
+        for bookcopy in bookcopies:
+            bookcopy_titles.append(bookcopy["title"].lower())
+        
+        if titleLoan not in bookcopy_titles:
             print("\nThis book doesn't exist\n")
 
         else:
-            self.ownedbooks.append(titleLoan)
             #loan the book
             book = self.item.loanbook(titleLoan)
-            data = []
 
             loan_info = {"username":username, "booktitle":book["title"], "loandate":self.datetime}
 

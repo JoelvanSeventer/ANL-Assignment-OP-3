@@ -64,6 +64,9 @@ class LibraryAdmin():
 
     def lendBook(self):
         username = input("Please enter the username of the member you would like to lend a book to: ")
+        if self.loan.checkUser(username) == False:
+            print("\nThis user does not exist\n")
+            return
         self.loan.loanBook(username)
 
     #search a book in the catalog
@@ -178,6 +181,7 @@ class Member(Person):
         super().__init__()
         self.book = Book()
         self.loan = LoanAdministration()
+        self.bookitem = BookItem()
 
     #view all booktitles
     def viewBooktitles(self):
@@ -188,10 +192,12 @@ class Member(Person):
         self.book.findBook()
 
     #Load all bookItems
-
+    def showAllCopies(self):
+        self.bookitem.showAllCopies()
 
     #To search a bookItem and its availibility
-    
+    def searchBookItem(self):
+        self.bookitem.searchBookItem()
 
     #make a loan or return a book
     def loanBook(self, username):
@@ -207,15 +213,19 @@ class Member(Person):
             self.loanBook(username)
     
     #check loan status
-    def checkLoanStatus(self):
-        self.loan.Loans()
+    def checkLoans(self, username):
+        self.loan.loanStatus(username)
     
 
     #main function of member
     def run(self, username):
+
+        self.checkLoans(username)
+
+
         running = True
         while running:
-            action = input("""\nFill in the action you want to execute:\n1. Search a book\n2. Loan or return a book\n3. Check loan status\n4. View all books\n5. Exit -->\n""")
+            action = input("""\nFill in the action you want to execute:\n1. Search a book\n2. Loan or return a book\n3. Check loan status\n4. Search book item\n5. View all books\n6. View all book items\n7. Exit -->\n""")
             if action == '1':
                 self.findBook()
             elif action == '2':
@@ -223,8 +233,12 @@ class Member(Person):
             elif action == '3':
                 self.checkLoanStatus()
             elif action == '4':
-                self.viewBooktitles()
+                self.searchBookItem()
             elif action == '5':
+                self.viewBooktitles()
+            elif action == '6':
+                self.showAllCopies()
+            elif action == '7':
                 print("Thanks for visiting! See you next time!")
                 running = False
                 break

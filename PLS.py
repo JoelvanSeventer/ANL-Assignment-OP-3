@@ -5,16 +5,19 @@ def main():
     loggedin = False
     un = input("\nPlease enter your username: ")
     pw = input("\nPlease enter your password: ")
+    
+
+    if(un == "admin" and pw == "admin123"):
+        loggedin = True
+        welcome()
+        print("\nWelcome admin!\n")
+        LibraryAdmin().run()
+
     csvdata = open('data/members.csv', 'r')
+
     for user in csvdata:
         thisuser = user.split(';')
-        if(un == "admin" and pw == "admin123"):
-            loggedin = True
-            welcome()
-            print("\nWelcome admin!\n")
-            LibraryAdmin().run()
-            break
-        elif un == thisuser[7] and pw == thisuser[8]:
+        if un == thisuser[7] and pw == thisuser[8]:
             loggedin = True
             welcome()
             print("\nWelcome " + un + "!\n")
