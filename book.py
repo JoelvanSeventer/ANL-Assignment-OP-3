@@ -31,28 +31,47 @@ class Book():
             
 
     def removeOldBook(self, name):
-        #Remove a book
+
         item = False
         with open("data/books.json", 'r') as f:
             data = json.load(f)
             
-        
-
         for idx, book in enumerate(data):
-                if name == book["title"].lower():
-                    data.pop(idx)
-                    item = book
+            if name.lower() == book["title"].lower():
+                data.pop(idx)
+                item = book
             
         if item:
+            print("\nRemoving book...\n")
+
             with open("data/books.json", "w+") as f:
                 jsoned_data = json.dumps(data, indent=True)
                 f.write(jsoned_data)
-            print(f"\nYou've succesfully removed the book {item['title']}.")
+                #Remove the copies
+                print("\nRemoving copies...\n")
+                self.removeAllCopies(name)
+            print(f"\nYou've succesfully removed the book {item['title']} and all of its copies.")
+
         else:
             print("\nThis book does not exist!")
 
-        #Remove the copies
-        self.removeCopies(name, 2)
+    def removeAllCopies(self, title):
+
+        item = False
+
+        with open("data/bookcopies.json", 'r') as f:
+            data = json.load(f)
+        
+        for idx, book in enumerate(data):
+            if title.lower() == book["title"].lower():
+                data.pop(idx)
+                item = book
+
+        if item:
+            with open("data/bookcopies.json", "w+") as f:
+                jsoned_data = json.dumps(data, indent=True)
+                f.write(jsoned_data)
+
 
     def editBook(self):
         bookName = input("\nFill in the name of the book you want to edit: ").lower()
@@ -162,26 +181,29 @@ class Book():
         
         if copies == 1:
             for idx, book in enumerate(data):
-                if title == book['title'].lower():
+                if title.lower() == book['title'].lower():
                     data.pop(idx)
                     item = book
-                    count+= 1
                     break
                     
         if copies > 1:
-            for i in range(len(data)):
+            for i in range(copies):
                 for idx, book in enumerate(data):
-                        if title == book['title'].lower():
-                            data.pop(idx)
-                            item = book
-                            count+= 1
+                    if title.lower() == book['title'].lower():
+                        data.pop(idx)
+                        item = book
+                        break
+
         if item:
+            print("\nRemoving copies...\n")
+
             with open('data/bookcopies.json', "w+") as f:
                 jsoned_data = json.dumps(data, indent=True)
                 f.write(jsoned_data)
             print(f"You've succesfully removed the copies of the book")
         else:
-            print("This book does not exist")
+            print("This book does not have any copies")
+
 
     def viewBooktitles(self):
         #View all booktitles
@@ -292,6 +314,7 @@ class BookItem():
                 break
             else:
                 print("Please enter a number higher than 0.")
+
 
     def readAndWrite(self, index, newBook):
         with open("data/bookcopies.json", "r") as f:

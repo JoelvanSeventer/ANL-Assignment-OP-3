@@ -98,7 +98,7 @@ class LibraryAdmin():
         if action == '1':
             self.book.addNewBook()
         elif action == '2':
-            RemoveTitle = input("\nPlease enter the title of the book you would like to remove:\n")
+            RemoveTitle = input("\nPlease enter the title of the book you would like to remove:\n").lower()
             self.book.removeOldBook(RemoveTitle)
         # Edit Book
         elif action == '3':
