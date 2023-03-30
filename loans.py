@@ -27,7 +27,7 @@ class LoanAdministration():
         else:
             print("Currently loaned book(s):")
             for book in data:
-                print(book["title"])
+                print(book["booktitle"])
     
 
     def loanStatus(self, username):
@@ -42,6 +42,7 @@ class LoanAdministration():
                 loaned_books.append(book)
         
         overdue_loan = []
+        returning = False
 
         for book in loaned_books:
             split_book = list(book["loandate"].split('-'))
@@ -50,18 +51,18 @@ class LoanAdministration():
             
             if date.today() >= end_date:
                 overdue_loan.append(book["title"])
+                returning = True
         
+        if returning:
+            print("#####################################################")
+            print("##                                                 ##")
+            print("##         THESE BOOKS NEED TO BE RETURNED         ##")
+            print("##                                                 ##")
+            print("#####################################################")
 
-        print("#####################################################")
-        print("##                                                 ##")
-        print("##         THESE BOOKS NEED TO BE RETURNED         ##")
-        print("##                                                 ##")
-        print("#####################################################")
-
-        for book in loaned_books:
-            print("\n", book["title"], "\n")
-
-        print("#####################################################")
+            for book in overdue_loan:
+                print("\n", book["booktitle"],", "  "\n")
+                print("#####################################################")
 
 
     def checkUser(self, username):
