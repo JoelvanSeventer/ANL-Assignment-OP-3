@@ -47,7 +47,7 @@ class LoanAdministration():
         for book in loaned_books:
             split_book = list(book["loandate"].split('-'))
             start_date = date(int(split_book[0]), int(split_book[1]), int(split_book[2]))
-            end_date = start_date + timedelta(days=30)
+            end_date = start_date + timedelta(days=60)
             
             if date.today() >= end_date:
                 overdue_loan.append(book["title"])

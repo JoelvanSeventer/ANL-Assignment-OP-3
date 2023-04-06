@@ -72,7 +72,7 @@ class Book():
 
         #Add copies to json file
         
-        self.addCopies(3, data)
+        self.addCopies(5, data)
     
     def addCopies(self, amount, data):
 
@@ -232,8 +232,8 @@ class Book():
     
     def findBook(self):
         #Search for a book
-        with open("data/books.json", "r") as f:
-            data = json.load(f)
+        with open("data/bookcopies.json", "r") as g:
+            datacopies = json.load(g)
         print("\nWith which term would you like to search?\n")
         running = True
         while running:
@@ -254,18 +254,19 @@ class Book():
             searchvalue = input("\nPlease enter a title: \n")
             
         found = False
-        for book in data:
+        for book in datacopies: # book in data and 
             if searchterm == "1" and (searchvalue.lower() == book["author"].lower() or searchvalue.lower() in book["author"].lower()):
                     found = True
                     print(f"\nAuthor: {book['author']}\nCountry: {book['country']}\nImageLink: {book['imageLink']}\nLanguage: {book['language']}\nLink: {book['link']}Pages: {book['pages']}\nTitle: {book['title']}\nISBN: {book['ISBN']}\nYear: {book['year']}\n")
-
+                    
+                    print(f"Available copies: {book['copies']}")
             elif searchterm == "2" and (searchvalue.lower() == book["title"].lower() or searchvalue.lower() in book["title"].lower()):
                     found = True
                     print(f"\nAuthor: {book['author']}\nCountry: {book['country']}\nImageLink: {book['imageLink']}\nLanguage: {book['language']}\nLink: {book['link']}Pages: {book['pages']}\nTitle: {book['title']}\nISBN: {book['ISBN']}\nYear: {book['year']}\n")
 
 
         if found == False:
-            print("This book does not exist")
+            print("This book or author does not exist")
 
     #add list of books
     def addListOfBooks(self):
