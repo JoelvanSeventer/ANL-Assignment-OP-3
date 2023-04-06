@@ -213,8 +213,8 @@ class Member(Person):
             self.loanBook(username)
     
     #check loan status
-    def checkLoanStatus(self):
-        self.loan.Loans()
+    def checkLoanStatus(self, username):
+        self.loan.Loans(username)
 
     def checkLoans(self, username):
         self.loan.loanStatus(username)
@@ -234,7 +234,7 @@ class Member(Person):
             elif action == '2':
                 self.loanBook(username)
             elif action == '3':
-                self.checkLoanStatus()
+                self.checkLoanStatus(username)
             elif action == '4':
                 self.searchBookItem()
             elif action == '5':

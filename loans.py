@@ -14,8 +14,8 @@ class LoanAdministration():
         now = now.replace(":","_")
         self.datetime = now
 
-    #view the loaned books
-    def Loans(self):
+    #view your loaned books
+    def Loans(self, username):
         #open json file loans
         with open(self.loan_path, 'r') as f:
             #load loans
@@ -25,9 +25,24 @@ class LoanAdministration():
             print("No books are being loaned out.")
         # Otherwise, show all books
         else:
-            print("Currently loaned book(s):")
-            for book in data:
-                print(book["booktitle"])
+            with open("data/loans.json", "r") as g:
+                loans = json.load(g)
+        
+            loaned_books = []
+
+            for book in loans:
+                if book["username"].lower() == username.lower():
+                    loaned_books.append(book)
+            
+            for book in loaned_books:
+                split_book = list(book["loandate"].split('-'))
+                start_date = date(int(split_book[0]), int(split_book[1]), int(split_book[2]))
+                end_date = start_date + timedelta(days=60)
+                total = str(end_date-start_date).removesuffix(', 0:00:00')
+                print("Currently loaned book(s):")
+                for book in data:
+                    print("Title: " + book["booktitle"])
+                    print("Days left: " + total)
     
 
     def loanStatus(self, username):
