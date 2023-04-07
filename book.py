@@ -165,6 +165,7 @@ class Book():
                         oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
+                        BookItem.editCopies(self, inputEdit, bookName, newAuthor)
                         
                 elif inputEdit == "2":
                     newCountry = input("\nNew country: ")
@@ -173,6 +174,7 @@ class Book():
                         oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
+                        BookItem.editCopies(self, inputEdit, bookName, newCountry)
 
                 elif inputEdit == "3":
                     newImageLink = input("\nNew imageLink: ")
@@ -181,6 +183,7 @@ class Book():
                         oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
+                        BookItem.editCopies(self, inputEdit, bookName, newImageLink)
 
                 elif inputEdit == "4":
                     newLanguage = input("\nNew language: ")
@@ -189,6 +192,7 @@ class Book():
                         oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
+                        BookItem.editCopies(self, inputEdit, bookName, newLanguage)
 
                 elif inputEdit == "5":
                     newLink = input("\nNew link: ")
@@ -197,6 +201,7 @@ class Book():
                         oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
+                        BookItem.editCopies(self, inputEdit, bookName, newLink)
 
                 elif inputEdit == "6":
                     newPages = int(input("\nNew pages: "))
@@ -205,6 +210,7 @@ class Book():
                         oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
+                        BookItem.editCopies(self, inputEdit, bookName, newPages)
 
                 elif inputEdit == "7":
                     newTitle = input("\nNew title: ")
@@ -213,6 +219,8 @@ class Book():
                         oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
+                        BookItem.editCopies(self, inputEdit, bookName, newTitle)
+
 
                 elif inputEdit == "8":
                     newYear = int(input("\nNew year: "))
@@ -221,6 +229,7 @@ class Book():
                         oldData[index] = newData
                         jsoned_data = json.dumps(oldData, indent=True)
                         f.write(jsoned_data)
+                        BookItem.editCopies(self, inputEdit, bookName, newYear)
 
     def viewBooktitles(self):
         #View all booktitles
@@ -270,23 +279,39 @@ class Book():
 
     #add list of books
     def addListOfBooks(self):
-        filename = input("\nPlease enter the name of the file you want to add(for example: 'addbooks.json'):")
+        filename = input("\nPlease enter the name of the file you want to add(for example: 'addbooks.json'): ")
         filepath = self.findfile(filename, "/")
+        
+        if filepath != "Not found":
+            with open(filepath, "r") as f:
+                data = json.load(f)
 
-        with open(filepath, "r") as f:
-            data = json.load(f)
+            with open("data/books.json", "r") as f:
+                oldData = json.load(f)
 
-        with open("data/books.json", "r") as f:
-            oldData = json.load(f)
+            count = 0
+            found = False
+            for book in data:
+                for oldBook in oldData:
+                    if book == oldBook:
+                        found = True
+                if found == False:
+                    oldData.append(book)
+                    self.addCopies(5, book)
+                    count += 1
+                    print(f"{book['title']} has been added to the database.\n")
+                else:
+                    print(f"The title {book['title']} already exists in the database.\n")
 
-        for book in data:
-            oldData.append(book)
 
-        with open("data/books.json", "w+") as f:
-            jsoned_data = json.dumps(oldData, indent=True)
-            f.write(jsoned_data)
-
-        print("\nThe books from the file have been added to the database.")
+            if count == 0:
+                print("There are no new books in the file!!")
+                print("\nAll the books from the file already exit in the database.")
+            else:      
+                with open("data/books.json", "w+") as f:
+                    jsoned_data = json.dumps(oldData, indent=True)
+                    f.write(jsoned_data)
+                print(f"\n{count} books have been added to the database.")
 
 
     
@@ -298,7 +323,8 @@ class Book():
                 print("\nFile found!")
                 filepath = os.path.join(dirpath, name)
                 return filepath
-        return "newbooks"
+        print("\nNo file found with that name.")
+        return "Not found"
 
 class BookItem():
     def __init__(self):
@@ -387,79 +413,45 @@ class BookItem():
             print("This book does not have any copies")
 
 
-    def editCopies(self):
-
+    def editCopies(self, inputEdit, title, newValue):   
         with open("data/bookcopies.json", "r") as f:
-            data = json.load(f)
-
-        running = True
-        while running:
-            exists = False
-            title = input("\nPlease enter the title of the bookcopy you would like to edit:\n").lower()
-
-            for book in data:
-                if book["title"].lower() == title:
-                    exists = True
-                    break
-            
-            if exists:
-                running = False
-            else:
-                print("\nThat book doesn't exist.")
-                print("Please enter a existing book:\n")
-
-        print("What do you want to edit?\n")
-        inputEdit = input("\n1. Author\n2. Country\n3. Imagelink\n4. Language\n5. Link\n6. Pages\n7. Title\n8. ISBN\n9. Year\n10. Exit\n")
-        
+                    data = json.load(f)     
         for book in data:
             if title == book["title"].lower():            
 
                 if inputEdit == "1":
-                    newAuthor = input("\nNew author: ")
-                    book["author"] = newAuthor
+                    book["author"] = newValue
                     break
 
                 elif inputEdit == "2":
-                    newCountry = input("\nNew country: ")
-                    book["country"] = newCountry
+                    book["country"] = newValue
                     break
 
                 elif inputEdit == "3":
-                    newImageLink = input("\nNew imagelink: ")
-                    book["imageLink"] = newImageLink
+                    book["imageLink"] = newValue
                     break
 
                 elif inputEdit == "4":
-                    newLanguage = input("\nNew language: ")
-                    book["language"] = newLanguage
+                    book["language"] = newValue
                     break
 
                 elif inputEdit == "5":
-                    newLink = input("\nNew link: ")
-                    book["link"] = newLink
+                    book["link"] = newValue
                     break
 
                 elif inputEdit == "6":
-                    newPages = input("\nNew pages: ")
-                    book["pages"] = int(newPages)
+                    book["pages"] = int(newValue)
                     break
 
                 elif inputEdit == "7":
-                    newTitle = input("\nNew title: ")
-                    book["title"] = newTitle
+                    book["title"] = newValue
                     break
 
                 elif inputEdit == "8":
-                    newISBN = input("\nNew ISBN: ")
-                    book["ISBN"] = newISBN
+                    book["year"] = int(newValue)
                     break
 
                 elif inputEdit == "9":
-                    newYear = input("\nNew year: ")
-                    book["year"] = int(newYear)
-                    break
-
-                elif inputEdit == "10":
                     break
 
             
@@ -481,13 +473,14 @@ class BookItem():
         for book in books:
 
             if book["copies"] > 0 and (Enter == book["title"].lower() or Enter in book["title"].lower()):
+                amount_of_copies = book["copies"]
                 found = True
 
         if found == False:
             print("This bookcopy is not available")
 
         elif found == True:
-            print("This bookcopy is available")
+            print(f"There are {amount_of_copies} copies of this book available.")
     
     #show all copies
     def showAllCopies(self):
