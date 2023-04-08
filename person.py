@@ -4,6 +4,10 @@ import os
 
 
 class Person():
+
+    def __init__(self, name, username):
+        self.name = name
+        self.surname = username
     
     # Add new member
     def newMember(self):
