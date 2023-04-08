@@ -6,15 +6,12 @@ from loans import LoanAdministration
 from book import BookItem
 import csv 
 
-class LibraryAdmin():
-    def __init__(self):
-        #assign fields
-        self.person = Person()
-        self.book = Book()
-        self.loan = LoanAdministration()
-        self.backup = Backup()
-        self.bookitem = BookItem()
-        
+class LibraryAdmin(Person):
+
+    def __init__(self, name, username, password):
+        Person.__init__(self, name, username)
+        self.password = password
+
     #add new member
     def addMember(self): 
         self.person.newMember()
