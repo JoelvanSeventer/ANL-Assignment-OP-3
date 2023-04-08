@@ -58,9 +58,7 @@ class LibraryAdmin():
     def Edit(self, topic):
         if topic == "member":
             self.editMember()
-        elif topic == "book":
-            self.book.editBook()
-        elif topic == "copies":
+        elif topic == "copies" or topic == "book":
             with open("data/bookcopies.json", "r") as f:
                 data = json.load(f)
 
@@ -83,7 +81,11 @@ class LibraryAdmin():
             print("What do you want to edit?\n")
             inputEdit = input("\n1. Author\n2. Country\n3. Imagelink\n4. Language\n5. Link\n6. Pages\n7. Title\n8. Year\n9. Exit\n") 
             newvalue = input("Enter the new value: ")
-            self.bookitem.editCopies(inputEdit, title, newvalue)
+            
+            if topic == "copies":
+                self.bookitem.editCopies(inputEdit, title, newvalue)
+            elif topic == "book":
+                self.book.editBook(inputEdit, title, newvalue)
         else:
             print("Invalid input")
 
