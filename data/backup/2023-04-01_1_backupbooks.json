@@ -8,8 +8,7 @@
   "pages": 209,
   "title": "Things Fall Apart",
   "ISBN": "9781234534597",
-  "year": 1958,
-  "copies": 5
+  "year": 1958
  },
  {
   "author": "Hans Christian Andersen",
@@ -20,8 +19,7 @@
   "pages": 784,
   "title": "Fairy tales",
   "ISBN": "9345234567897",
-  "year": 1836,
-  "copies": 5
+  "year": 1836
  },
  {
   "author": "Dante Alighieri",
@@ -32,8 +30,7 @@
   "pages": 928,
   "title": "The Divine Comedy",
   "ISBN": "9781235687897",
-  "year": 1315,
-  "copies": 5
+  "year": 1315
  },
  {
   "author": "Unknown",
@@ -44,8 +41,7 @@
   "pages": 160,
   "title": "The Epic Of Gilgamesh",
   "ISBN": "978123438397",
-  "year": -1700,
-  "copies": 5
+  "year": -1700
  },
  {
   "author": "Unknown",
@@ -56,8 +52,7 @@
   "pages": 176,
   "title": "The Book Of Job",
   "ISBN": "9781238427897",
-  "year": -600,
-  "copies": 5
+  "year": -600
  },
  {
   "author": "Unknown",
@@ -68,8 +63,7 @@
   "pages": 288,
   "title": "One Thousand and One Nights",
   "ISBN": "9781234564897",
-  "year": 1200,
-  "copies": 5
+  "year": 1200
  },
  {
   "author": "Unknown",
@@ -80,8 +74,7 @@
   "pages": 384,
   "title": "Nj\u00e1l's Saga",
   "ISBN": "9781234566827",
-  "year": 1350,
-  "copies": 5
+  "year": 1350
  },
  {
   "author": "Jane Austen",
@@ -92,8 +85,7 @@
   "pages": 226,
   "title": "Pride and Prejudice",
   "ISBN": "9781234955897",
-  "year": 1813,
-  "copies": 5
+  "year": 1813
  },
  {
   "author": "Honor\u00e9 de Balzac",
@@ -104,8 +96,7 @@
   "pages": 443,
   "title": "Le P\u00e8re Goriot",
   "ISBN": "9781234525797",
-  "year": 1835,
-  "copies": 5
+  "year": 1835
  },
  {
   "author": "Samuel Beckett",
@@ -116,8 +107,7 @@
   "pages": 256,
   "title": "Molloy, Malone Dies, The Unnamable, the trilogy",
   "ISBN": "9781234767747",
-  "year": 1952,
-  "copies": 5
+  "year": 1952
  },
  {
   "author": "Giovanni Boccaccio",
@@ -128,8 +118,7 @@
   "pages": 1024,
   "title": "The Decameron",
   "ISBN": "9781235622297",
-  "year": 1351,
-  "copies": 5
+  "year": 1351
  },
  {
   "author": "Jorge Luis Borges",
@@ -140,8 +129,7 @@
   "pages": 224,
   "title": "Ficciones",
   "ISBN": "9781234562237",
-  "year": 1965,
-  "copies": 5
+  "year": 1965
  },
  {
   "author": "Emily Bront\u00eb",
@@ -152,8 +140,7 @@
   "pages": 342,
   "ISBN": "9781234567897",
   "title": "Wuthering Heights",
-  "year": 1847,
-  "copies": 5
+  "year": 1847
  },
  {
   "author": "Albert Camus",
@@ -164,8 +151,7 @@
   "pages": 185,
   "title": "The Stranger",
   "ISBN": "9781234562447",
-  "year": 1942,
-  "copies": 5
+  "year": 1942
  },
  {
   "author": "Paul Celan",
@@ -176,8 +162,7 @@
   "pages": 320,
   "title": "Poems",
   "ISBN": "9781536567897",
-  "year": 1952,
-  "copies": 5
+  "year": 1952
  },
  {
   "author": "Louis-Ferdinand C\u00e9line",
@@ -188,8 +173,7 @@
   "pages": 505,
   "title": "Journey to the End of the Night",
   "ISBN": "9781234369897",
-  "year": 1932,
-  "copies": 5
+  "year": 1932
  },
  {
   "author": "Miguel de Cervantes",
@@ -200,8 +184,7 @@
   "pages": 1056,
   "title": "Don Quijote De La Mancha",
   "ISBN": "97812325697797",
-  "year": 1610,
-  "copies": 5
+  "year": 1610
  },
  {
   "author": "Geoffrey Chaucer",
@@ -212,8 +195,7 @@
   "pages": 544,
   "title": "The Canterbury Tales",
   "ISBN": "9781234961897",
-  "year": 1450,
-  "copies": 5
+  "year": 1450
  },
  {
   "author": "Anton Chekhov",
@@ -224,8 +206,7 @@
   "pages": 194,
   "title": "Stories",
   "ISBN": "9781234555597",
-  "year": 1886,
-  "copies": 5
+  "year": 1886
  },
  {
   "author": "Joseph Conrad",
@@ -236,8 +217,7 @@
   "pages": 320,
   "title": "Nostromo",
   "ISBN": "9781224547417",
-  "year": 1904,
-  "copies": 5
+  "year": 1904
  },
  {
   "author": "Charles Dickens",
@@ -248,8 +228,7 @@
   "pages": 194,
   "title": "Great Expectations",
   "ISBN": "9781234537837",
-  "year": 1861,
-  "copies": 5
+  "year": 1861
  },
  {
   "author": "Denis Diderot",
@@ -260,8 +239,7 @@
   "pages": 596,
   "title": "Jacques the Fatalist",
   "ISBN": "9781234567822",
-  "year": 1796,
-  "copies": 5
+  "year": 1796
  },
  {
   "author": "Alfred D\u00f6blin",
@@ -272,8 +250,7 @@
   "pages": 600,
   "title": "Berlin Alexanderplatz",
   "ISBN": "9781234569941",
-  "year": 1929,
-  "copies": 5
+  "year": 1929
  },
  {
   "author": "Fyodor Dostoevsky",
@@ -284,8 +261,7 @@
   "pages": 551,
   "title": "Crime and Punishment",
   "ISBN": "9781299062894",
-  "year": 1866,
-  "copies": 5
+  "year": 1866
  },
  {
   "author": "Fyodor Dostoevsky",
@@ -296,8 +272,7 @@
   "pages": 656,
   "title": "The Idiot",
   "ISBN": "9781235547844",
-  "year": 1869,
-  "copies": 5
+  "year": 1869
  },
  {
   "author": "Fyodor Dostoevsky",
@@ -308,8 +283,7 @@
   "pages": 768,
   "title": "The Possessed",
   "ISBN": "9781234167747",
-  "year": 1872,
-  "copies": 5
+  "year": 1872
  },
  {
   "author": "Fyodor Dostoevsky",
@@ -320,8 +294,7 @@
   "pages": 824,
   "title": "The Brothers Karamazov",
   "ISBN": "9781234994897",
-  "year": 1880,
-  "copies": 5
+  "year": 1880
  },
  {
   "author": "George Eliot",
@@ -332,8 +305,7 @@
   "pages": 800,
   "title": "Middlemarch",
   "ISBN": "978166467117",
-  "year": 1871,
-  "copies": 5
+  "year": 1871
  },
  {
   "author": "Ralph Ellison",
@@ -344,8 +316,7 @@
   "pages": 581,
   "title": "Invisible Man",
   "ISBN": "9781234500447",
-  "year": 1952,
-  "copies": 5
+  "year": 1952
  },
  {
   "author": "Euripides",
@@ -356,8 +327,7 @@
   "pages": 104,
   "title": "Medea",
   "ISBN": "9781266600427",
-  "year": -431,
-  "copies": 5
+  "year": -431
  },
  {
   "author": "William Faulkner",
@@ -368,8 +338,7 @@
   "pages": 313,
   "title": "Absalom, Absalom!",
   "ISBN": "9788834500433",
-  "year": 1936,
-  "copies": 5
+  "year": 1936
  },
  {
   "author": "William Faulkner",
@@ -380,8 +349,7 @@
   "pages": 326,
   "title": "The Sound and the Fury",
   "ISBN": "9781994500415",
-  "year": 1929,
-  "copies": 5
+  "year": 1929
  },
  {
   "author": "Gustave Flaubert",
@@ -392,8 +360,7 @@
   "pages": 528,
   "title": "Madame Bovary",
   "ISBN": "9781234567732",
-  "year": 1857,
-  "copies": 5
+  "year": 1857
  },
  {
   "author": "Gustave Flaubert",
@@ -404,8 +371,7 @@
   "pages": 606,
   "title": "Sentimental Education",
   "ISBN": "9781234588097",
-  "year": 1869,
-  "copies": 5
+  "year": 1869
  },
  {
   "author": "Federico Garc\u00eda Lorca",
@@ -416,8 +382,7 @@
   "pages": 218,
   "title": "Gypsy Ballads",
   "ISBN": "9781234599039",
-  "year": 1928,
-  "copies": 5
+  "year": 1928
  },
  {
   "author": "Gabriel Garc\u00eda M\u00e1rquez",
@@ -428,8 +393,7 @@
   "pages": 417,
   "title": "One Hundred Years of Solitude",
   "ISBN": "9781234567897",
-  "year": 1967,
-  "copies": 5
+  "year": 1967
  },
  {
   "author": "Gabriel Garc\u00eda M\u00e1rquez",
@@ -440,8 +404,7 @@
   "pages": 368,
   "title": "Love in the Time of Cholera",
   "ISBN": "9781234567882",
-  "year": 1985,
-  "copies": 5
+  "year": 1985
  },
  {
   "author": "Johann Wolfgang von Goethe",
@@ -452,8 +415,7 @@
   "pages": 158,
   "title": "Faust",
   "ISBN": "9781234567101",
-  "year": 1832,
-  "copies": 5
+  "year": 1832
  },
  {
   "author": "Nikolai Gogol",
@@ -464,8 +426,7 @@
   "pages": 432,
   "title": "Dead Souls",
   "ISBN": "9781234567430",
-  "year": 1842,
-  "copies": 5
+  "year": 1842
  },
  {
   "author": "G\u00fcnter Grass",
@@ -476,8 +437,7 @@
   "pages": 600,
   "title": "The Tin Drum",
   "ISBN": "9781234567897",
-  "year": 1959,
-  "copies": 5
+  "year": 1959
  },
  {
   "author": "Jo\u00e3o Guimar\u00e3es Rosa",
@@ -488,8 +448,7 @@
   "pages": 494,
   "title": "The Devil to Pay in the Backlands",
   "ISBN": "9781234333537",
-  "year": 1956,
-  "copies": 5
+  "year": 1956
  },
  {
   "author": "Knut Hamsun",
@@ -500,8 +459,7 @@
   "pages": 176,
   "title": "Hunger",
   "ISBN": "9781234664711",
-  "year": 1890,
-  "copies": 5
+  "year": 1890
  },
  {
   "author": "Ernest Hemingway",
@@ -512,8 +470,7 @@
   "pages": 128,
   "title": "The Old Man and the Sea",
   "ISBN": "9781234095397",
-  "year": 1952,
-  "copies": 5
+  "year": 1952
  },
  {
   "author": "Homer",
@@ -524,8 +481,7 @@
   "pages": 608,
   "title": "Iliad",
   "ISBN": "9781234566557",
-  "year": 735,
-  "copies": 5
+  "year": 735
  },
  {
   "author": "Marguerite Yourcenar",
@@ -536,19 +492,16 @@
   "pages": 408,
   "title": "Memoirs of Hadrian",
   "ISBN": "9781231577095",
-  "year": 1951,
-  "copies": 5
+  "year": 1951
  },
  {
   "author": "asdf",
   "country": "asdf",
-  "imageLink": "asdfsdf",
-  "language": "asdf",
+  "imagelink": "asdfsdf",
+  "language": "Greek",
   "link": "adsf",
   "pages": 123,
   "title": "2 sheep in the barn",
-  "ISBN": "asdf",
-  "year": 20222255885,
-  "copies": 5
+  "year": 20222255885
  }
 ]

@@ -52,6 +52,37 @@ class LibraryAdmin(Person):
     def editMember(self):
         self.person.editmember()
 
+    def Edit(self, topic):
+        if topic == "member":
+            self.editMember()
+        elif topic == "book":
+            self.book.editBook()
+        elif topic == "copies":
+            with open("data/bookcopies.json", "r") as f:
+                data = json.load(f)
+
+            running = True
+            while running:
+                exists = False
+                title = input("\nPlease enter the title of the bookcopy you would like to edit:\n").lower()
+
+                for book in data:
+                    if book["title"].lower() == title:
+                        exists = True
+                        break
+                
+                if exists:
+                    running = False
+                else:
+                    print("\nThat book doesn't exist.")
+                    print("Please enter a existing book:\n")
+
+            print("What do you want to edit?\n")
+            inputEdit = input("\n1. Author\n2. Country\n3. Imagelink\n4. Language\n5. Link\n6. Pages\n7. Title\n8. Year\n9. Exit\n") 
+            newvalue = input("Enter the new value: ")
+            self.bookitem.editCopies(inputEdit, title, newvalue)
+        else:
+            print("Invalid input")
 
 
 
@@ -102,7 +133,7 @@ class LibraryAdmin(Person):
             self.book.removeOldBook(RemoveTitle)
         # Edit Book
         elif action == '3':
-            self.book.editBook()
+            self.Edit("book")
         elif action == '4':
             self.book.viewBooktitles()
         elif action == '5':
@@ -116,7 +147,7 @@ class LibraryAdmin(Person):
             self.catalogMenu()
 
     def bookItemMenu(self):
-        print("\n1. Add copies\n2. Remove copies\n3. Edit copies\n4. Search bookitem and its availability\n5. Show all copies\n6. Lend a book to a member\n7. Exit -->\n")
+        print("\n1. Add copies\n2. Remove copies\n3. Edit copies\n4. Search bookitem and its availability\n5. Show all copies\n6. Lend a book to a member\n7. Check a member's loan status\n8.Exit -->\n")
         action = input("Enter a number: ")
         if action == '1':
             self.bookitem.addCopies()
@@ -124,7 +155,7 @@ class LibraryAdmin(Person):
             self.bookitem.removeCopies()
         # Edit Copies
         elif action == '3':
-            self.bookitem.editCopies()
+            self.Edit("copies")
         elif action == '4':
             self.bookitem.searchBookItem()
         elif action == '5':
@@ -132,6 +163,8 @@ class LibraryAdmin(Person):
         elif action == '6':
             self.lendBook()
         elif action == '7':
+            self.checkLoanStatus()
+        elif action == '8':
             return
         else:
             print("\nInvalid input!\n")
@@ -210,8 +243,8 @@ class Member(Person):
             self.loanBook(username)
     
     #check loan status
-    def checkLoanStatus(self):
-        self.loan.Loans()
+    def checkLoanStatus(self, username):
+        self.loan.Loans(username)
 
     def checkLoans(self, username):
         self.loan.loanStatus(username)
@@ -225,13 +258,13 @@ class Member(Person):
 
         running = True
         while running:
-            action = input("""\nFill in the action you want to execute:\n1. Search a book\n2. Loan or return a book\n3. Check loan status\n4. Search book item\n5. View all books\n6. View all book items\n7. Exit -->\n""")
+            action = input("""\nFill in the action you want to execute:\n1. Search a book\n2. Loan or return a book\n3. Check loan status\n4. Check a book's availability\n5. View all books\n6. View all book items\n7. Exit -->\n""")
             if action == '1':
                 self.findBook()
             elif action == '2':
                 self.loanBook(username)
             elif action == '3':
-                self.checkLoanStatus()
+                self.checkLoanStatus(username)
             elif action == '4':
                 self.searchBookItem()
             elif action == '5':
