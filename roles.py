@@ -209,25 +209,6 @@ class Member(Person):
     def __init__(self):
         #assign fields
         super().__init__()
-        self.book = Book()
-        self.loan = LoanAdministration()
-        self.bookitem = BookItem()
-
-    #view all booktitles
-    def viewBooktitles(self):
-        self.book.viewBooktitles()
-
-    #find book
-    def findBook(self):
-        self.book.findBook()
-
-    #Load all bookItems
-    def showAllCopies(self):
-        self.bookitem.showAllCopies()
-
-    #To search a bookItem and its availibility
-    def searchBookItem(self):
-        self.bookitem.searchBookItem()
 
     #make a loan or return a book
     def loanBook(self, username):
@@ -242,35 +223,26 @@ class Member(Person):
             print("\nInvalid input!\n")
             self.loanBook(username)
     
-    #check loan status
-    def checkLoanStatus(self, username):
-        self.loan.Loans(username)
-
-    def checkLoans(self, username):
-        self.loan.loanStatus(username)
-    
-
     #main function of member
     def run(self, username):
 
-        self.checkLoans(username)
-
+        LoanAdministration().loanStatus(username)
 
         running = True
         while running:
             action = input("""\nFill in the action you want to execute:\n1. Search a book\n2. Loan or return a book\n3. Check loan status\n4. Check a book's availability\n5. View all books\n6. View all book items\n7. Exit -->\n""")
             if action == '1':
-                self.findBook()
+                Book().findBook()
             elif action == '2':
                 self.loanBook(username)
             elif action == '3':
-                self.checkLoanStatus(username)
+                LoanAdministration().Loans(username)
             elif action == '4':
-                self.searchBookItem()
+                BookItem().searchBookItem()
             elif action == '5':
-                self.viewBooktitles()
+                Book().viewBooktitles()
             elif action == '6':
-                self.showAllCopies()
+                BookItem().showAllCopies()
             elif action == '7':
                 print("Thanks for visiting! See you next time!")
                 running = False
