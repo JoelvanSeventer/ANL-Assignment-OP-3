@@ -47,10 +47,6 @@ class LibraryAdmin(Person):
     #show all members
     def showAllMembers(self):
         self.person.showAllmembers()
-    
-    #edit a member
-    def editMember(self):
-        self.person.editmember()
 
     def Edit(self, topic):
         if topic == "member":
@@ -112,7 +108,7 @@ class LibraryAdmin(Person):
         elif action == '2':
             self.deleteMember()
         elif action == '3':
-            self.editMember()
+            self.Edit("member")
         elif action == '4':
             self.showAllMembers()
         elif action == '5':
