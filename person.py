@@ -1,260 +1,81 @@
-import csv
-
 import os
+import json
+from data import data, abs_path
+from backup import Backup
 
-
-class Person():
+class Person:
 
     def __init__(self, name, username):
-        self.name = name
-        self.surname = username
+        self.Name = name
+        self.userName = username
+
     
-    # Add new member
-    def newMember(self):
-        print("\nFill in your information below: ")
-        givenname = input("Givenname: ")
-        surname = input("Surname: ")
-        streetaddress = input("Streetaddress: ")
-        zipcode = input("Zipcode: ")
-        city = input("City: ")
-        emailaddress = input("Emailaddress: ")
-        #Fill in Username and check if available 
-        running = True
-        while running:
-            exists = False
-            correct_input = False
-            while not correct_input:
-                username = input("Username: ")
-                if username == username.lower():
-                    correct_input = True
-                    break
-                print("\nUsername must be lowercase\n")
+class LibraryAdmin(Person):
+    global data
 
-            with open("data/members.csv", "r") as f:
-                csvdata = list(csv.reader(f))
-            for user in csvdata:
-                split_user = user[0].split(';') 
-                if username == split_user[7].lower():
-                    exists = True
-                    print("This username is already in use.")
-                    break
-            if exists == False:
-                running = False
+    def __init__(self, name, username, password):
+        Person.__init__(self, name, username)
+        self.password = password
 
-        password = input("Password: ").lower()
-        telephonenumber = input("Telephonenumber: ")
+    def __str__(self):
+        return f" Name: {self.Name} \n Username: {self.userName} \n"
+    
+    def revealpassword(self):
+        print(self.password)
 
-        with open("data/members.csv", "r") as f:
-            csvdata = list(csv.reader(f))
-            index = len(csvdata)
-        data = f"\n{str(index)};{givenname};{surname};{streetaddress};{zipcode};{city};{emailaddress};{username};{password};{telephonenumber}"
-
-        with open("data/members.csv", "a", newline='') as f:
-            f.write(data)
-
-    #Search member 
-    def findmember(self):
-        with open("data/members.csv", "r") as f:
-            csvdata = list(csv.reader(f))
-        running = True
-        while running:
-            check = input("\nWith which term would you like to search?\n1. Firstname\n2. Surname\n3. Streetaddress\n4. Zipcode\n5. City\n6. Emailaddress\n7. Username\n8. Telephonenumber\n")
-            if check == '1' or check == '2' or check == '3' or check == '4' or check == '5' or check == '6' or check == '7' or check == '8':
-                running = False
-                break
-            else:
-                print("Please choose one of the terms")
-            
-        terms = ['Givenname', 'Surname', 'Streetaddress', 'Zipcode', 'City', 'Emailaddress', 'Username', 'Telephonenumber']
+    mayAddBooks = True
+    @staticmethod
+    def addMember(nameSet, customergender, customerfirstname, customerlastname, customerstreetaddress, customerzipcode, customercity, customeremailaddress, customertelephonenumber):
         
-        isfound = False
-        while isfound == False:
-            usercheck = input(f"\nFill in the {terms[int(check) - 1]}:\n").lower()
-            
-            
-            for user in csvdata:
-                split_user = user[0].split(';') 
-                if check == "1" and usercheck == split_user[1].lower():
-                    isfound = True
-                    print("\nFirstname: " + split_user[1] + "\nSurname: " + split_user[2] + "\nStreetaddress: " + split_user[3] + "\nZipcode: " + split_user[4] + "\nCity: " + split_user[5] + "\nEmailaddress: " + split_user[6] + "\nUsername: " + split_user[7] + "\nTelephonenumber: " + split_user[9])
-                    break
+        customerNumber = str(len(data['customers'])+1)
+        data['customers'].append({
+            'Number' : customerNumber,
+            'NameSet' : nameSet,
+            'Gender' : customergender,
+            'GivenName' : customerfirstname,
+            'Surname' : customerlastname,
+            'StreetAddress' : customerstreetaddress,
+            'ZipCode' : customerzipcode,
+            'City' : customercity,
+            'EmailAddress' : customeremailaddress,
+            'TelephoneNumber' : customertelephonenumber,
+            'name': customerfirstname,
+        })
+        Backup.writeJson(abs_path + '/json/customers.json', data['customers'])
 
-                if check == "2" and usercheck == split_user[2].lower():
-                    isfound = True
-                    print("\nFirstname: " + split_user[1] + "\nSurname: " + split_user[2] + "\nStreetaddress: " + split_user[3] + "\nZipcode: " + split_user[4] + "\nCity: " + split_user[5] + "\nEmailaddress: " + split_user[6] + "\nUsername: " + split_user[7] + "\nTelephonenumber: " + split_user[9])
-                    break
+    @staticmethod
+    def registerBook(author, country, imageLink, language, link, pages, title, year):
+        data['books'].append({
+            'title': title,
+            'author': author,
+            'pages': pages,
+            'year': year,
+            'country': country,
+            'language': language,
+            'imageLink': imageLink,
+            'link': link
+        })
+        Backup.writeJson(abs_path + '/json/books.json', data['books'])
 
-                if check == "3" and usercheck == split_user[3].lower():
-                    isfound = True
-                    print("\nFirstname: " + split_user[1] + "\nSurname: " + split_user[2] + "\nStreetaddress: " + split_user[3] + "\nZipcode: " + split_user[4] + "\nCity: " + split_user[5] + "\nEmailaddress: " + split_user[6] + "\nUsername: " + split_user[7] + "\nTelephonenumber: " + split_user[9])
-                    break
 
-                if check == "4" and usercheck == split_user[4].lower():
-                    isfound = True
-                    print("\nFirstname: " + split_user[1] + "\nSurname: " + split_user[2] + "\nStreetaddress: " + split_user[3] + "\nZipcode: " + split_user[4] + "\nCity: " + split_user[5] + "\nEmailaddress: " + split_user[6] + "\nUsername: " + split_user[7] + "\nTelephonenumber: " + split_user[9])
-                    break
+class Member(Person):
 
-                if check == "5" and usercheck == split_user[5].lower():
-                    isfound = True
-                    print("\nFirstname: " + split_user[1] + "\nSurname: " + split_user[2] + "\nStreetaddress: " + split_user[3] + "\nZipcode: " + split_user[4] + "\nCity: " + split_user[5] + "\nEmailaddress: " + split_user[6] + "\nUsername: " + split_user[7] + "\nTelephonenumber: " + split_user[9])
-                    break
+    def __init__(self, userNumber, gender, nameSet, givenName, surName, streetAdress, zipCode, city, emailAdress, telephoneNumber):
+        self.userNumber = userNumber
+        self.gender = gender
+        self.nameSet = nameSet
+        self.givenName = givenName
+        self.surName = surName
+        self.streetAdress = streetAdress
+        self.zipCode = zipCode
+        self.city = city
+        self.emailAdress = emailAdress
+        self.telephoneNumber = telephoneNumber
+        self.name = givenName
 
-                if check == "6" and usercheck == split_user[6].lower():
-                    isfound = True
-                    print("\nFirstname: " + split_user[1] + "\nSurname: " + split_user[2] + "\nStreetaddress: " + split_user[3] + "\nZipcode: " + split_user[4] + "\nCity: " + split_user[5] + "\nEmailaddress: " + split_user[6] + "\nUsername: " + split_user[7] + "\nTelephonenumber: " + split_user[9])
-                    break
+    def __str__(self):
+        return f"Usernumber: {self.userNumber}\nName: {self.givenName} {self.surName}\nUsername: {self.emailAdress} \n"
 
-                if check == "7" and usercheck == split_user[7].lower():
-                    isfound = True
-                    print("\nFirstname: " + split_user[1] + "\nSurname: " + split_user[2] + "\nStreetaddress: " + split_user[3] + "\nZipcode: " + split_user[4] + "\nCity: " + split_user[5] + "\nEmailaddress: " + split_user[6] + "\nUsername: " + split_user[7] + "\nTelephonenumber: " + split_user[9])
-                    break
-
-                if check == "8"and usercheck == split_user[9].lower():
-                    isfound = True
-                    print("\nFirstname: " + split_user[1] + "\nSurname: " + split_user[2] + "\nStreetaddress: " + split_user[3] + "\nZipcode: " + split_user[4] + "\nCity: " + split_user[5] + "\nEmailaddress: " + split_user[6] + "\nUsername: " + split_user[7] + "\nTelephonenumber: " + split_user[9])
-                    break
-
-            if not isfound:
-                print("\nNo member found")    
-
-    #Delete member
-    def deletemember(self):
-        with open("data/members.csv", "r") as f:
-            csvdata = list(csv.reader(f))
-
-        running = True
-        while running:
-            user_found = False
-            username = input("Please enter the username of the member you want to delete: ").lower()
-            
-            with open("data/members.csv", "w", newline='') as f:
-                writer = csv.writer(f)
-                index = 0
-                for user in csvdata:
-                    thisuser = user[0].split(';')
-                    if username == thisuser[7].lower():
-                        print("\nUser found! Deleting...\n")
-                        user_found = True
-                    elif username != thisuser[7].lower():
-                        if index == 0:
-                            writer.writerow(user)
-                            index += 1
-                        else:
-                            new_index = thisuser
-                            new_index[0] = str(index)
-                            joined_new_index = ';'.join(new_index)
-                            final_new_index = [joined_new_index]
-                            writer.writerow(final_new_index)
-                            index += 1
-            if user_found == True:
-                running = False
-            else:
-                print("\nUser not found! Please try again.\n")
-    
-    #Show all members
-    def showAllmembers(self):
-        with open("data/members.csv", "r") as f:
-            csvdata = list(csv.reader(f))
-        index = 0
-        for user in csvdata:
-            for i in user:
-                if index > 0:
-                    memlist = i.split(';')
-                    print(memlist[0] + ". " + memlist[1] + " " + memlist[2])
-                index += 1
-        
-    #Edit member
-    def editmember(self):
-        with open("data/members.csv", "r") as f:
-            csvdata = list(csv.reader(f))
-
-        check = ""
-        running = True
-        while running:
-            check = input("\nWhich term would you like to edit?\n1.Givenname\n2. Surname\n3. Streetaddress\n4. Zipcode\n5. City\n6. Emailaddress\n7. Username\n8. Telephonenumber\n")
-            if check == '1' or check == '2' or check == '3' or check == '4' or check == '5' or check == '6' or check == '7' or check == '8':
-                running = False
-                break
-            else:
-                print("Please choose one of the options.")
-
-        active = True
-        while active:
-            exists = False
-            username = input("Please enter the username of the member you want to edit: ").lower()
-            
-            with open("data/members.csv", "w", newline='') as f:
-                writer = csv.writer(f)
-                for user in csvdata:
-                    thisuser = user[0].split(';')
-                    if username != thisuser[7].lower():
-                        writer.writerow(user)
-                    if username == thisuser[7].lower():
-                        print("User found!")
-                        new_value = input("What new value do you want to insert?")
-
-                        found_user = thisuser
-                        found_user[int(check)] = new_value
-                        joined_user = ";".join(found_user)
-                        final_user = [joined_user]
-                        writer.writerow(final_user)
-                        exists = True
-            if exists:
-                print("\nSuccefully updated member ", username, "!\n")
-                active = False
-            else:
-                print("\nMember not found\n")
-                print("\nPlease enter an existing member\n")
-
-    #add list of members
-    def addListOfMembers(self):
-        filename = input("\nPlease enter the name of the file you want to add(for example: 'addmembers.csv'):")
-        filepath = self.findfile(filename, "/")
-
-        with open(filepath, "r") as f:
-            new_members = list(csv.reader(f))
-
-        with open("data/members.csv", "r") as f:
-            members = list(csv.reader(f))
-            index = len(members)
-
-        for idx, new_member in enumerate(new_members):
-            if idx != 0:
-
-                split_new_member = new_member[0].split(';')
-
-                username_taken = False
-
-                for old_member in members:
-                    split_old_member = old_member[0].split(';')
-
-                    if split_new_member[7].lower() == split_old_member[7].lower():
-                        username_taken = True
-                
-
-                if not username_taken:
-
-                    with open("data/members.csv", "a", newline='') as f:
-                        writer = csv.writer(f)
-                        split_new_member[0] = str(index)
-                        joined_new_member = ";".join(split_new_member)
-                        final_new_member = [joined_new_member]
-                        writer.writerow(final_new_member)
-                        index += 1
-                
-                else:
-                    print(f"\nMember {split_new_member[7]} already exists\n")
-                    print(f"Member {split_new_member[7]} is not added")
-               
-                
-        print("\nThe file has been added to the database.")
-    
-    def findfile(self, name, path):
-        global filepath
-        print("\nSearching for file...")
-        for dirpath, dirnames, filename in os.walk(path):
-            if name in filename:
-                print("\nFile found!")
-                filepath = os.path.join(dirpath, name)
-                return filepath
-        return "newmembers"
+    @staticmethod
+    def revealpassword(self):
+        print(self.zipCode)
