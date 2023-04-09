@@ -43,7 +43,7 @@ def loginMenu(errorMessage = ""):
             print("\nEnter login information for Member:\n")
             username = input("Enter username: ")
             password = input("Enter password: ")
-            loggedIn, currentUser, currentUserName = BE.Backup.loginMember(username, password, "members", "EmailAddress", "ZipCode")
+            loggedIn, currentUser, currentUserName = BE.Backup.loginMember(username, password, "members", "Username", "Password")
             if loggedIn:
                 RunProgram()
             else:
@@ -63,7 +63,7 @@ def loginMenu(errorMessage = ""):
         else:
             loginMenu("\nCommand not recognized, please try again.\n")
 
-def MenuLoggedIn(errorMessage = ""):
+def MenuMember(errorMessage = ""):
     global currentUser, currentUserName
     answer = ""
     possibleAnswers = ["1", "2", "9"]
@@ -80,9 +80,9 @@ def MenuLoggedIn(errorMessage = ""):
             currentUser = "guest"
             RunProgram()
         else:
-            MenuLoggedIn("\nCommand not recognized, please try again.\n\n")
+            MenuMember("\nCommand not recognized, please try again.\n\n")
 
-def MenuLibrarian(errorMessage = ""):
+def MenuLibraryAdmin(errorMessage = ""):
     global currentUser, currentUserName
     answer = ""
     possibleanswers = ["1", "2","3","4", "5", "6", "7","9"]
@@ -90,7 +90,7 @@ def MenuLibrarian(errorMessage = ""):
     while answer not in possibleanswers:
         Start()
         print(f"{errorMessage}\nWelcome, {currentUserName}. What would you like to do?")
-        print("\n 1. Add single book to database. \n 2. Add multiple books to database using JSON \n 3. To add, edit, delete or see all members\n 4. Loan books + loan administration \n 5. Load / make system backup. \n 6. Browse Books \n 7. Add members via CSV file \n 9. Logout. \n")
+        print("\n 1. To Add, edit or delete a book \n 2. To add a list of books to the catalog using JSON \n 3. To add, edit, delete or see all members\n 4. Loan books + loan administration \n 5. Load / make system backup. \n 6. To search a book in the catalog \n 7. Add members via CSV file \n 9. Logout. \n")
         answer = input(">> ")
 
         if answer == "1":
@@ -195,14 +195,14 @@ def MenuLibrarian(errorMessage = ""):
             currentUser = "guest"
             RunProgram()
         else: 
-            MenuLibrarian("\nCommand not recognized, please try again.\n")
+            MenuLibraryAdmin("\nCommand not recognized, please try again.\n")
 
 def registerMenu():
     answer = ""
     possibleAnswers = ["1", "2", "3", "4"]
 
     while answer not in possibleAnswers:
-        print("\n 1. Add a new member.\n")
+        print("\n 1. Add a new member.\n 2. Edit a member.\n 3. Delete a member.\n 4. To see a list of all members.\n 9. Return to previous menu.\n")
         answer = input(" >> ")
         if answer == "1":
             addMember()
@@ -212,8 +212,8 @@ def registerMenu():
             deleteMember()
         elif answer == "4":
             listMember()
-        else:
-            print("Command not recognized, please try again.")
+        elif answer == "9":
+            RunProgram()
 
 def addMember():
     print("Fill in the information of the member you want to add.")
@@ -256,7 +256,10 @@ def listMember():
         data = json.load(f)
 
     for member in data:
-            print(member["firstName"] + " " + member["lastName"])
+        print(member["GivenName"] + " " + member["Surname"])
+
+    x = input("\nPress any key to restart the program.")
+    RunProgram()
 
 def registerBook():
     print("To register a new book we need some information.")
@@ -287,7 +290,6 @@ def registerBook():
         else:
             print("Command not recognized, please try again.")
 
-## bookbrowser
 def BookBrowser():
         print("\nList of books\n")
 
@@ -608,18 +610,15 @@ def ImportCSV():
         a = input("Press any key to continue ...")
         # RunProgram()
 
-
-
-
 def RunProgram():
 
     global currentUser
     if currentUser == "guest":
         MenuNoLogin()
     elif currentUser == "members":
-        MenuLoggedIn()
+        MenuMember()
     elif currentUser == "libraryAdmin":
-        MenuLibrarian()
+        MenuLibraryAdmin()
     else:
         BE.clear()
         print(f"ERROR: CURRENTUSER({currentUser}) -> RUNPROGRAM METHOD")

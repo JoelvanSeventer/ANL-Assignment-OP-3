@@ -27,7 +27,7 @@ class Backup:
             for i in data[loginType]:
                 if userInput == i[nameType] and passInput == i[passwordType]:
                     loggedIn = True
-                    return (loggedIn, loginType, i["name"])
+                    return (loggedIn, loginType, i["Username"])
                 else:
                     loggedIn = False
         return (loggedIn, loginType, "guest")

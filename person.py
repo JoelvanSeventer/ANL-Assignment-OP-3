@@ -19,9 +19,6 @@ class LibraryAdmin(Person):
 
     def __str__(self):
         return f" Name: {self.Name} \n Username: {self.userName} \n"
-    
-    def revealpassword(self):
-        print(self.password)
 
     mayAddBooks = True
     @staticmethod
@@ -73,7 +70,3 @@ class Member(Person):
 
     def __str__(self):
         return f"Usernumber: {self.Number}\nName: {self.GivenName} {self.SurName}\nUsername: {self.Username} \n"
-
-    @staticmethod
-    def revealpassword(self):
-        print(self.Password)
