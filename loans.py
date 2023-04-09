@@ -41,7 +41,7 @@ class LoanAdministration():
                 total = str(end_date-start_date).removesuffix(', 0:00:00')
                 print("Currently loaned book(s):")
                 for book in data:
-                    print("Title: " + book["booktitle"])
+                    print("Title: " + book["title"])
                     print("Days left: " + total)
     
 
@@ -76,7 +76,7 @@ class LoanAdministration():
             print("#####################################################")
 
             for book in overdue_loan:
-                print("\n", book["booktitle"],", "  "\n")
+                print("\n", book["title"],", "  "\n")
                 print("#####################################################")
 
 
@@ -135,7 +135,7 @@ class LoanAdministration():
 
         for book in loans:
 
-            if book["booktitle"].lower() == titleLoan and book["username"] == username:
+            if book["title"].lower() == titleLoan and book["username"] == username:
                 print("\nYou already have this book.")
                 return
 
@@ -155,7 +155,7 @@ class LoanAdministration():
             #loan the book
             book = self.item.loanbook(titleLoan)
 
-            loan_info = {"username":username, "booktitle":book["title"], "loandate":self.datetime}
+            loan_info = {"username":username, "title":book["title"], "loandate":self.datetime}
 
             #try in case its empty
             try:
@@ -192,7 +192,7 @@ class LoanItem():
             data = json.load(f)
         
         for idx, book in enumerate(data):
-            if book["booktitle"].lower() == BookTitle_return.lower() and username == book["username"]:
+            if book["title"].lower() == BookTitle_return.lower() and username == book["username"]:
                 data.pop(idx)
                 item = book
                 break
@@ -215,7 +215,7 @@ class LoanItem():
                 jsoned_data = json.dumps(data, indent=True)
                 f.write(jsoned_data)
             
-            print(f"You've succesfully returned the book {item['booktitle']}!")
+            print(f"You've succesfully returned the book {item['title']}!")
         else:
             print("That book hasn't been loaned out!")
 

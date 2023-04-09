@@ -71,7 +71,7 @@ class Book():
             f.write(jsoned_data)
 
         #Add copies to json file
-        
+        print("Succesfully added the book!")
         self.addCopies(5, data)
     
     def addCopies(self, amount, data):
@@ -135,101 +135,69 @@ class Book():
                 f.write(jsoned_data)
 
 
-    def editBook(self):
-        bookName = input("\nFill in the name of the book you want to edit: ").lower()
+    def editBook(self, inputEdit, title, newValue):
         with open("data/books.json", "r") as f:
-            data = json.load(f)
+                    data = json.load(f)     
         for book in data:
-            if bookName == book["title"].lower():
-                oldAuthor = book["author"]
-                oldCountry = book["country"]
-                oldImageLink = book["imageLink"]
-                oldLanguage = book["language"]
-                oldLink = book["link"]
-                oldPages = book["pages"]
-                oldTitle = book["title"]
-                oldYear = book["year"]
-                
-                for index, book in enumerate(data):
-                    if bookName == book["title"].lower():
-                        break
+            if title == book["title"].lower():            
 
-                print("What do you want to edit?\n")
-                inputEdit = input("\n1. author\n2. country\n3. imagelink\n4. language\n5. link\n6. pages\n7. title\n8. year\n")
-                with open("data/books.json", "r") as f:
-                    oldData = json.load(f)
                 if inputEdit == "1":
-                    newAuthor = input("\nNew author: ")
-                    newData = {"author":newAuthor, "country":oldCountry, "imageLink":oldImageLink, "language":oldLanguage, "link":oldLink, "pages":oldPages, "title":oldTitle, "year":oldYear}
-                    with open("data/books.json", "w+") as f:
-                        oldData[index] = newData
-                        jsoned_data = json.dumps(oldData, indent=True)
-                        f.write(jsoned_data)
-                        BookItem.editCopies(self, inputEdit, bookName, newAuthor)
-                        
+                    book["author"] = newValue
+                    print("\nBook edited\n")
+                    BookItem.editCopies(self, inputEdit, title, newValue)
+                    break
+
                 elif inputEdit == "2":
-                    newCountry = input("\nNew country: ")
-                    newData = {"author":oldAuthor, "country":newCountry, "imageLink":oldImageLink, "language":oldLanguage, "link":oldLink, "pages":oldPages, "title":oldTitle, "year":oldYear}
-                    with open("data/books.json", "w+") as f:
-                        oldData[index] = newData
-                        jsoned_data = json.dumps(oldData, indent=True)
-                        f.write(jsoned_data)
-                        BookItem.editCopies(self, inputEdit, bookName, newCountry)
+                    book["country"] = newValue
+                    print("\nBook edited\n")
+                    BookItem.editCopies(self, inputEdit, title, newValue)
+                    break
 
                 elif inputEdit == "3":
-                    newImageLink = input("\nNew imageLink: ")
-                    newData = {"author":oldAuthor, "country":oldCountry, "imageLink":newImageLink, "language":oldLanguage, "link":oldLink, "pages":oldPages, "title":oldTitle, "year":oldYear}
-                    with open("data/books.json", "w+") as f:
-                        oldData[index] = newData
-                        jsoned_data = json.dumps(oldData, indent=True)
-                        f.write(jsoned_data)
-                        BookItem.editCopies(self, inputEdit, bookName, newImageLink)
+                    book["imageLink"] = newValue
+                    print("\nBook edited\n")
+                    BookItem.editCopies(self, inputEdit, title, newValue)
+                    break
 
                 elif inputEdit == "4":
-                    newLanguage = input("\nNew language: ")
-                    newData = {"author":oldAuthor, "country":oldCountry, "imagelink":oldImageLink, "language":newLanguage, "link":oldLink, "pages":oldPages, "title":oldTitle, "year":oldYear}
-                    with open("data/books.json", "w+") as f:
-                        oldData[index] = newData
-                        jsoned_data = json.dumps(oldData, indent=True)
-                        f.write(jsoned_data)
-                        BookItem.editCopies(self, inputEdit, bookName, newLanguage)
+                    book["language"] = newValue
+                    print("\nBook edited\n")
+                    BookItem.editCopies(self, inputEdit, title, newValue)
+                    break
 
                 elif inputEdit == "5":
-                    newLink = input("\nNew link: ")
-                    newData = {"author":oldAuthor, "country":oldCountry, "imagelink":oldImageLink, "language":oldLanguage, "link":newLink, "pages":oldPages, "title":oldTitle, "year":oldYear}
-                    with open("data/books.json", "w+") as f:
-                        oldData[index] = newData
-                        jsoned_data = json.dumps(oldData, indent=True)
-                        f.write(jsoned_data)
-                        BookItem.editCopies(self, inputEdit, bookName, newLink)
+                    book["link"] = newValue
+                    print("\nBook edited\n")
+                    BookItem.editCopies(self, inputEdit, title, newValue)
+                    break
 
                 elif inputEdit == "6":
-                    newPages = int(input("\nNew pages: "))
-                    newData = {"author":oldAuthor, "country":oldCountry, "imagelink":oldImageLink, "language":oldLanguage, "link":oldLink, "pages":newPages, "title":oldTitle, "year":oldYear}
-                    with open("data/books.json", "w+") as f:
-                        oldData[index] = newData
-                        jsoned_data = json.dumps(oldData, indent=True)
-                        f.write(jsoned_data)
-                        BookItem.editCopies(self, inputEdit, bookName, newPages)
+                    book["pages"] = int(newValue)
+                    print("\nBook edited\n")
+                    BookItem.editCopies(self, inputEdit, title, newValue)
+                    break
 
                 elif inputEdit == "7":
-                    newTitle = input("\nNew title: ")
-                    newData = {"author":oldAuthor, "country":oldCountry, "imagelink":oldImageLink, "language":oldLanguage, "link":oldLink, "pages":oldPages, "title":newTitle, "year":oldYear}
-                    with open("data/books.json", "w+") as f:
-                        oldData[index] = newData
-                        jsoned_data = json.dumps(oldData, indent=True)
-                        f.write(jsoned_data)
-                        BookItem.editCopies(self, inputEdit, bookName, newTitle)
-
+                    book["title"] = newValue
+                    print("\nBook edited\n")
+                    BookItem.editCopies(self, inputEdit, title, newValue)
+                    break
 
                 elif inputEdit == "8":
-                    newYear = int(input("\nNew year: "))
-                    newData = {"author":oldAuthor, "country":oldCountry, "imagelink":oldImageLink, "language":oldLanguage, "link":oldLink, "pages":oldPages, "title":oldTitle, "year":newYear}
-                    with open("data/books.json", "w+") as f:
-                        oldData[index] = newData
-                        jsoned_data = json.dumps(oldData, indent=True)
-                        f.write(jsoned_data)
-                        BookItem.editCopies(self, inputEdit, bookName, newYear)
+                    book["year"] = int(newValue)
+                    print("\nBook edited\n")
+                    BookItem.editCopies(self, inputEdit, title, newValue)
+                    break
+
+                elif inputEdit == "9":
+                    break
+
+            
+        with open("data/books.json", "w+") as f:
+            jsoned_data = json.dumps(data, indent=True)
+            f.write(jsoned_data)
+
+        print("\n\nSuccesfully edited the copies of the book!\n\n")
 
     def viewBooktitles(self):
         #View all booktitles

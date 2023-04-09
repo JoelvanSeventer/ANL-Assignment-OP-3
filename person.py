@@ -182,6 +182,8 @@ class Person():
             with open("data/members.csv", "w", newline='') as f:
                 writer = csv.writer(f)
                 for user in csvdata:
+                    if len(user) == 0:
+                        continue
                     thisuser = user[0].split(';')
                     if username != thisuser[7].lower():
                         writer.writerow(user)
