@@ -73,7 +73,7 @@ def MenuMember(errorMessage = ""):
         print(f"{errorMessage}Hi, {currentUserName}.\n\nWhat would you like to do? (type the number)\n\n 1. Browse books\n 2. Loan/Return a book\n 9. Logout\n")
         answer = input(">> ")
         if answer == "1":
-            BookBrowser()
+            searchBook()
         elif answer == "2":
             LoanMenu()
         elif answer == "9":
@@ -90,45 +90,14 @@ def MenuLibraryAdmin(errorMessage = ""):
     while answer not in possibleanswers:
         Start()
         print(f"{errorMessage}\nWelcome, {currentUserName}. What would you like to do?")
-        print("\n 1. To Add, edit or delete a book \n 2. To add a list of books to the catalog using JSON \n 3. To add, edit, delete or see all members\n 4. Loan books + loan administration \n 5. Load / make system backup. \n 6. To search a book in the catalog \n 7. Add members via CSV file \n 9. Logout. \n")
+        print("\n 1. Functions related to members\n 2. Functions related to catalog\n 3. Loan books + loan administration \n 4. Load / make system backup. \n 9. Logout. \n")
         answer = input(">> ")
 
         if answer == "1":
-            registerBook()
+            functionMember
         elif answer == "2":
-            jsonbookfile = input("Type the name of the file here to load the books from JSON : ")
-        
-            try:
-                with open(abs_path + f'//{jsonbookfile}.json') as f:
-                    jsonbookfile2 = json.load(f)
-
-                with open(abs_path + '/data/books.json', 'w') as json_file:
-                    json.dump(jsonbookfile2, json_file, indent = 4)
-
-                with open(abs_path + '/data/books.json') as f:
-                    data['books'] = json.load(f)
-
-                with open(abs_path + '/data/members.json') as f:
-                    data['members'] = json.load(f)
-
-                with open(abs_path + '/data/loanItems.json') as f:
-                    data['loanItems'] = json.load(f)
-
-                
-                for item in data['books']:
-                    AddToLoanItemsNew(item['title'], item['author'])
-                print("Load succesfull. Press any key to continue...")
-                a = input()
-                RunProgram()
-
-            except: 
-                print("Load failed! Did you enter the correct filename?")
-                a = input("Press any key to continue ...")
-                RunProgram()
-
+            functionCatalog()
         elif answer == "3":
-            registerMenu()
-        elif answer == "4":
             print("You have selected: Loan books + loan administration")
             possibleanswers = ["1", "2", "3","9"]
             answer = ""
@@ -138,18 +107,8 @@ def MenuLibraryAdmin(errorMessage = ""):
                 answer = input()
                 if answer == "1":
 
-                    LoanItemOut()
-                    # print("You have selected 1. Loan a book to a customer")
-
-
-                    # whichbook = input("Name of book: ")
-                    # dateloaned = input("Date of loan (DD-MM-YYYY): ")
-                    # datereturn = input("Expected return date(DD-MM-YYYY): ")
-                    # loanuser = input("Username to which the book will be loaned: ")
-                    # newLoanItem = BE.LoanItem(whichbook, dateloaned, datereturn, loanuser)
-
-                    # BE.LoanAdministration.loanItems.append(newLoanItem)
-                    # # BE.PublicLibrary.writeJson('json/loanItems.json',  newLoanItem.__dict__ , 'a+')
+                    lendBookItem()
+        
                 elif answer == "2":
                     ReturnLoanItem()
                     
@@ -186,32 +145,29 @@ def MenuLibraryAdmin(errorMessage = ""):
                 elif answer == "9":
                     print("Returning to previous menu...")
                     RunProgram()
-        elif answer == "6":
-            BookBrowser()
-        elif answer == "7":
-            ImportCSV()
-            RunProgram()
         elif answer == "9":
             currentUser = "guest"
             RunProgram()
         else: 
             MenuLibraryAdmin("\nCommand not recognized, please try again.\n")
 
-def registerMenu():
+def functionMember():
     answer = ""
     possibleAnswers = ["1", "2", "3", "4"]
 
     while answer not in possibleAnswers:
-        print("\n 1. Add a new member.\n 2. Edit a member.\n 3. Delete a member.\n 4. To see a list of all members.\n 9. Return to previous menu.\n")
+        print("\n 1. To see a list of all members\n 2. Add a new member\n 3. Edit a member\n 4. Delete a member\n 5. Add a list of members using a CSV file\n 9. Return to previous menu\n")
         answer = input(" >> ")
         if answer == "1":
-            addMember()
-        elif answer == "2":
-            editMember()
-        elif answer == "3":
-            deleteMember()
-        elif answer == "4":
             listMember()
+        elif answer == "2":
+            addMember()
+        elif answer == "3":
+            editMember()
+        elif answer == "4":
+            deleteMember()
+        elif answer == "5":
+            ImportCSV()
         elif answer == "9":
             RunProgram()
 
@@ -261,8 +217,40 @@ def listMember():
     x = input("\nPress any key to restart the program.")
     RunProgram()
 
-def registerBook():
-    print("To register a new book we need some information.")
+def functionCatalog():
+    answer = ""
+    possibleAnswers = ["1", "2", "3", "4"]
+
+    while answer not in possibleAnswers:
+        print("\n 1. See catalog (list of books)\n 2. Add a book\n 3. Edit a book\n 4. Delete a book\n 5. Search a book\n 6. Add a list of books using a JSON file\n 9. Return to previous menu\n")
+        answer = input(" >> ")
+        if answer == "1":
+            listBook()
+        elif answer == "2":
+            addBook()
+        elif answer == "3":
+            editBook()
+        elif answer == "4":
+            deleteBook()
+        elif answer == "5":
+            searchBook()
+        elif answer == "6":
+            importJSON()
+        elif answer == "9":
+            RunProgram()
+
+def listBook():
+    with open("data/books.json", "r") as f:
+        data = json.load(f)
+
+    for book in data:
+        print(book["Title"] + " by " + book["Author"])
+
+    x = input("\nPress any key to restart the program.")
+    RunProgram()
+
+def addBook():
+    print("To add a new book we need some information.")
     title = input("Book title -> ")
     author = input("Book Author -> ")
     pages = input("Total pages -> ")
@@ -277,20 +265,27 @@ def registerBook():
         print("\nBook was succesfully added to the database.")
     except:
         print("\nSomething went wrong. Please try again.")
-        registerBook()
+        addBook()
+
     addBook  = ""
     possibleAnswers = ["1","2"]
     while addBook not in possibleAnswers:
         addBook = input("\nDo you want to add another book?\n 1. Yes\n 2. No\n")
         if addBook == "1":
-            registerBook()
+            addBook()
         elif addBook == "2":
             print("\n")
-            RunProgram()
+            functionCatalog()
         else:
             print("Command not recognized, please try again.")
 
-def BookBrowser():
+def editBook():
+    print("hoi")
+
+def deleteBook():
+    print("hoi")
+
+def searchBook():
         print("\nList of books\n")
 
         def bookView():
@@ -398,62 +393,77 @@ def BookBrowser():
 
         bookView()
 
-def AddToLoanItemsNew(title, author):
-    newloanitemdict = {"bookItem": title, "author": author, "dateOfLoan" : "none", "dateOfReturn" : "none", "userOfItem" : "none", "isAvailable" : True}
-    for item in data['loanItems']:
-        if (item['bookItem'] == title) and (item['author'] == author) :
-            print(f"{item['bookItem']} already exists")
-            return 
+def importJSON():
+    jsonbookfile = input("Type the name of the file here to load the books from JSON : ")
+        
+    try:
+        with open(abs_path + f'//{jsonbookfile}.json') as f:
+            jsonbookfile2 = json.load(f)
 
-    data['loanItems'].append(newloanitemdict)
-    BE.Backup.writeJson(abs_path + '/json/loanItems.json', data['loanItems'])
+        with open(abs_path + '/data/books.json', 'w') as json_file:
+            json.dump(jsonbookfile2, json_file, indent = 4)
 
-def LoanMenu():
-    answer = ""
-    if currentUser == "librarians":
-        possibleanswers = ["1", "2", "3","9"]
-        while answer not in possibleanswers:
-            Start()
-            print(f"\nLoan Menu\n\n 1. Loan a book to a customer \n 2. Return a loaned book \n 3. View loan administration \n 9. Return to main menu. \n")
-            answer = input()
-            if answer == "1":
-                LoanItemOut()
-            elif answer == "2":
-                ReturnLoanItem()
-            elif answer == "3":
-                print("You have selected 3. View loan administration")
-                print("Viewing all loaned books. Press any key to continue... ")
-                a = input()
-                BE.LoanAdministration.GetInfo()
-            elif answer == "9":
-                RunProgram()
+        with open(abs_path + '/data/books.json') as f:
+            data['books'] = json.load(f)
+
+        with open(abs_path + '/data/members.json') as f:
+            data['members'] = json.load(f)
+
+        with open(abs_path + '/data/loanItems.json') as f:
+            data['loanItems'] = json.load(f)
+
+                
+        for item in data['books']:
+            AddToLoanItemsNew(item['title'], item['author'])
+        print("Load succesfull. Press any key to continue...")
+        a = input()
         RunProgram()
-    elif currentUser == "members":
-        possibleanswers = ["1", "9"]
-        while answer not in possibleanswers:
-            Start()
-            print(f"\nLoan Menu\n\n 1. Loan a book\n 2. Return a loaned book\n 9. Return to main menu.\n")
-            answer = input(">> ")
-            if answer == "1":
-                LoanItemOut()
-            elif answer == "2":
-                ReturnLoanItem()
-            elif answer == "9":
-                RunProgram()
-    elif currentUser == "guest":
-        possibleanswers = ["1", "9"]
-        while answer not in possibleanswers:
-            Start()
-            print("\nLoan Menu\n\nYou can only loan a book while logged in.\n")
-            print(f"\n 1. Log in\n 9. Return to main menu.\n")
-            if answer == "1":
-                loginMenu()
-            elif answer == "9":
-                RunProgram()
-            else:
-                x = input("\nCommand not recognized. Enter any key and try again.\n")
 
-def LoanItemOut():
+    except: 
+        print("Load failed! Did you enter the correct filename?")
+        a = input("Press any key to continue ...")
+        RunProgram()
+
+def functionBookItem():
+    answer = ""
+    possibleAnswers = ["1", "2", "3", "4"]
+
+    while answer not in possibleAnswers:
+        print("\n 1. To see a list of all book items\n 2. Add a book item\n 3. Edit a book item\n 4. Delete a book item\n 5. Search book item and its availabilty\n 6. lend a book item to member\n 9. Return to previous menu\n")
+        answer = input(" >> ")
+        if answer == "1":
+            listBookItem()
+        elif answer == "2":
+            addBookItem()
+        elif answer == "3":
+            editBookItem()
+        elif answer == "4":
+            deleteBookItem()
+        elif answer == "5":
+            searchBookItem()
+        elif answer == "6":
+            lendBookItem()
+        elif answer == "9":
+            RunProgram()
+
+def listBookItem():
+    print("\nBook Items\n")
+    for item in data['bookItems']:
+        print(f"Book ID: {item['bookID']}, Title: {item['title']}, Author: {item['author']}, Available: {item['isAvailable']}")
+
+def addBookItem():
+    print("hoi")
+
+def editBookItem():
+    print("hoi")
+
+def deleteBookItem():
+    print("hoi")
+
+def searchBookItem():
+    print("hoi")
+
+def lendBookItem():
     global currentUser, currentUserName
     Start()
     if len(data['loanItems']) == 0:
@@ -526,6 +536,61 @@ def LoanItemOut():
         print(f"This book has now been loaned to {loanerusername} from {dateLoan} untill {datereturn}")
         a = input("\nPress any key to return to the main menu.")
         RunProgram()
+
+def AddToLoanItemsNew(title, author):
+    newloanitemdict = {"bookItem": title, "author": author, "dateOfLoan" : "none", "dateOfReturn" : "none", "userOfItem" : "none", "isAvailable" : True}
+    for item in data['loanItems']:
+        if (item['bookItem'] == title) and (item['author'] == author) :
+            print(f"{item['bookItem']} already exists")
+            return 
+
+    data['loanItems'].append(newloanitemdict)
+    BE.Backup.writeJson(abs_path + '/json/loanItems.json', data['loanItems'])
+
+def LoanMenu():
+    answer = ""
+    if currentUser == "librarians":
+        possibleanswers = ["1", "2", "3","9"]
+        while answer not in possibleanswers:
+            Start()
+            print(f"\nLoan Menu\n\n 1. Loan a book to a customer \n 2. Return a loaned book \n 3. View loan administration \n 9. Return to main menu. \n")
+            answer = input()
+            if answer == "1":
+                lendBookItem()
+            elif answer == "2":
+                ReturnLoanItem()
+            elif answer == "3":
+                print("You have selected 3. View loan administration")
+                print("Viewing all loaned books. Press any key to continue... ")
+                a = input()
+                BE.LoanAdministration.GetInfo()
+            elif answer == "9":
+                RunProgram()
+        RunProgram()
+    elif currentUser == "members":
+        possibleanswers = ["1", "9"]
+        while answer not in possibleanswers:
+            Start()
+            print(f"\nLoan Menu\n\n 1. Loan a book\n 2. Return a loaned book\n 9. Return to main menu.\n")
+            answer = input(">> ")
+            if answer == "1":
+                lendBookItem()
+            elif answer == "2":
+                ReturnLoanItem()
+            elif answer == "9":
+                RunProgram()
+    elif currentUser == "guest":
+        possibleanswers = ["1", "9"]
+        while answer not in possibleanswers:
+            Start()
+            print("\nLoan Menu\n\nYou can only loan a book while logged in.\n")
+            print(f"\n 1. Log in\n 9. Return to main menu.\n")
+            if answer == "1":
+                loginMenu()
+            elif answer == "9":
+                RunProgram()
+            else:
+                x = input("\nCommand not recognized. Enter any key and try again.\n")
 
 def ReturnLoanItem():
     global currentUser, currentUserName

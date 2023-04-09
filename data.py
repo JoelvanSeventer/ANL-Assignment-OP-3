@@ -8,7 +8,7 @@ abs_path = os.path.dirname(__file__)
 data = {}
 data['members'] = []
 data['books'] = []
-data['loanItems'] = []
+data['bookItems'] = []
 data['catalog'] = []
 
 
@@ -20,11 +20,12 @@ try:
     with open(abs_path + '/data/members.json') as f:
         data['members'] = json.load(f)
 
-    with open(abs_path + '/data/loanItems.json') as f:
-        data['loanItems'] = json.load(f)
+    with open(abs_path + '/data/bookItems.json') as f:
+        data['bookItems'] = json.load(f)
 
     with open(abs_path + '/data/catalog.json') as f:
         data['catalog'] = json.load(f)
+
 
 except: 
     
@@ -41,12 +42,12 @@ except:
         with open(abs_path + '/data/members.json', 'w') as json_file:
             json.dump(data['members'], json_file, indent=4)
         
-        with open(abs_path + '/data/loanItems.json', 'w') as json_file:
-            json.dump(data['loanItems'], json_file, indent=4)
+        with open(abs_path + '/data/bookItems.json', 'w') as json_file:
+            json.dump(data['bookItems'], json_file, indent=4)
 
         with open(abs_path + '/data/catalog.json', 'w') as json_file:
             json.dump(data['catalog'], json_file, indent=4)
-        
+
 
     else:
         print("RESTORING BACKUP")
@@ -56,7 +57,7 @@ except:
         # get all files in data/backup
         files = os.listdir(abs_path + '/data/backup')
 
-        filenames = ["books", "members", "loanItems", "catalog"]
+        filenames = ["books", "members", "bookItems", "catalog"]
 
         for name in filenames:
             version = 0
