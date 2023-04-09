@@ -4,7 +4,8 @@ from backup import Backup
 from book import Book
 from loans import LoanAdministration
 from book import BookItem
-import csv 
+import backend as BE
+from data import data, abs_path
 
 class LibraryAdmin():
     def __init__(self):
@@ -177,16 +178,29 @@ class LibraryAdmin():
 
     def systemAdministrationMenu(self):
         print("\n1. Make backup\n2. Restore backup\n3. Exit -->\n")
-        action = input("Enter a number: ")
-        if action == '1':
-            self.makeBackup()
-        elif action == '2':
-            self.RestoreBackup()
-        elif action == '3':
-            return
-        else:
-            print("\nInvalid input!\n")
-            self.systemAdministrationMenu()
+        print("You have selected: 6. Load / make system backup")
+        possibleanswers = ["1", "2","9"]
+        answer = ""
+
+        while answer not in possibleanswers:
+            print(f"\n 1. Load system backup \n 2. Make system backup \n 9. Return to the main menu.\n")
+            answer = input()
+            if answer == "1":
+                BE.Backup.loadSystemBackup()
+                print("Backup loaded. Press any key to continue... ")
+                a = input()
+                self.systemAdministrationMenu()
+            elif answer == "2":
+                try:
+                    BE.Backup.backupSystem()
+                    print("Backup succesful. \nFile created as: backup.json.  ")
+                    a = input()
+                    self.systemAdministrationMenu()
+                except: 
+                    print("Backup failed. Did you enter the filename correctly?")
+            elif answer == "9":
+                print("Returning to previous menu...")
+                self.systemAdministrationMenu()
 
     def run(self):
         running = True
