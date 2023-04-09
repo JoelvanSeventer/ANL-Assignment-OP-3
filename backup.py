@@ -15,14 +15,14 @@ class Backup:
     @staticmethod
     def backupSystem():
         global data
-        with open(abs_path + '/json/backup.json', 'w') as json_file:
+        with open(abs_path + '/data/backup.json', 'w') as json_file:
             json.dump(data, json_file, indent=4)
 
     @staticmethod
-    def loginMember(userInput, passInput, loginType, nameType = "username", passwordType = "password"):
+    def loginMember(userInput, passInput, loginType, nameType = "Username", passwordType = "Password"):
         global data
         loggedIn = False
-        with open(abs_path + f'/data/{loginType}.json') as f:
+        with open(abs_path + f'/data/members.json') as f:
             data[loginType] = json.load(f)
             for i in data[loginType]:
                 if userInput == i[nameType] and passInput == i[passwordType]:
@@ -42,15 +42,18 @@ class Backup:
         else:
             loggedIn = False
         return (loggedIn, loginType, "guest")
+    
+    
+        
 
 
     @staticmethod
     def loadSystemBackup():
         global data
         filename = input("Enter backup filename here: ")
-        with open(abs_path + f'/json/{filename}.json') as f:
+        with open(abs_path + f'/data/{filename}.json') as f:
             data = json.load(f)
-            Backup.writeJson(abs_path + '/data/customers.json', data['customers'])
+            Backup.writeJson(abs_path + '/data/members.json', data['members'])
             Backup.writeJson(abs_path + '/data/loanItems.json', data['loanItems'])
             Backup.writeJson(abs_path + '/data/books.json', data['books'])
         with open(abs_path + '/data/books.json') as f:

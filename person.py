@@ -25,23 +25,22 @@ class LibraryAdmin(Person):
 
     mayAddBooks = True
     @staticmethod
-    def addMember(nameSet, customergender, customerfirstname, customerlastname, customerstreetaddress, customerzipcode, customercity, customeremailaddress, customertelephonenumber):
+    def addMember(firstname, surname, streetaddress, zipcode, city, emailaddress, username, password, telephonenumber):
         
-        customerNumber = str(len(data['customers'])+1)
-        data['customers'].append({
-            'Number' : customerNumber,
-            'NameSet' : nameSet,
-            'Gender' : customergender,
-            'GivenName' : customerfirstname,
-            'Surname' : customerlastname,
-            'StreetAddress' : customerstreetaddress,
-            'ZipCode' : customerzipcode,
-            'City' : customercity,
-            'EmailAddress' : customeremailaddress,
-            'TelephoneNumber' : customertelephonenumber,
-            'name': customerfirstname,
+        Number = str(len(data['members'])+1)
+        data['members'].append({
+            'Number' : Number,
+            'GivenName' : firstname,
+            'Surname' : surname,
+            'StreetAddress' : streetaddress,
+            'ZipCode' : zipcode,
+            'City' : city,
+            'EmailAddress' : emailaddress,
+            'Username' : username,
+            'Password' : password,
+            'TelephoneNumber' : telephonenumber,
         })
-        Backup.writeJson(abs_path + '/json/customers.json', data['customers'])
+        Backup.writeJson(abs_path + '/data/members.json', data['members'])
 
     @staticmethod
     def registerBook(author, country, imageLink, language, link, pages, title, year):
@@ -55,27 +54,26 @@ class LibraryAdmin(Person):
             'imageLink': imageLink,
             'link': link
         })
-        Backup.writeJson(abs_path + '/json/books.json', data['books'])
+        Backup.writeJson(abs_path + '/data/books.json', data['books'])
 
 
 class Member(Person):
 
-    def __init__(self, userNumber, gender, nameSet, givenName, surName, streetAdress, zipCode, city, emailAdress, telephoneNumber):
-        self.userNumber = userNumber
-        self.gender = gender
-        self.nameSet = nameSet
-        self.givenName = givenName
-        self.surName = surName
-        self.streetAdress = streetAdress
-        self.zipCode = zipCode
-        self.city = city
-        self.emailAdress = emailAdress
-        self.telephoneNumber = telephoneNumber
-        self.name = givenName
+    def __init__(self, Number, GivenName, SurName, StreetAdress, ZipCode, City, EmailAdress, Username, Password, TelephoneNumber):
+        self.Number = Number
+        self.GivenName = GivenName
+        self.SurName = SurName
+        self.StreetAdress = StreetAdress
+        self.ZipCode = ZipCode
+        self.City = City
+        self.EmailAdress = EmailAdress
+        self.Username = Username
+        self.Password = Password
+        self.TelephoneNumber = TelephoneNumber
 
     def __str__(self):
-        return f"Usernumber: {self.userNumber}\nName: {self.givenName} {self.surName}\nUsername: {self.emailAdress} \n"
+        return f"Usernumber: {self.Number}\nName: {self.GivenName} {self.SurName}\nUsername: {self.Username} \n"
 
     @staticmethod
     def revealpassword(self):
-        print(self.zipCode)
+        print(self.Password)

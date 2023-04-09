@@ -3,12 +3,13 @@ from data import data, abs_path
 import json
 import csv
 import sys
+import os
 
 
 currentUser = "guest"
 currentUserName = ""
 
-def StartScreen():
+def Start():
     BE.clear()
     print(
         "Welcome to the Public Library System\n\n"
@@ -19,7 +20,7 @@ def MenuNoLogin(errorMessage = ""):
     possibleanswers = ["1", "9"]
     answer = ""
     while answer not in possibleanswers:
-        StartScreen()
+        #Start()
         print(f"{errorMessage}Hi, What would you like to do? (type the number)\n1. Log in\n9. Exit Program\n")
         answer = input(">> ")
         if answer == "1" :
@@ -34,11 +35,11 @@ def loginMenu(errorMessage = ""):
     answer = ""
     possibleAnswers = ["1", "2"]
     while answer not in possibleAnswers:
-        StartScreen()
+        Start()
         print(f"{errorMessage}\nLogin Menu\n\n 1. Log in as Member.\n 2. Log in as LibraryAdmin.\n 9. Return to the main menu.\n")
         answer = input(">> ")
         if answer == "1":
-            StartScreen()
+            Start()
             print("\nEnter login information for Member:\n")
             username = input("Enter username: ")
             password = input("Enter password: ")
@@ -48,7 +49,7 @@ def loginMenu(errorMessage = ""):
             else:
                 loginMenu("\nLogin failed. Please try again\n")
         elif answer == "2":
-            StartScreen()
+            Start()
             print("\nEnter login information for LibraryAdmin:\n")
             username = input("Enter username: ")
             password = input("Enter password: ")
@@ -68,7 +69,7 @@ def MenuLoggedIn(errorMessage = ""):
     possibleAnswers = ["1", "2", "9"]
 
     while answer not in possibleAnswers:
-        StartScreen()
+        Start()
         print(f"{errorMessage}Hi, {currentUserName}.\n\nWhat would you like to do? (type the number)\n\n 1. Browse books\n 2. Loan/Return a book\n 9. Logout\n")
         answer = input(">> ")
         if answer == "1":
@@ -87,9 +88,9 @@ def MenuLibrarian(errorMessage = ""):
     possibleanswers = ["1", "2","3","4", "5", "6", "7","9"]
 
     while answer not in possibleanswers:
-        StartScreen()
+        Start()
         print(f"{errorMessage}\nWelcome, {currentUserName}. What would you like to do?")
-        print("\n 1. Add single book to database. \n 2. Add multiple books to database using JSON \n 3. Create new subscriber/librarian/publishing company. \n 4. Loan books + loan administration \n 5. Load / make system backup. \n 6. Browse Books \n 7. Add customers via CSV file \n 9. Logout. \n")
+        print("\n 1. Add single book to database. \n 2. Add multiple books to database using JSON \n 3. To add, edit, delete or see all members\n 4. Loan books + loan administration \n 5. Load / make system backup. \n 6. Browse Books \n 7. Add members via CSV file \n 9. Logout. \n")
         answer = input(">> ")
 
         if answer == "1":
@@ -100,18 +101,17 @@ def MenuLibrarian(errorMessage = ""):
             try:
                 with open(abs_path + f'//{jsonbookfile}.json') as f:
                     jsonbookfile2 = json.load(f)
-                with open(abs_path + '/json/books.json', 'w') as json_file:
+
+                with open(abs_path + '/data/books.json', 'w') as json_file:
                     json.dump(jsonbookfile2, json_file, indent = 4)
-                with open(abs_path + '/json/books.json') as f:
+
+                with open(abs_path + '/data/books.json') as f:
                     data['books'] = json.load(f)
 
-                with open(abs_path + '/json/customers.json') as f:
-                    data['customers'] = json.load(f)
+                with open(abs_path + '/data/members.json') as f:
+                    data['members'] = json.load(f)
 
-                with open(abs_path + '/json/librarians.json') as f:
-                    data['librarians'] = json.load(f)
-
-                with open(abs_path + '/json/loanItems.json') as f:
+                with open(abs_path + '/data/loanItems.json') as f:
                     data['loanItems'] = json.load(f)
 
                 
@@ -199,30 +199,36 @@ def MenuLibrarian(errorMessage = ""):
 
 def registerMenu():
     answer = ""
-    possibleAnswers = ["1", "2", "3"]
+    possibleAnswers = ["1", "2", "3", "4"]
 
     while answer not in possibleAnswers:
         print("\n 1. Add a new member.\n")
         answer = input(" >> ")
         if answer == "1":
             addMember()
+        elif answer == "2":
+            editMember()
+        elif answer == "3":
+            deleteMember()
+        elif answer == "4":
+            listMember()
         else:
             print("Command not recognized, please try again.")
 
 def addMember():
     print("Fill in the information of the member you want to add.")
-    language = input("Language -> ")
-    gender = input("Gender -> ")
     firstName = input("First name -> ")
     lastName = input("Last name -> ")
-    adress = input("Adress -> ")
+    address = input("Adress -> ")
     zipCode = input("ZipCode -> ")
     city = input("City -> ")
     email = input("Email -> ")
+    username = input("Username -> ")
+    password = input("Password -> ")
     phoneNumber = input("Phone number -> ")
     try:
         print("in try")
-        BE.LibraryAdmin.addMember(language, gender, firstName, lastName, adress, zipCode, city, email, phoneNumber)
+        BE.LibraryAdmin.addMember(firstName, lastName, address, zipCode, city, email, username, password, phoneNumber)
         print("\nMember added succesfully!")
     except:
         print("\nAdding member went wrong. Please try again.")
@@ -238,6 +244,19 @@ def addMember():
             RunProgram()
         else:
             print("Command not recognized, please try again.")
+
+def editMember():
+    print("hoi")
+
+def deleteMember():
+    print("hoi")
+
+def listMember():
+    with open("data/members.json", "r") as f:
+        data = json.load(f)
+
+    for member in data:
+            print(member["firstName"] + " " + member["lastName"])
 
 def registerBook():
     print("To register a new book we need some information.")
@@ -392,7 +411,7 @@ def LoanMenu():
     if currentUser == "librarians":
         possibleanswers = ["1", "2", "3","9"]
         while answer not in possibleanswers:
-            StartScreen()
+            Start()
             print(f"\nLoan Menu\n\n 1. Loan a book to a customer \n 2. Return a loaned book \n 3. View loan administration \n 9. Return to main menu. \n")
             answer = input()
             if answer == "1":
@@ -407,10 +426,10 @@ def LoanMenu():
             elif answer == "9":
                 RunProgram()
         RunProgram()
-    elif currentUser == "customers":
+    elif currentUser == "members":
         possibleanswers = ["1", "9"]
         while answer not in possibleanswers:
-            StartScreen()
+            Start()
             print(f"\nLoan Menu\n\n 1. Loan a book\n 2. Return a loaned book\n 9. Return to main menu.\n")
             answer = input(">> ")
             if answer == "1":
@@ -422,7 +441,7 @@ def LoanMenu():
     elif currentUser == "guest":
         possibleanswers = ["1", "9"]
         while answer not in possibleanswers:
-            StartScreen()
+            Start()
             print("\nLoan Menu\n\nYou can only loan a book while logged in.\n")
             print(f"\n 1. Log in\n 9. Return to main menu.\n")
             if answer == "1":
@@ -434,7 +453,7 @@ def LoanMenu():
 
 def LoanItemOut():
     global currentUser, currentUserName
-    StartScreen()
+    Start()
     if len(data['loanItems']) == 0:
         print("There are no books in the entire library. Add books first.")
         a = input("\nPress any key to return to the main menu.")
@@ -466,10 +485,10 @@ def LoanItemOut():
                 authorcheck = True
                 decidedonbook = True
         if authorcheck == False:
-            print("\nCould not find the author. Please check your spelling. ")
+            print("\nCould not find the author. Please try again.\n")
 
     else: 
-        print("\nCould not find book. Please check your spelling.\n")
+        print("\nCould not find book. Please try again\n")
         a = input(">> ")
         LoanMenu()
 
@@ -485,7 +504,7 @@ def LoanItemOut():
     if decidedonbook:
         dateLoan = input("From when will the book be loaned? (DD-MM-YYYY): ")
         datereturn = input("When does the book have to be returned? (DD-MM-YYYY): ")
-        if currentUser == "customers":
+        if currentUser == "members":
             loanerusername = currentUserName
         else:
             loanerusername = input("What is the username of the person who will loan this book?: ")
@@ -511,7 +530,7 @@ def ReturnLoanItem():
     print("\nWhich item would you like to return? ")
     targetbook = input("\nTitle of the book: ")
     
-    if currentUser == "customers":
+    if currentUser == "members":
         targetusername = currentUserName
     else:
         targetusername = input("Username: ")
@@ -524,7 +543,7 @@ def ReturnLoanItem():
     if foundbook:
         print(f"\nThis book is due on {item['dateOfReturn']}")
 
-        if currentUserName == item['userOfItem'] or currentUser == "librarians":
+        if currentUserName == item['userOfItem'] or currentUser == "libraryAdmin":
 
             availableanswers = ["1", "2"]
             answer = "" 
@@ -558,32 +577,28 @@ def ReturnLoanItem():
     else:
         print("Could not find the specified title / username combination. Did you enter the credentials correctly?")
         a = input("Press any key to continue to return to the Loan Menu.")
-
+            
 def ImportCSV():
     filename = input("What is the name of the file you are trying to import?: ") + ".csv"
 
-#0Number,1Gender,2NameSet,3GivenName,4Surname,5StreetAddress,6ZipCode,7City,8EmailAddress,9Username,10TelephoneNumber
-#1,male,Dutch,Hisham,Altink,"Borkelsedijk 53","5571 GA",Bergeijk,HishamAltink@teleworm.us,Reech1950,06-16898224
-
     try:
         with open(abs_path + f"//{filename}") as csv_file:
-            csv_reader = csv.reader(csv_file, delimiter=',')
+            csv_reader = csv.reader(csv_file, delimiter=';')
             for item in csv_reader:
-                if item[0] != "Number" and item[1] != "NameSet":
-                    data['customers'].append({
+                if item[0] != "Number" and item[1] != "GivenName":
+                    data['members'].append({
                         "Number": item[0],
-                        "NameSet": item[2],
-                        "Gender": item[1],
-                        "GivenName": item[3],
-                        "Surname": item[4],
-                        "StreetAddress": item[5],
-                        "ZipCode": item[6],
-                        "City": item[7],
-                        "EmailAddress": item[8],
-                        "TelephoneNumber": item[10],
-                        "name": item[9]
+                        "GivenName": item[1],
+                        "Surname": item[2],
+                        "StreetAddress": item[3],
+                        "ZipCode": item[4],
+                        "City": item[5],
+                        "EmailAddress": item[6],
+                        "Username": item[7],
+                        "Password": item[8],
+                        "TelephoneNumber": item[9],
                         })
-            BE.Backup.writeJson(abs_path + '/data/member.json', data['customers'])
+            BE.Backup.writeJson(abs_path + '/data/members.json', data['members'])
             print("\nMembers have been imported successfully.")
             a = input("Press any key to continue ...")
             # RunProgram()
@@ -593,7 +608,11 @@ def ImportCSV():
         a = input("Press any key to continue ...")
         # RunProgram()
 
+
+
+
 def RunProgram():
+
     global currentUser
     if currentUser == "guest":
         MenuNoLogin()
