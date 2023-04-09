@@ -365,16 +365,162 @@ def functionBookItem():
 def listBookItem():
     print("\nBook Items\n")
     for item in data['bookItems']:
-        print(f"Book ID: {item['bookID']}, Title: {item['title']}, Author: {item['author']}, Available: {item['isAvailable']}")
+        print(f"Book ID: {item['ISBN']}, Title: {item['title']}, Author: {item['author']}, Available: {item['copies']}copies")
+    RunProgram()
 
 def addBookItem():
-    print("hoi")
+    check = False
+    running = True
+
+    title = input("\nPlease enter the title of the book you would like to make copies of:\n").lower()
+
+    with open("data/bookItems.json", "r") as f:
+        alldata = json.load(f)
+
+    while running:
+        exists = False
+
+        for book in alldata:
+            if book["title"].lower() == title:
+                exists = True
+                break
+        
+        if exists:
+            running = False
+        else:
+            print("\nThat book doesn't exist.")
+            print("Please enter a existing book:\n")
+
+    running = True
+    while running:
+        invalidInput = False
+        amount = input("\nPlease enter the amount of copies you would like to make:\n")
+
+        if not amount.isnumeric():
+            invalidInput = True
+            print("\nInvalid input")
+            print("Please enter an integer\n")
+        
+        if invalidInput == False:
+            amount = int(amount)
+            running = False
+
+
+    for book in alldata:
+        if title == book["title"].lower():
+            book["copies"] += amount
+            check = True
+            break
+
+    with open("data/bookItems.json", "w+") as f:
+        jsoned_data = json.dumps(alldata, indent=True)
+        f.write(jsoned_data)
+        print(f"\nSuccesfully added {amount} copies\n")
+
+    if check == False:
+        print("That book does not exist")
+    RunProgram()
 
 def editBookItem():
-    print("hoi")
+        with open("data/bookItems.json", "r") as f:
+                data = json.load(f)
+
+        running = True
+        while running:
+            exists = False
+            title = input("\nPlease enter the title of the bookcopy you would like to edit:\n").lower()
+
+            for book in data:
+                if book["title"].lower() == title:
+                    exists = True
+                    break
+            
+            if exists:
+                running = False
+            else:
+                print("\nThat book doesn't exist.")
+                print("Please enter a existing book:\n")
+
+        inputEdit = input("\n1. Author\n2. Country\n3. Imagelink\n4. Language\n5. Link\n6. Pages\n7. Title\n8. Year\n9. Exit\n") 
+        newValue = input("Enter the new value: ")
+
+        with open("data/bookItems.json", "r") as f:
+                    data = json.load(f)     
+        for book in data:
+            if title == book["title"].lower():            
+
+                if inputEdit == "1":
+                    book["author"] = newValue
+                    break
+
+                elif inputEdit == "2":
+                    book["country"] = newValue
+                    break
+
+                elif inputEdit == "3":
+                    book["imageLink"] = newValue
+                    break
+
+                elif inputEdit == "4":
+                    book["language"] = newValue
+                    break
+
+                elif inputEdit == "5":
+                    book["link"] = newValue
+                    break
+
+                elif inputEdit == "6":
+                    book["pages"] = int(newValue)
+                    break
+
+                elif inputEdit == "7":
+                    book["title"] = newValue
+                    break
+
+                elif inputEdit == "8":
+                    book["year"] = int(newValue)
+                    break
+
+                elif inputEdit == "9":
+                    break
+
+            
+        with open("data/bookItems.json", "w+") as f:
+            jsoned_data = json.dumps(data, indent=True)
+            f.write(jsoned_data)
+
+        print("\n\nSuccesfully edited the copies of the book!\n\n")
+        RunProgram()
+
 
 def deleteBookItem():
-    print("hoi")
+    title = input("\nPlease enter the title of the book you want to remove copies from:\n")
+    copies = int(input("\nEnter the amount of copies you want to remove:\n"))
+    bookitemFound = False
+    count = 0
+    with open("data/bookItems.json", 'r') as f:
+        data = json.load(f)
+    
+    for bookitem in data:
+        if bookitem["title"].lower() == title.lower():
+            bookitemFound = True
+            if copies > bookitem["copies"]:
+                bookitem["copies"] = 0
+                break
+            else:
+                bookitem["copies"] -= copies
+                break
+            
+    if bookitemFound:
+        print("\nRemoving copies...\n")
+
+        with open('data/bookItems.json', "w+") as f:
+            jsoned_data = json.dumps(data, indent=True)
+            f.write(jsoned_data)
+        print(f"You've succesfully removed the copies of the book")
+    else:
+        print("This book does not have any copies")
+    RunProgram()
 
 def searchBookItem():
     BE.LoanAdministration.GetInfo()
