@@ -55,6 +55,6 @@ class Backup:
             data = json.load(f)
             Backup.writeJson(abs_path + '/data/members.json', data['members'])
             Backup.writeJson(abs_path + '/data/loanItems.json', data['loanItems'])
-            Backup.writeJson(abs_path + '/data/books.json', data['books'])
+            Backup.writeJson(abs_path + '/data/catalog.json', data['books'])
         with open(abs_path + '/data/books.json') as f:
         	data['books'] = json.load(f)

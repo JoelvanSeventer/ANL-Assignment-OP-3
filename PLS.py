@@ -70,12 +70,20 @@ def MenuMember(errorMessage = ""):
 
     while answer not in possibleAnswers:
         Start()
-        print(f"{errorMessage}Hi, {currentUserName}.\n\nWhat would you like to do? (type the number)\n\n 1. Browse books\n 2. Loan/Return a book\n 9. Logout\n")
+        print(f"{errorMessage}Hi, {currentUserName}.\n\nWhat would you like to do? (type the number)\n\n 1. See list of all books in catalog\n 2. Search book in catalog\n 3. See list of book items\n 4. Search book item and it's availability\n 5. Loan a book item\n 6. Return a book item\n 9. Logout\n")
         answer = input(">> ")
         if answer == "1":
-            searchBook()
+            listBook()
         elif answer == "2":
-            LoanMenu()
+            searchBook()
+        elif answer == "3":
+            listBookItem()
+        elif answer == "4":
+            searchBookItem()
+        elif answer == "5":
+            lendBookItem()
+        elif answer == "6":
+            ReturnLoanItem()
         elif answer == "9":
             currentUser = "guest"
             RunProgram()
@@ -90,7 +98,7 @@ def MenuLibraryAdmin(errorMessage = ""):
     while answer not in possibleanswers:
         Start()
         print(f"{errorMessage}\nWelcome, {currentUserName}. What would you like to do?")
-        print("\n 1. Functions related to members\n 2. Functions related to catalog\n 3. Loan books + loan administration \n 4. Load / make system backup. \n 9. Logout. \n")
+        print("\n 1. Functions related to members\n 2. Functions related to catalog\n 3. Functions related to book item\n 4. Make backup\n 5. Load backup \n 9. Logout. \n")
         answer = input(">> ")
 
         if answer == "1":
@@ -98,58 +106,35 @@ def MenuLibraryAdmin(errorMessage = ""):
         elif answer == "2":
             functionCatalog()
         elif answer == "3":
-            print("You have selected: Loan books + loan administration")
-            possibleanswers = ["1", "2", "3","9"]
-            answer = ""
-
-            while answer not in possibleanswers:
-                print(f"\n 1. Loan a book to a customer \n 2. Return a loaned book \n 3. View loan administration \n 9. Return")
-                answer = input()
-                if answer == "1":
-
-                    lendBookItem()
-        
-                elif answer == "2":
-                    ReturnLoanItem()
-                    
-                elif answer == "3":
-                    print("You have selected 3. View loan administration")
-                    print("Viewing all loaned books. Press any key to continue... ")
-                    a = input()
-                    BE.LoanAdministration.GetInfo()
-                elif answer == "9":
-                    print("Returning to previous menu...")
-                    RunProgram()
-            RunProgram()
+            functionBookItem()
+        elif answer == "4":
+            try: 
+                BE.Backup.backupSystem()
+                print("Make backup succesful.\n")
+                a = input()
+                RunProgram()
+            except:
+                print("Make Backup failed. \nPress any key to continue... ")
+                a = input()
+                RunProgram()
+                
         elif answer == "5":
-            print("You have selected: 6. Load / make system backup")
-            possibleanswers = ["1", "2","9"]
-            answer = ""
-
-            while answer not in possibleanswers:
-                print(f"\n 1. Load system backup \n 2. Make system backup \n 9. Return to the main menu.\n")
-                answer = input()
-                if answer == "1":
-                    BE.Backup.loadSystemBackup()
-                    print("Backup loaded. Press any key to continue... ")
-                    a = input()
-                    RunProgram()
-                elif answer == "2":
-                    try:
-                        BE.Backup.backupSystem()
-                        print("Backup succesful. \nFile created as: backup.json.  ")
-                        a = input()
-                        RunProgram()
-                    except: 
-                        print("Backup failed. Did you enter the filename correctly?")
-                elif answer == "9":
-                    print("Returning to previous menu...")
-                    RunProgram()
+            try: 
+                BE.Backup.loadSystemBackup()
+                print("Loaded backup succesful. Press any key to continue... ")
+                a = input()
+                RunProgram()
+            except: 
+                print("Load Backup failed. \nPress any key to continue... ")
+                a = input()
+                RunProgram()
         elif answer == "9":
             currentUser = "guest"
             RunProgram()
         else: 
             MenuLibraryAdmin("\nCommand not recognized, please try again.\n")
+
+############################################################################
 
 def functionMember():
     answer = ""
@@ -216,6 +201,8 @@ def listMember():
 
     x = input("\nPress any key to restart the program.")
     RunProgram()
+
+############################################################################
 
 def functionCatalog():
     answer = ""
@@ -285,113 +272,40 @@ def editBook():
 def deleteBook():
     print("hoi")
 
+def searchBookCatalog(value):
+    print(f"\nPlease enter the exact phrase for {value} search.")
+    answer = input("\n>> ")
+    for book in data['catalog']:
+        if answer.lower() == book[value].lower():
+            print('Title: ' + book['title'])
+            print('Author: ' + book['author'])
+            print('Total pages: ' + str(book['pages']))
+            print('Published year: ' + str(book['year']))
+            print('Language: ' + book['language'])
+            print('Country: ' + book['country'])
+            print('Cover Image link: ' + book['imageLink'])
+            print('Website link: ' + book['link'])
+    RunProgram()
+
 def searchBook():
-        print("\nList of books\n")
-
-        def bookView():
-            global bookIDCounter
-            bookIDCounter = BE.Catalog.GetInfo()
+    answer = ""
+    possibleanswers = ["1", "2", "3", "4", "5", "9"]
+    while answer not in possibleanswers:
+        print("Would you like to:\n 1. Search book by Title\n 2. Search by Author\n 3. Search by publishing year\n 4. Search by Language\n 9. Return to main menu")
+        answer = input("\n>> ")
+        if answer == "1":
+            searchBookCatalog("title")
+        elif answer == "2":
+            searchBookCatalog("author")
+        elif answer == "3":
+            searchBookCatalog("year")
+        elif answer == "4":
+            searchBookCatalog("language")
+        elif answer == "9":
+            RunProgram()
+        else:
+            print("\nInput not recognised. Please try again.")
             answer = ""
-            possibleanswers = ["1", "2", "3", "4", "5", "9"]
-            while answer not in possibleanswers:
-                print("Would you like to:\n 1. Pick a book by Book ID.\n 2. Search book by Title.\n 3. Search by Author. \n 4. Search by publishing year.\n 5. Search by Language. \n 9. Return to main menu")
-                answer = input("\n>> ")
-                if answer == "1":
-                    detailedBookView(bookIDCounter)
-                    a = input("Press any key to continue...sup")
-                elif answer == "2":
-                    searchBookCatalog("title")
-                elif answer == "3":
-                    searchBookCatalog("author")
-                elif answer == "4":
-                    searchBookCatalog("year")
-                elif answer == "5":
-                    searchBookCatalog("language")
-                elif answer == "9":
-                    RunProgram()
-                else:
-                    print("\nInput not recognised. Please try again.")
-                    answer = ""
-
-        def searchBookCatalog(value):
-            print(f"\nPlease enter the exact phrase for {value} search.")
-            answer = input("\n>> ")
-            for book in data['books']:
-                if answer.lower() == book[value].lower():
-                    print('Title: ' + book['title'])
-                    print('Author: ' + book['author'])
-                    print('Total pages: ' + str(book['pages']))
-                    print('Published year: ' + str(book['year']))
-                    print('Language: ' + book['language'])
-                    print('Country: ' + book['country'])
-                    print('Cover Image link: ' + book['imageLink'])
-                    print('Website link: ' + book['link'])
-            else:
-                print(f"\nDisplaying all search results with parameter: {value} = {answer}")
-                possibleAnswers = ["1", "2"]
-                answer = ""
-                while answer not in possibleAnswers:
-                    print("\nWhat would you like to do.\n 1. Try another search.\n 2. View all books\n")
-                    answer = input(">>")
-                    if answer == "1":
-                        bookView()
-                    elif answer == "2":
-                        bookView()
-                    else:
-                        print("Command not recognized, please try again.")
-                        answer = ""
-
-        def detailedBookView(bookIDCounter):
-            global currentUser
-            print("\nPlease pick a book by Book ID to see a more detailed view.")
-            pickedBookID = input(">> ")
-            try:
-                pickedBookID = int(pickedBookID)
-            except:
-                print("\nThis Book ID does not exist. Please try again.")
-                detailedBookView(bookIDCounter)
-            if pickedBookID > bookIDCounter:
-                print("\nThis Book ID does not exist. Please try again.")
-                detailedBookView(bookIDCounter)
-            print('Title: ' + data['books'][pickedBookID-1]['title'])
-            print('Author: ' + data['books'][pickedBookID-1]['author'])
-            print('Total pages: ' + str(data['books'][pickedBookID-1]['pages']))
-            print('Published year: ' + str(data['books'][pickedBookID-1]['year']))
-            print('Language: ' + data['books'][pickedBookID-1]['language'])
-            print('Country: ' + data['books'][pickedBookID-1]['country'])
-            print('Cover Image link: ' + data['books'][pickedBookID-1]['imageLink'])
-            print('Website link: ' + data['books'][pickedBookID-1]['link'])
-
-            if currentUser != "guest":
-                possibleAnswers = ["1", "2", "9"]
-                answer = ""
-                while answer not in possibleAnswers:
-                    print("\nWould you like to:\n 1. Loan a book\n 2. Browse books\n 9. Return to the main menu.\n")
-                    answer = input(">> ")
-                    if answer == "1":
-                        LoanMenu()
-                    elif answer == "2":
-                        bookView()
-                    elif answer == "9":
-                        RunProgram()
-                    else:
-                        print("Input not recognised. Please try again. ")
-                        answer = ""
-            else:
-                possibleAnswers = ["1", "2", "9"]
-                answer = ""
-                while answer not in possibleAnswers:
-                    print("\nWould you like to:\n 1. Browse books\n 9. Return to the main menu.\n")
-                    answer = input(">> ")
-                    if answer == "1":
-                        bookView()
-                    elif answer == "9":
-                        RunProgram()
-                    else:
-                        print("\nInput not recognised. Please try again.")
-                        answer = ""
-
-        bookView()
 
 def importJSON():
     jsonbookfile = input("Type the name of the file here to load the books from JSON : ")
@@ -400,11 +314,11 @@ def importJSON():
         with open(abs_path + f'//{jsonbookfile}.json') as f:
             jsonbookfile2 = json.load(f)
 
-        with open(abs_path + '/data/books.json', 'w') as json_file:
+        with open(abs_path + '/data/catalog.json', 'w') as json_file:
             json.dump(jsonbookfile2, json_file, indent = 4)
 
-        with open(abs_path + '/data/books.json') as f:
-            data['books'] = json.load(f)
+        with open(abs_path + '/data/catalog.json') as f:
+            data['catalog'] = json.load(f)
 
         with open(abs_path + '/data/members.json') as f:
             data['members'] = json.load(f)
@@ -413,7 +327,7 @@ def importJSON():
             data['loanItems'] = json.load(f)
 
                 
-        for item in data['books']:
+        for item in data['catalog']:
             AddToLoanItemsNew(item['title'], item['author'])
         print("Load succesfull. Press any key to continue...")
         a = input()
@@ -423,6 +337,8 @@ def importJSON():
         print("Load failed! Did you enter the correct filename?")
         a = input("Press any key to continue ...")
         RunProgram()
+
+############################################################################
 
 def functionBookItem():
     answer = ""
@@ -461,7 +377,8 @@ def deleteBookItem():
     print("hoi")
 
 def searchBookItem():
-    print("hoi")
+    BE.LoanAdministration.GetInfo()
+    RunProgram()
 
 def lendBookItem():
     global currentUser, currentUserName
@@ -502,7 +419,7 @@ def lendBookItem():
     else: 
         print("\nCould not find book. Please try again\n")
         a = input(">> ")
-        LoanMenu()
+        RunProgram()
 
 
     for item in data['loanItems']:
@@ -511,8 +428,8 @@ def lendBookItem():
         if checkvar['bookItem'] == targetbook and checkvar['author'] == targetauthor and checkvar['isAvailable'] == False:
             print("\nThis book is not available! Please return this book before trying to loan it.")
             decidedonbook = False
-            a = input("\nPress any key to return to the loan menu.")
-            LoanMenu()
+            a = input("\nPress any key to return to the menu")
+            RunProgram()
     if decidedonbook:
         dateLoan = input("From when will the book be loaned? (DD-MM-YYYY): ")
         datereturn = input("When does the book have to be returned? (DD-MM-YYYY): ")
@@ -537,6 +454,8 @@ def lendBookItem():
         a = input("\nPress any key to return to the main menu.")
         RunProgram()
 
+############################################################################
+
 def AddToLoanItemsNew(title, author):
     newloanitemdict = {"bookItem": title, "author": author, "dateOfLoan" : "none", "dateOfReturn" : "none", "userOfItem" : "none", "isAvailable" : True}
     for item in data['loanItems']:
@@ -546,51 +465,6 @@ def AddToLoanItemsNew(title, author):
 
     data['loanItems'].append(newloanitemdict)
     BE.Backup.writeJson(abs_path + '/json/loanItems.json', data['loanItems'])
-
-def LoanMenu():
-    answer = ""
-    if currentUser == "librarians":
-        possibleanswers = ["1", "2", "3","9"]
-        while answer not in possibleanswers:
-            Start()
-            print(f"\nLoan Menu\n\n 1. Loan a book to a customer \n 2. Return a loaned book \n 3. View loan administration \n 9. Return to main menu. \n")
-            answer = input()
-            if answer == "1":
-                lendBookItem()
-            elif answer == "2":
-                ReturnLoanItem()
-            elif answer == "3":
-                print("You have selected 3. View loan administration")
-                print("Viewing all loaned books. Press any key to continue... ")
-                a = input()
-                BE.LoanAdministration.GetInfo()
-            elif answer == "9":
-                RunProgram()
-        RunProgram()
-    elif currentUser == "members":
-        possibleanswers = ["1", "9"]
-        while answer not in possibleanswers:
-            Start()
-            print(f"\nLoan Menu\n\n 1. Loan a book\n 2. Return a loaned book\n 9. Return to main menu.\n")
-            answer = input(">> ")
-            if answer == "1":
-                lendBookItem()
-            elif answer == "2":
-                ReturnLoanItem()
-            elif answer == "9":
-                RunProgram()
-    elif currentUser == "guest":
-        possibleanswers = ["1", "9"]
-        while answer not in possibleanswers:
-            Start()
-            print("\nLoan Menu\n\nYou can only loan a book while logged in.\n")
-            print(f"\n 1. Log in\n 9. Return to main menu.\n")
-            if answer == "1":
-                loginMenu()
-            elif answer == "9":
-                RunProgram()
-            else:
-                x = input("\nCommand not recognized. Enter any key and try again.\n")
 
 def ReturnLoanItem():
     global currentUser, currentUserName
@@ -610,40 +484,33 @@ def ReturnLoanItem():
     if foundbook:
         print(f"\nThis book is due on {item['dateOfReturn']}")
 
-        if currentUserName == item['userOfItem'] or currentUser == "libraryAdmin":
+        availableanswers = ["1", "2"]
+        answer = "" 
+        while answer not in availableanswers:
+            print("Are you sure you want to return the book now? \n 1. Yes\n 2. No")
+            answer = input()
+            if answer == "1":
+                print("\nOK, returning book.")
+                try: 
+                    jsontopy = data['loanItems']
+                    for item in jsontopy: 
+                        if item['bookItem'].lower() == targetbook.lower() and item['userOfItem'] == targetusername:
+                            item['dateOfLoan'] = "none"
+                            item['dateOfReturn'] = "none"
+                            item['userOfItem'] = "none"
+                            item['isAvailable'] = True
 
-            availableanswers = ["1", "2"]
-            answer = "" 
-            while answer not in availableanswers:
-                print("Are you sure you want to return the book now? \n 1. Yes\n 2. No")
-                answer = input()
-                if answer == "1":
-                    print("\nOK, returning book.")
-                    try: 
-                        jsontopy = data['loanItems']
-                        for item in jsontopy: 
-                            if item['bookItem'].lower() == targetbook.lower() and item['userOfItem'] == targetusername:
-                                item['dateOfLoan'] = "none"
-                                item['dateOfReturn'] = "none"
-                                item['userOfItem'] = "none"
-                                item['isAvailable'] = True
-
-                                with open(abs_path + '/json/loanItems.json', 'w') as outfile:
-                                    json.dump(jsontopy, outfile, indent = 4)
-                    except: 
-                        print("Something went horribly wrong. Please contact the servicedesk.")
-
+                            with open(abs_path + '/json/loanItems.json', 'w') as outfile:
+                                json.dump(jsontopy, outfile, indent = 4)
+                except: 
+                    print("Something went wrong. Try again.")
                     a = input("Press any key to continue ...")
-                elif answer == "2":
-                    print("OK, not returning book. Heading back to main menu")
-                    a = input("Press any key to continue ...")
-        else:
-            print("\nSorry you are not a librarian nor the user who has loaned this book. Therefor you can not return this book.")
-            x = input("\nPress any key to return to the loan menu.")
-            LoanMenu()
+            elif answer == "2":
+                print("OK, not returning book. Heading back to main menu")
+                a = input("Press any key to continue ...")
     else:
         print("Could not find the specified title / username combination. Did you enter the credentials correctly?")
-        a = input("Press any key to continue to return to the Loan Menu.")
+        a = input("Press any key to continue to return to the Menu.")
             
 def ImportCSV():
     filename = input("What is the name of the file you are trying to import?: ") + ".csv"

@@ -7,16 +7,13 @@ abs_path = os.path.dirname(__file__)
 
 data = {}
 data['members'] = []
-data['books'] = []
 data['bookItems'] = []
 data['catalog'] = []
+data['loanItems'] = []
 
 
 try:
     
-    with open(abs_path + '/data/books.json') as f:
-        data['books'] = json.load(f) 
-
     with open(abs_path + '/data/members.json') as f:
         data['members'] = json.load(f)
 
@@ -25,6 +22,9 @@ try:
 
     with open(abs_path + '/data/catalog.json') as f:
         data['catalog'] = json.load(f)
+
+    with open(abs_path + '/data/loanItems.json') as f:
+        data['loanItems'] = json.load(f)
 
 
 except: 
@@ -35,10 +35,6 @@ except:
         # create new directory named "data"
         os.mkdir(abs_path + '/data')
         
-        #init json files of variable "data"
-        with open(abs_path + '/data/books.json', 'w') as json_file:
-            json.dump(data['books'], json_file, indent=4)
-        
         with open(abs_path + '/data/members.json', 'w') as json_file:
             json.dump(data['members'], json_file, indent=4)
         
@@ -47,6 +43,9 @@ except:
 
         with open(abs_path + '/data/catalog.json', 'w') as json_file:
             json.dump(data['catalog'], json_file, indent=4)
+
+        with open(abs_path + '/data/loanItems.json', 'w') as json_file:
+            json.dump(data['loanItems'], json_file, indent=4)
 
 
     else:
@@ -57,7 +56,7 @@ except:
         # get all files in data/backup
         files = os.listdir(abs_path + '/data/backup')
 
-        filenames = ["books", "members", "bookItems", "catalog"]
+        filenames = ["members", "bookItems", "catalog"]
 
         for name in filenames:
             version = 0

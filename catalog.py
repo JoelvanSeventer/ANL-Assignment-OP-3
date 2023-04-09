@@ -7,7 +7,7 @@ class Catalog:
     @staticmethod
     def GetInfo():
         bookIDCounter = 0
-        for book in data['books']:
+        for book in data['catalog']:
             bookIDCounter += 1
             print(f"Book ID: {bookIDCounter}")
             print('Title: ' + book['title'])
