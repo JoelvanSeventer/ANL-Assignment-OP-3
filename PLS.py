@@ -367,7 +367,7 @@ def functionBookItem():
 def listBookItem():
     print("\nBook Items\n")
     for item in data['bookItems']:
-        print(f"Book ID: {item['ISBN']}, Title: {item['title']}, Author: {item['author']}, Available: {item['copies']}copies")
+        print(f"Book ID: {item['ISBN']}, Title: {item['title']}, Author: {item['author']}, Available: {item['copies']} copies")
     x = input("\nPress any key to restart the program.")
     RunProgram()
 
