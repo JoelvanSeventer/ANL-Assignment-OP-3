@@ -102,7 +102,7 @@ def MenuLibraryAdmin(errorMessage = ""):
         answer = input(">> ")
 
         if answer == "1":
-            functionMember
+            functionMember()
         elif answer == "2":
             functionCatalog()
         elif answer == "3":
@@ -231,7 +231,7 @@ def listBook():
         data = json.load(f)
 
     for book in data:
-        print(book["Title"] + " by " + book["Author"])
+        print(book["title"] + " by " + book["author"])
 
     x = input("\nPress any key to restart the program.")
     RunProgram()
@@ -239,7 +239,7 @@ def listBook():
 def addBook():
     print("To add a new book we need some information.")
     title = input("Book title -> ")
-    author = input("Book Author -> ")
+    author = input("Book author -> ")
     pages = input("Total pages -> ")
     year = input("Publishing year -> ")
     country = input("Country -> ")
@@ -275,32 +275,34 @@ def deleteBook():
 def searchBookCatalog(value):
     print(f"\nPlease enter the exact phrase for {value} search.")
     answer = input("\n>> ")
-    for book in data['catalog']:
-        if answer.lower() == book[value].lower():
-            print('Title: ' + book['title'])
-            print('Author: ' + book['author'])
-            print('Total pages: ' + str(book['pages']))
-            print('Published year: ' + str(book['year']))
-            print('Language: ' + book['language'])
-            print('Country: ' + book['country'])
-            print('Cover Image link: ' + book['imageLink'])
-            print('Website link: ' + book['link'])
-    RunProgram()
+    try: 
+        for book in data['catalog']:
+            if answer.lower() in book[value].lower():
+                print('Title: ' + book['title'])
+                print('Author: ' + book['author'])
+                print('Total pages: ' + str(book['pages']))
+                print('Published year: ' + str(book['year']))
+                print('Language: ' + book['language'])
+                print('Country: ' + book['country'])
+                print('Cover Image link: ' + book['imageLink'])
+                print('Website link: ' + book['link'])
+        
+        x = input("\nPress any key to restart the program.")
+        RunProgram()
+    except: 
+        print('Something went wrong. Please try again.')
+        RunProgram()
 
 def searchBook():
     answer = ""
     possibleanswers = ["1", "2", "3", "4", "5", "9"]
     while answer not in possibleanswers:
-        print("Would you like to:\n 1. Search book by Title\n 2. Search by Author\n 3. Search by publishing year\n 4. Search by Language\n 9. Return to main menu")
+        print("Would you like to:\n 1. Search book by Title\n 2. Search by Author\n 9. Return to main menu")
         answer = input("\n>> ")
         if answer == "1":
             searchBookCatalog("title")
         elif answer == "2":
             searchBookCatalog("author")
-        elif answer == "3":
-            searchBookCatalog("year")
-        elif answer == "4":
-            searchBookCatalog("language")
         elif answer == "9":
             RunProgram()
         else:
@@ -366,6 +368,7 @@ def listBookItem():
     print("\nBook Items\n")
     for item in data['bookItems']:
         print(f"Book ID: {item['ISBN']}, Title: {item['title']}, Author: {item['author']}, Available: {item['copies']}copies")
+    x = input("\nPress any key to restart the program.")
     RunProgram()
 
 def addBookItem():
