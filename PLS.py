@@ -254,11 +254,11 @@ def addBook():
         print("\nSomething went wrong. Please try again.")
         addBook()
 
-    addBook  = ""
+    addbook = ""
     possibleAnswers = ["1","2"]
-    while addBook not in possibleAnswers:
-        addBook = input("\nDo you want to add another book?\n 1. Yes\n 2. No\n")
-        if addBook == "1":
+    while addbook not in possibleAnswers:
+        addbook = input("\nDo you want to add another book?\n 1. Yes\n 2. No\n")
+        if addbook == "1":
             addBook()
         elif addBook == "2":
             print("\n")
