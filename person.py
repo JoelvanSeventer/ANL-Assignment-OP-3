@@ -40,9 +40,13 @@ class LibraryAdmin(Person):
         Backup.writeJson(abs_path + '/data/members.json', data['members'])
 
     @staticmethod
-    def editMember(edit):
-        
-
+    def editMember(inputName, edit):
+        for member in data['members']:
+            if inputName == member["GivenName"].lower() + " " + member["Surname"].lower():
+                member[edit] = input("Enter new " + edit + ": ")
+                Backup.writeJson(abs_path + '/data/members.json', data['members'])
+                return True
+        return False
 
     @staticmethod
     def registerBook(author, country, imageLink, language, link, pages, title, year):

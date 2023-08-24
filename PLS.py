@@ -217,7 +217,7 @@ def editMember():
     elif inp == "9":
         edit = "TelephoneNumber"
     try: 
-        BE.LibraryAdmin.editMember(edit)
+        BE.LibraryAdmin.editMember(inputName, edit)
         print("Member edited succesfully!")
     except:
         print("Something went wrong. Please try again.")
