@@ -219,6 +219,7 @@ def editMember():
     try: 
         BE.LibraryAdmin.editMember(inputName, edit)
         print("Member edited succesfully!")
+        RunProgram()
     except:
         print("Something went wrong. Please try again.")
         editMember()
