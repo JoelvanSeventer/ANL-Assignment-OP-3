@@ -189,6 +189,7 @@ def editMember():
     while True:
         inputName = input("Enter the first and lastname of the member you want to edit: ")
         if findMember(inputName):
+            print("Member found!")
             break
         else:
             print("Member not found. Please try again.")
@@ -237,7 +238,13 @@ def listMember():
     RunProgram()
 
 def findMember(member):
-    uui
+    with open("data/members.json", "r") as f:
+        data = json.load(f)
+
+    for item in data:
+        if member.lower() == item["GivenName"].lower() + " " + item["Surname"].lower():
+            return True
+    return False
 
 ############################################################################
 
