@@ -168,7 +168,6 @@ def addMember():
     password = input("Password -> ")
     phoneNumber = input("Phone number -> ")
     try:
-        print("in try")
         BE.LibraryAdmin.addMember(firstName, lastName, address, zipCode, city, email, username, password, phoneNumber)
         print("\nMember added succesfully!")
     except:
@@ -187,7 +186,42 @@ def addMember():
             print("Command not recognized, please try again.")
 
 def editMember():
-    print("hoi")
+    while True:
+        inputName = input("Enter the first and lastname of the member you want to edit: ")
+        if findMember(inputName):
+            break
+        else:
+            print("Member not found. Please try again.")
+
+    print("Choose the information you want to edit of the member.\n")
+    print("1. First name\n2. Last name\n3. Address\n4. ZipCode\n5. City\n6. Email\n7. Username\n8. Password\n9. Phone number\n")
+    inp = input(">> ")
+    edit = ""
+    if inp == "1":
+        edit = "GivenName"
+    elif inp == "2":
+        edit = "Surname"
+    elif inp == "3":
+        edit = "StreetAddress"
+    elif inp == "4":
+        edit = "ZipCode"
+    elif inp == "5":
+        edit = "City"
+    elif inp == "6":
+        edit = "EmailAddress"
+    elif inp == "7":
+        edit = "Username"
+    elif inp == "8":
+        edit = "Password"
+    elif inp == "9":
+        edit = "TelephoneNumber"
+    try: 
+        BE.LibraryAdmin.editMember(edit)
+        print("Member edited succesfully!")
+    except:
+        print("Something went wrong. Please try again.")
+        editMember()
+        
 
 def deleteMember():
     print("hoi")
@@ -201,6 +235,9 @@ def listMember():
 
     x = input("\nPress any key to restart the program.")
     RunProgram()
+
+def findMember(member):
+    uui
 
 ############################################################################
 

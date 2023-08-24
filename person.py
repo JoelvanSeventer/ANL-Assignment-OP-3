@@ -40,8 +40,13 @@ class LibraryAdmin(Person):
         Backup.writeJson(abs_path + '/data/members.json', data['members'])
 
     @staticmethod
+    def editMember(edit):
+        
+
+
+    @staticmethod
     def registerBook(author, country, imageLink, language, link, pages, title, year):
-        data['books'].append({
+        data['catalog'].append({
             'title': title,
             'author': author,
             'pages': pages,
@@ -51,7 +56,7 @@ class LibraryAdmin(Person):
             'imageLink': imageLink,
             'link': link
         })
-        Backup.writeJson(abs_path + '/data/books.json', data['books'])
+        Backup.writeJson(abs_path + '/data/catalog.json', data['books'])
 
 
 class Member(Person):
