@@ -173,13 +173,13 @@ def addMember():
     except:
         print("\nAdding member went wrong. Please try again.")
         addMember()
-    addMember = ""
+    menu = ""
     possibleAnswers = ["1","2"]
-    while addMember not in possibleAnswers:
-        addMember = input("\nDo you want to add another member?\n 1. Yes\n 2. No\n")
-        if addMember == "1":
+    while menu not in possibleAnswers:
+        menu = input("\nDo you want to add another member?\n 1. Yes\n 2. No\n")
+        if menu == "1":
             addMember()
-        elif addMember == "2":
+        elif menu == "2":
             print("\n")
             RunProgram()
         else:
@@ -227,15 +227,26 @@ def editMember():
     try: 
         BE.LibraryAdmin.editMember(inputName, edit)
         print("Member edited succesfully!")
-        RunProgram()
     except:
         print("Something went wrong. Please try again.")
         editMember()
+
+    menu = ""
+    possibleAnswers = ["1","2"]
+    while menu not in possibleAnswers:
+        menu = input("\nDo you want to edit another member?\n 1. Yes\n 2. No\n")
+        if menu == "1":
+            editMember()
+        elif menu == "2":
+            print("\n")
+            RunProgram()
+        else:
+            print("Command not recognized, please try again.")
         
 
 def deleteMember():
     while True:
-        inputName = input("Enter the first and lastname of the member you want to edit: ")
+        inputName = input("Enter the first and lastname of the member you want to delete: ")
         if findMember(inputName):
             print("Member found!")
             break
@@ -248,15 +259,26 @@ def deleteMember():
                 RunProgram()
             else:
                 print("Command not recognized, please try again.")
-                deleteMember()          
+                deleteMember()  
 
     try:
         BE.LibraryAdmin.deleteMember(inputName)
         print("Member deleted succesfully!")
-        RunProgram()
     except:
         print("Something went wrong. Please try again.")
         deleteMember()
+
+    menu = ""
+    possibleAnswers = ["1","2"]
+    while menu not in possibleAnswers:
+        menu = input("\nDo you want to delete another member?\n 1. Yes\n 2. No\n")
+        if menu == "1":
+            deleteMember()
+        elif menu == "2":
+            print("\n")
+            RunProgram()
+        else:
+            print("Command not recognized, please try again.")
 
 def listMember():
     with open("data/members.json", "r") as f:

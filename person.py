@@ -47,6 +47,15 @@ class LibraryAdmin(Person):
                 Backup.writeJson(abs_path + '/data/members.json', data['members'])
                 return True
         return False
+    
+    @staticmethod 
+    def deleteMember(inputName):
+        for member in data['members']:
+            if inputName == member["GivenName"].lower() + " " + member["Surname"].lower():
+                data['members'].remove(member)
+                Backup.writeJson(abs_path + '/data/members.json', data['members'])
+                return True
+        return False
 
     @staticmethod
     def registerBook(author, country, imageLink, language, link, pages, title, year):
