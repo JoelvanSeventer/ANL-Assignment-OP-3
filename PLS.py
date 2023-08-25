@@ -192,7 +192,15 @@ def editMember():
             print("Member found!")
             break
         else:
-            print("Member not found. Please try again.")
+            print("Member not found. Press 1 to try again or press 2 to return to the main menu.")
+            inp = input(">> ")
+            if inp == "1":
+                continue
+            elif inp == "2":
+                RunProgram()
+            else:
+                print("Command not recognized, please try again.")
+                editMember()    
 
     print("Choose the information you want to edit of the member.\n")
     print("1. First name\n2. Last name\n3. Address\n4. ZipCode\n5. City\n6. Email\n7. Username\n8. Password\n9. Phone number\n")
@@ -226,7 +234,29 @@ def editMember():
         
 
 def deleteMember():
-    print("hoi")
+    while True:
+        inputName = input("Enter the first and lastname of the member you want to edit: ")
+        if findMember(inputName):
+            print("Member found!")
+            break
+        else:
+            print("Member not found. Press 1 to try again or press 2 to return to the main menu.")
+            inp = input(">> ")
+            if inp == "1":
+                continue
+            elif inp == "2":
+                RunProgram()
+            else:
+                print("Command not recognized, please try again.")
+                deleteMember()          
+
+    try:
+        BE.LibraryAdmin.deleteMember(inputName)
+        print("Member deleted succesfully!")
+        RunProgram()
+    except:
+        print("Something went wrong. Please try again.")
+        deleteMember()
 
 def listMember():
     with open("data/members.json", "r") as f:
