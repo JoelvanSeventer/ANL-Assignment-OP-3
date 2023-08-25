@@ -364,7 +364,32 @@ def addBook():
             print("Command not recognized, please try again.")
 
 def editBook():
-    print("hoi")
+    answer = ""
+    possibleanswers = ["1", "2", "9"]
+    while answer not in possibleanswers:
+        print("Would you like to:\n 1. Search book by Title\n 2. Search by Author\n 9. Return to main menu")
+        answer = input("\n>> ")
+        if answer == "1":
+            title = input("\nPlease enter the title of the book you want to edit:\n")
+            try: 
+                for book in data['catalog']:
+                    if answer.lower() in book[title].lower():
+                        print("What would you like to edit? 1. Author\n2. Country\n3. Imagelink\n4. Language\n5. Link\n6. Pages\n7. Title\n8. Year\n9. Exit")
+                        inputEdit = input(">> ")
+                        newValue = input("Enter the new value: ")
+                        
+
+            except:
+                print('Something went wrong. Please try again.')
+                RunProgram()
+
+        elif answer == "2":
+            author = input("\nPlease enter the author of the book you want to edit:\n")
+        elif answer == "9":
+            RunProgram()
+        else:
+            print("\nInput not recognised. Please try again.")
+            answer = ""
 
 def deleteBook():
     print("hoi")
@@ -392,7 +417,7 @@ def searchBookCatalog(value):
 
 def searchBook():
     answer = ""
-    possibleanswers = ["1", "2", "3", "4", "5", "9"]
+    possibleanswers = ["1", "2", "9"]
     while answer not in possibleanswers:
         print("Would you like to:\n 1. Search book by Title\n 2. Search by Author\n 9. Return to main menu")
         answer = input("\n>> ")
@@ -528,7 +553,7 @@ def editBookItem():
         running = True
         while running:
             exists = False
-            title = input("\nPlease enter the title of the bookcopy you would like to edit:\n").lower()
+            title = input("\nPlease enter the title of the book item you would like to edit:\n").lower()
 
             for book in data:
                 if book["title"].lower() == title:
