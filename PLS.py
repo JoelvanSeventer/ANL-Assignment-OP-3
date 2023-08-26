@@ -798,33 +798,29 @@ def availableBookItem():
             answer = input("\n>> ")
             if answer == "1":
                 try:
-                    title = input("\nPlease enter the title of the book you want to delete:\n")
+                    title = input("\nPlease enter the author of the book you want to see the availability of:\n")
                     for book in data['bookItems']:
                         if title.lower() in book["title"].lower():
                             print('\nTitle: ' + book['title'])
                             print('Author: ' + book['author'])
                             if book["copies"] > 0:
                                 print("Book is available")
-                                break
                             elif book["copies"] == 0:
                                 print("Book is not available")
-                                break
                 except:
                     print('Something went wrong. Please try again.')
                     RunProgram()
             elif answer == "2":
                 try: 
-                    author = input("\nPlease enter the author of the book you want to delete:\n")
+                    author = input("\nPlease enter the author of the book you want to see the availability of:\n")
                     for book in data['bookItems']:
                         if author.lower() in book["author"].lower():
                             print('\nTitle: ' + book['title'])
                             print('Author: ' + book['author'])
                             if book["copies"] > 0:
                                 print("Book is available")
-                                break
                             elif book["copies"] == 0:
                                 print("Book is not available")
-                                break
                 except:
                     print('Something went wrong. Please try again.')
                     RunProgram()
