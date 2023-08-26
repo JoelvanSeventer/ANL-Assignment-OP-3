@@ -651,7 +651,7 @@ def functionBookItem():
         elif answer == "4":
             deleteBookItem()
         elif answer == "5":
-            searchBookItem()
+            availableBookItem()
         elif answer == "6":
             lendBookItem()
         elif answer == "9":
