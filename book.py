@@ -3,7 +3,7 @@ import json
 from data import data, abs_path
 
 class Book:
-    def __init__(self, author, country, imageLink, language, link, pages, title, year):
+    def __init__(self, author, country, imageLink, language, link, pages, title, ISBN, year):
         self.author = author
         self.country = country
         self.imageLink = imageLink
@@ -11,7 +11,8 @@ class Book:
         self.link = link
         self.pages = pages
         self.title = title
+        self.ISBN = ISBN
         self.year = year
     
     def GetInfo(self):
-        print(f"Title: {self.title}\nAuthor: {self.author}\nCountry: {self.country}\nLanguage: {self.language}\nYear: {self.year}\nPages: {self.pages}\nLink: {self.link}\nImage link: {self.imageLink}")
+        print(f"Title: {self.title}\nAuthor: {self.author}\nCountry: {self.country}\nLanguage: {self.language}\nYear: {self.year}\nPages: {self.pages}\nLink: {self.link}\nImage link: {self.imageLink}\nISBN: {self.ISBN}\n")
