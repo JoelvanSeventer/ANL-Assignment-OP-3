@@ -325,7 +325,7 @@ def functionCatalog():
             RunProgram()
 
 def listBook():
-    with open("data/books.json", "r") as f:
+    with open("data/catalog.json", "r") as f:
         data = json.load(f)
 
     for book in data:
