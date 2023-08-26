@@ -82,8 +82,6 @@ class LibraryAdmin(Person):
         return False
 
 
-
-
 class Member(Person):
 
     def __init__(self, Number, GivenName, SurName, StreetAdress, ZipCode, City, EmailAdress, Username, Password, TelephoneNumber):
