@@ -549,6 +549,18 @@ def deleteBook():
             else:
                 print("\nInput not recognised. Please try again.")
                 answer = ""
+
+        editbook = ""
+        possibleAnswers = ["1","2"]
+        while editbook not in possibleAnswers:
+            editbook = input("\nDo you want to delete another book?\n 1. Yes\n 2. No\n")
+            if editbook == "1":
+                deleteBook()
+            elif editbook == "2":
+                print("\n")
+                functionCatalog()
+            else:
+                print("Command not recognized, please try again.")
     except:
         print('Something went wrong. Please try again.')
         RunProgram()
