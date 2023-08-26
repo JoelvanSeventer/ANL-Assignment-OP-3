@@ -376,33 +376,40 @@ def editBook():
                     if title.lower() in book["title"].lower():
                         print("What would you like to edit? 1. Author\n2. Country\n3. Imagelink\n4. Language\n5. Link\n6. Pages\n7. Title\n8. Year\n9. Exit")
                         inputEdit = input(">> ")
-                        newValue = input("Enter the new value: ")
                         if inputEdit == "1":
+                            newValue = input("Enter the new value: ")
                             book["author"] = newValue
                             break
                         elif inputEdit == "2":
+                            newValue = input("Enter the new value: ")
                             book["country"] = newValue
                             break
                         elif inputEdit == "3":
+                            newValue = input("Enter the new value: ")
                             book["imageLink"] = newValue
                             break
                         elif inputEdit == "4":
+                            newValue = input("Enter the new value: ")
                             book["language"] = newValue
                             break
                         elif inputEdit == "5":
+                            newValue = input("Enter the new value: ")
                             book["link"] = newValue
                             break
                         elif inputEdit == "6":
+                            newValue = input("Enter the new value: ")
                             book["pages"] = int(newValue)
                             break
                         elif inputEdit == "7":
+                            newValue = input("Enter the new value: ")
                             book["title"] = newValue
                             break
                         elif inputEdit == "8":
+                            newValue = input("Enter the new value: ")
                             book["year"] = int(newValue)
                             break
                         elif inputEdit == "9":
-                            break
+                            editBook()
                 print("\n\nSuccesfully edited the book!\n\n")
                 editbook = ""
                 possibleAnswers = ["1","2"]
@@ -428,33 +435,40 @@ def editBook():
                         print('Author: ' + book['author'])
                         print("\nWhat would you like to edit? 1. Author\n2. Country\n3. Imagelink\n4. Language\n5. Link\n6. Pages\n7. Title\n8. Year\n9. Exit\n")
                         inputEdit = input(">> ")
-                        newValue = input("Enter the new value: ")
                         if inputEdit == "1":
+                            newValue = input("Enter the new value: ")
                             book["author"] = newValue
                             break
                         elif inputEdit == "2":
+                            newValue = input("Enter the new value: ")
                             book["country"] = newValue
                             break
                         elif inputEdit == "3":
+                            newValue = input("Enter the new value: ")
                             book["imageLink"] = newValue
                             break
                         elif inputEdit == "4":
+                            newValue = input("Enter the new value: ")
                             book["language"] = newValue
                             break
                         elif inputEdit == "5":
+                            newValue = input("Enter the new value: ")
                             book["link"] = newValue
                             break
                         elif inputEdit == "6":
+                            newValue = input("Enter the new value: ")
                             book["pages"] = int(newValue)
                             break
                         elif inputEdit == "7":
+                            newValue = input("Enter the new value: ")
                             book["title"] = newValue
                             break
                         elif inputEdit == "8":
+                            newValue = input("Enter the new value: ")
                             book["year"] = int(newValue)
                             break
                         elif inputEdit == "9":
-                            break
+                            editBook()
                 print("\n\nSuccesfully edited the book!\n\n")
                 editbook = ""
                 possibleAnswers = ["1","2"]
