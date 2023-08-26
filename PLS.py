@@ -155,7 +155,7 @@ def functionMember():
         elif answer == "5":
             ImportCSV()
         elif answer == "6":
-            CheckStatus()
+            checkStatus()
         elif answer == "9":
             RunProgram()
 
@@ -382,7 +382,9 @@ def editBook():
             try: 
                 for book in data['catalog']:
                     if title.lower() in book["title"].lower():
-                        print("What would you like to edit? 1. Author\n2. Country\n3. Imagelink\n4. Language\n5. Link\n6. Pages\n7. Title\n8. Year\n9. Exit")
+                        print('\nTitle: ' + book['title'])
+                        print('Author: ' + book['author'])
+                        print("\nWhat would you like to edit?\n1. Author\n2. Country\n3. Imagelink\n4. Language\n5. Link\n6. Pages\n7. Title\n8. ISBN\n9. Year\n10. Exit\n")
                         inputEdit = input(">> ")
                         if inputEdit == "1":
                             newValue = input("Enter the new value: ")
@@ -421,16 +423,22 @@ def editBook():
                             break
                         elif inputEdit == "8":
                             newValue = input("Enter the new value: ")
-                            book["year"] = int(newValue)
+                            book["ISBN"] = int(newValue)
                             Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
                             break
                         elif inputEdit == "9":
+                            newValue = input("Enter the new value: ")
+                            book["year"] = int(newValue)
+                            Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
+                            break
+                        elif inputEdit == "10":
                             editBook()
+                                         
                 print("\n\nSuccesfully edited the book!\n\n")
                 editbook = ""
                 possibleAnswers = ["1","2"]
                 while editbook not in possibleAnswers:
-                    editbook = input("\nDo you want to add another book?\n 1. Yes\n 2. No\n")
+                    editbook = input("\nDo you want to edit another book?\n 1. Yes\n 2. No\n")
                     if editbook == "1":
                         editBook()
                     elif editbook == "2":
@@ -447,9 +455,9 @@ def editBook():
             try: 
                 for book in data['catalog']:
                     if author.lower() in book["author"].lower():
-                        print('Title: ' + book['title'])
+                        print('\nTitle: ' + book['title'])
                         print('Author: ' + book['author'])
-                        print("\nWhat would you like to edit? 1. Author\n2. Country\n3. Imagelink\n4. Language\n5. Link\n6. Pages\n7. Title\n8. Year\n9. Exit\n")
+                        print("\nWhat would you like to edit? 1. Author\n2. Country\n3. Imagelink\n4. Language\n5. Link\n6. Pages\n7. Title\n8. ISBN\n9. Year\n10. Exit\n")
                         inputEdit = input(">> ")
                         if inputEdit == "1":
                             newValue = input("Enter the new value: ")
@@ -488,11 +496,17 @@ def editBook():
                             break
                         elif inputEdit == "8":
                             newValue = input("Enter the new value: ")
-                            book["year"] = int(newValue)
+                            book["ISBN"] = int(newValue)
                             Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
                             break
                         elif inputEdit == "9":
+                            newValue = input("Enter the new value: ")
+                            book["year"] = int(newValue)
+                            Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
+                            break
+                        elif inputEdit == "10":
                             editBook()
+
                 print("\n\nSuccesfully edited the book!\n\n")
                 editbook = ""
                 possibleAnswers = ["1","2"]
