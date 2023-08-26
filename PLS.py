@@ -355,7 +355,7 @@ def addBook():
     addbook = ""
     possibleAnswers = ["1","2"]
     while addbook not in possibleAnswers:
-        addbook = input("\nDo you want to add another book?\n 1. Yes\n 2. No\n")
+        addbook = input("\nDo you want to edit another book?\n 1. Yes\n 2. No\n")
         if addbook == "1":
             addBook()
         elif addbook == "2":
@@ -490,7 +490,7 @@ def editBook():
                 editbook = ""
                 possibleAnswers = ["1","2"]
                 while editbook not in possibleAnswers:
-                    editbook = input("\nDo you want to add another book?\n 1. Yes\n 2. No\n")
+                    editbook = input("\nDo you want to edit another book?\n 1. Yes\n 2. No\n")
                     if editbook == "1":
                         editBook()
                     elif editbook == "2":
