@@ -373,7 +373,7 @@ def editBook():
             title = input("\nPlease enter the title of the book you want to edit:\n")
             try: 
                 for book in data['catalog']:
-                    if answer.lower() in book[title].lower():
+                    if title.lower() in book["title"].lower():
                         print("What would you like to edit? 1. Author\n2. Country\n3. Imagelink\n4. Language\n5. Link\n6. Pages\n7. Title\n8. Year\n9. Exit")
                         inputEdit = input(">> ")
                         newValue = input("Enter the new value: ")
@@ -421,6 +421,56 @@ def editBook():
 
         elif answer == "2":
             author = input("\nPlease enter the author of the book you want to edit:\n")
+            try: 
+                for book in data['catalog']:
+                    if author.lower() in book["author"].lower():
+                        print('Title: ' + book['title'])
+                        print('Author: ' + book['author'])
+                        print("\nWhat would you like to edit? 1. Author\n2. Country\n3. Imagelink\n4. Language\n5. Link\n6. Pages\n7. Title\n8. Year\n9. Exit\n")
+                        inputEdit = input(">> ")
+                        newValue = input("Enter the new value: ")
+                        if inputEdit == "1":
+                            book["author"] = newValue
+                            break
+                        elif inputEdit == "2":
+                            book["country"] = newValue
+                            break
+                        elif inputEdit == "3":
+                            book["imageLink"] = newValue
+                            break
+                        elif inputEdit == "4":
+                            book["language"] = newValue
+                            break
+                        elif inputEdit == "5":
+                            book["link"] = newValue
+                            break
+                        elif inputEdit == "6":
+                            book["pages"] = int(newValue)
+                            break
+                        elif inputEdit == "7":
+                            book["title"] = newValue
+                            break
+                        elif inputEdit == "8":
+                            book["year"] = int(newValue)
+                            break
+                        elif inputEdit == "9":
+                            break
+                print("\n\nSuccesfully edited the book!\n\n")
+                editbook = ""
+                possibleAnswers = ["1","2"]
+                while editbook not in possibleAnswers:
+                    editbook = input("\nDo you want to add another book?\n 1. Yes\n 2. No\n")
+                    if editbook == "1":
+                        editBook()
+                    elif editbook == "2":
+                        print("\n")
+                        functionCatalog()
+                    else:
+                        print("Command not recognized, please try again.")
+            except:
+                print('Something went wrong. Please try again.')
+                RunProgram()
+
         elif answer == "9":
             RunProgram()
         else:
