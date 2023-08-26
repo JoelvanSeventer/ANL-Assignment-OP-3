@@ -336,16 +336,18 @@ def listBook():
 
 def addBook():
     print("To add a new book we need some information.")
-    title = input("Book title -> ")
     author = input("Book author -> ")
-    pages = int(input("Total pages -> "))
-    year = int(input("Publishing year -> "))
     country = input("Country -> ")
-    language = input("Book Language -> ")
     imageLink = input("Image link -> ")
+    language = input("Book Language -> ")
     link = input("Website link -> ")
+    pages = int(input("Total pages -> "))
+    title = input("Book title -> ")
+    ISBN = input("ISBN -> ")
+    year = int(input("Publishing year -> "))
+    
     try:
-        BE.LibraryAdmin.registerBook(author, country, imageLink, language, link, pages, title, year)
+        BE.LibraryAdmin.registerBook(author, country, imageLink, language, link, pages, title, ISBN, year)
         AddToLoanItemsNew(title, author)
         print("\nBook was succesfully added to the database.")
     except:

@@ -58,16 +58,17 @@ class LibraryAdmin(Person):
         return False
 
     @staticmethod
-    def registerBook(author, country, imageLink, language, link, pages, title, year):
+    def registerBook(author, country, imageLink, language, link, pages, title, ISBN, year):
         data['catalog'].append({
-            'title': title,
             'author': author,
-            'pages': pages,
-            'year': year,
             'country': country,
-            'language': language,
             'imageLink': imageLink,
-            'link': link
+            'language': language,
+            'link': link,
+            'pages': pages,
+            'title': title,
+            'ISBN': ISBN,
+            'year': year
         })
         Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
 
