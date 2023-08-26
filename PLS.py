@@ -868,10 +868,10 @@ def AddToLoanItemsNew(title, author):
     for item in data['loanItems']:
         if (item['bookItem'] == title) and (item['author'] == author) :
             print(f"{item['bookItem']} already exists")
-            return 
+            return
 
     data['loanItems'].append(newloanitemdict)
-    BE.Backup.writeJson(abs_path + '/json/loanItems.json', data['loanItems'])
+    BE.Backup.writeJson(abs_path + '/data/loanItems.json', data['loanItems'])
 
 def ReturnLoanItem():
     global currentUser, currentUserName
