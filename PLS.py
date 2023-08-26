@@ -423,7 +423,7 @@ def editBook():
                             break
                         elif inputEdit == "8":
                             newValue = input("Enter the new value: ")
-                            book["ISBN"] = int(newValue)
+                            book["ISBN"] = newValue
                             Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
                             break
                         elif inputEdit == "9":
@@ -496,7 +496,7 @@ def editBook():
                             break
                         elif inputEdit == "8":
                             newValue = input("Enter the new value: ")
-                            book["ISBN"] = int(newValue)
+                            book["ISBN"] = newValue
                             Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
                             break
                         elif inputEdit == "9":
