@@ -73,7 +73,7 @@ class LibraryAdmin(Person):
 
     @staticmethod
     def delBook(search, inp):
-        for book in data['books']:
+        for book in data['catalog']:
             if inp in book[search].lower():
                 data['books'].remove(book)
                 Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
