@@ -794,33 +794,36 @@ def availableBookItem():
         possibleanswers = ["1", "2", "9"]
         while answer not in possibleanswers:
             print("Search availability book  by:\n 1. Title\n 2. Author\n 9. Return to main menu")
-            found = False
             answer = input("\n>> ")
             if answer == "1":
                 try:
                     title = input("\nPlease enter the author of the book you want to see the availability of:\n")
-                    for book in data['bookItems']:
+                    with open("data/bookItems.json", "r") as f:
+                        data = json.load(f) 
+                    for book in data:
                         if title.lower() in book["title"].lower():
                             print('\nTitle: ' + book['title'])
                             print('Author: ' + book['author'])
                             if book["copies"] > 0:
-                                print("Book is available")
+                                print("\nBook is available")
                             elif book["copies"] == 0:
-                                print("Book is not available")
+                                print("\nBook is not available")
                 except:
                     print('Something went wrong. Please try again.')
                     RunProgram()
             elif answer == "2":
                 try: 
                     author = input("\nPlease enter the author of the book you want to see the availability of:\n")
-                    for book in data['bookItems']:
+                    with open("data/bookItems.json", "r") as f:
+                        data = json.load(f) 
+                    for book in data:
                         if author.lower() in book["author"].lower():
                             print('\nTitle: ' + book['title'])
                             print('Author: ' + book['author'])
                             if book["copies"] > 0:
-                                print("Book is available")
+                                print("\nBook is available")
                             elif book["copies"] == 0:
-                                print("Book is not available")
+                                print("\nBook is not available")
                 except:
                     print('Something went wrong. Please try again.')
                     RunProgram()
@@ -829,13 +832,6 @@ def availableBookItem():
             else:
                 print("\nInput not recognised. Please try again.")
                 answer = ""
-
-        with open("data/bookItems.json", "r") as f:
-            data = json.load(f)
-
-        for book in data:
-            if book["copies"] > 0:
-                print(f"Title: {book['title']}, Author: {book['author']}, Available: {book['copies']} copies")
     
     except:
         print('Something went wrong. Please try again.')
