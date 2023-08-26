@@ -969,7 +969,7 @@ def ReturnLoanItem():
     if currentUser == "members":
         targetusername = currentUserName
     else:
-        targetusername = input("Username: ")
+        targetusername = input("Username member: ")
     foundbook = False
     for item in data['loanItems']:
         if item['bookItem'].lower() == targetbook.lower():
