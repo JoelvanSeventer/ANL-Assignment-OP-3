@@ -539,9 +539,11 @@ def deleteBook():
             if answer == "1":
                 title = input("\nPlease enter the title of the book you want to delete:\n")
                 BE.LibraryAdmin.delBook("title", title)
+                break
             elif answer == "2":
                 author = input("\nPlease enter the author of the book you want to delete:\n")
                 BE.LibraryAdmin.delBook("author", author)
+                break
             elif answer == "9":
                 RunProgram()
             else:
