@@ -43,10 +43,6 @@ class Backup:
             loggedIn = False
         return (loggedIn, loginType, "guest")
     
-    
-        
-
-
     @staticmethod
     def loadSystemBackup():
         global data
