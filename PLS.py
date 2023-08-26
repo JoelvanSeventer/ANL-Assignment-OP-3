@@ -368,7 +368,7 @@ def editBook():
     answer = ""
     possibleanswers = ["1", "2", "9"]
     while answer not in possibleanswers:
-        print("Would you like to:\n 1. Search book by Title\n 2. Search by Author\n 9. Return to main menu")
+        print("Would you like to edit book by:\n 1. Title\n 2. Author\n 9. Return to main menu")
         answer = input("\n>> ")
         if answer == "1":
             title = input("\nPlease enter the title of the book you want to edit:\n")
@@ -509,7 +509,26 @@ def editBook():
             answer = ""
 
 def deleteBook():
-    print("hoi")
+    try: 
+        answer = ""
+        possibleanswers = ["1", "2", "9"]
+        while answer not in possibleanswers:
+            print("Delete book by:\n 1. Title\n 2. Author\n 9. Return to main menu")
+            answer = input("\n>> ")
+            if answer == "1":
+                title = input("\nPlease enter the title of the book you want to delete:\n")
+                BE.LibraryAdmin.delBook("title", title)
+            elif answer == "2":
+                author = input("\nPlease enter the author of the book you want to delete:\n")
+                BE.LibraryAdmin.delBook("author", author)
+            elif answer == "9":
+                RunProgram()
+            else:
+                print("\nInput not recognised. Please try again.")
+                answer = ""
+    except:
+        print('Something went wrong. Please try again.')
+        RunProgram()
 
 def searchBookCatalog(value):
     print(f"\nPlease enter the exact phrase for {value} search.")
