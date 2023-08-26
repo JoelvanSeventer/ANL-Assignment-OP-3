@@ -142,7 +142,7 @@ def functionMember():
     possibleAnswers = ["1", "2", "3", "4"]
 
     while answer not in possibleAnswers:
-        print("\n 1. To see a list of all members\n 2. Add a new member\n 3. Edit a member\n 4. Delete a member\n 5. Add a list of members using a CSV file\n 9. Return to previous menu\n")
+        print("\n 1. To see a list of all members\n 2. Add a new member\n 3. Edit a member\n 4. Delete a member\n 5. Add a list of members using a CSV file\n 6. Check status of book items currently loaned by a member\n 9. Return to previous menu\n")
         answer = input(" >> ")
         if answer == "1":
             listMember()
@@ -154,6 +154,8 @@ def functionMember():
             deleteMember()
         elif answer == "5":
             ImportCSV()
+        elif answer == "6":
+            CheckStatus()
         elif answer == "9":
             RunProgram()
 
@@ -299,6 +301,9 @@ def findMember(member):
         if member.lower() == item["GivenName"].lower() + " " + item["Surname"].lower():
             return True
     return False
+
+def checkStatus():
+    print("hoi")
 
 ############################################################################
 
