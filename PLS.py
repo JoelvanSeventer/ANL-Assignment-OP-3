@@ -4,6 +4,7 @@ import json
 import csv
 import sys
 import os
+from backup import Backup
 
 
 currentUser = "guest"
@@ -379,34 +380,42 @@ def editBook():
                         if inputEdit == "1":
                             newValue = input("Enter the new value: ")
                             book["author"] = newValue
+                            Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
                             break
                         elif inputEdit == "2":
                             newValue = input("Enter the new value: ")
                             book["country"] = newValue
+                            Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
                             break
                         elif inputEdit == "3":
                             newValue = input("Enter the new value: ")
                             book["imageLink"] = newValue
+                            Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
                             break
                         elif inputEdit == "4":
                             newValue = input("Enter the new value: ")
                             book["language"] = newValue
+                            Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
                             break
                         elif inputEdit == "5":
                             newValue = input("Enter the new value: ")
                             book["link"] = newValue
+                            Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
                             break
                         elif inputEdit == "6":
                             newValue = input("Enter the new value: ")
                             book["pages"] = int(newValue)
+                            Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
                             break
                         elif inputEdit == "7":
                             newValue = input("Enter the new value: ")
                             book["title"] = newValue
+                            Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
                             break
                         elif inputEdit == "8":
                             newValue = input("Enter the new value: ")
                             book["year"] = int(newValue)
+                            Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
                             break
                         elif inputEdit == "9":
                             editBook()
@@ -438,34 +447,42 @@ def editBook():
                         if inputEdit == "1":
                             newValue = input("Enter the new value: ")
                             book["author"] = newValue
+                            Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
                             break
                         elif inputEdit == "2":
                             newValue = input("Enter the new value: ")
                             book["country"] = newValue
+                            Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
                             break
                         elif inputEdit == "3":
                             newValue = input("Enter the new value: ")
                             book["imageLink"] = newValue
+                            Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
                             break
                         elif inputEdit == "4":
                             newValue = input("Enter the new value: ")
                             book["language"] = newValue
+                            Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
                             break
                         elif inputEdit == "5":
                             newValue = input("Enter the new value: ")
                             book["link"] = newValue
+                            Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
                             break
                         elif inputEdit == "6":
                             newValue = input("Enter the new value: ")
                             book["pages"] = int(newValue)
+                            Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
                             break
                         elif inputEdit == "7":
                             newValue = input("Enter the new value: ")
                             book["title"] = newValue
+                            Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
                             break
                         elif inputEdit == "8":
                             newValue = input("Enter the new value: ")
                             book["year"] = int(newValue)
+                            Backup.writeJson(abs_path + '/data/catalog.json', data['catalog'])
                             break
                         elif inputEdit == "9":
                             editBook()

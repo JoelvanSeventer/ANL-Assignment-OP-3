@@ -72,6 +72,7 @@ class LibraryAdmin(Person):
         Backup.writeJson(abs_path + '/data/catalog.json', data['books'])
 
 
+
 class Member(Person):
 
     def __init__(self, Number, GivenName, SurName, StreetAdress, ZipCode, City, EmailAdress, Username, Password, TelephoneNumber):
