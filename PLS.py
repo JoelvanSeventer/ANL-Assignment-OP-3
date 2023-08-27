@@ -122,11 +122,9 @@ def MenuLibraryAdmin(errorMessage = ""):
         elif answer == "5":
             try: 
                 BE.Backup.RestoreBackup()
-                print("Loaded backup succesful. Press any key to continue... ")
                 a = input()
                 RunProgram()
             except: 
-                print("Load Backup failed. \nPress any key to continue... ")
                 a = input()
                 RunProgram()
         elif answer == "9":
