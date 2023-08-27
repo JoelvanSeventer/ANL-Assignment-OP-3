@@ -4,6 +4,8 @@ from data import data, abs_path
 
 class Catalog:
 
+    bookList = []
+
     @staticmethod
     def GetInfo():
         bookIDCounter = 0
