@@ -79,18 +79,6 @@ class Backup:
         else:
             loggedIn = False
         return (loggedIn, loginType, "guest")
-    
-    # @staticmethod
-    # def loadSystemBackup():
-    #     global data
-    #     filename = input("Enter backup filename here: ")
-    #     with open(abs_path + f'/data/{filename}.json') as f:
-    #         data = json.load(f)
-    #         Backup.writeJson(abs_path + '/data/members.json', data['members'])
-    #         Backup.writeJson(abs_path + '/data/loanItems.json', data['loanItems'])
-    #         Backup.writeJson(abs_path + '/data/catalog.json', data['books'])
-    #     with open(abs_path + '/data/books.json') as f:
-    #     	data['books'] = json.load(f)
 
     def RestoreBackup():
         now = str(d.now())[:10]
@@ -99,7 +87,7 @@ class Backup:
         condition = True
 
         while condition:
-            choice = input("\n1. Restore books\n2. Restore members\n3. Restore loans\n4. Restore bookcopies\n")
+            choice = input("\n1. Restore catalog\n2. Restore members\n3. Restore loanItems\n4. Restore bookItems\n")
             if choice == '1':
 
                 dir_path = "data/backup"
@@ -130,7 +118,7 @@ class Backup:
                         running = False
                 
 
-                shutil.copy(file + now + '_' + str(copy_version - 1) + '_' + "backupbooks.json", 'data/books.json')
+                shutil.copy(file + now + '_' + str(copy_version) + '_' + "backupcatalog.json", 'data/catalog.json')
 
                 print("\nRestore complete!\n")
 
@@ -187,7 +175,7 @@ class Backup:
                 files = []
 
                 for filename in os.listdir(dir_path):
-                    if "backuploans.json" in str(filename):
+                    if "backuploanItems.json" in str(filename):
                         files.append(str(filename))
                 
                 print("\nWhich version would you like to restore?\n")
