@@ -946,9 +946,9 @@ def lendBookItem():
         #         item['userOfItem'] = loanerusername
 
         for book in data['bookItems']:
-            var = json.loads(json.dumps(book))
-            if var['title'] == targetbook and var['author'] == targetauthor:
+            if book['title'] == targetbook and book['author'] == targetauthor:
                 book['copies'] -= 1
+                BE.Backup.writeJson(abs_path + '/data/bookItems.json', data['bookItems'])
 
         with open(abs_path + '/data/loanItems.json', 'w') as outfile:
             json.dump(jsontopy, outfile, indent = 4)
