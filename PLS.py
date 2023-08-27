@@ -994,16 +994,29 @@ def ReturnLoanItem():
             if answer == "1":
                 print("\nOK, returning book.")
                 try: 
-                    jsontopy = data['loanItems']
-                    for item in jsontopy: 
-                        if item['bookItem'].lower() == targetbook.lower() and item['userOfItem'] == targetusername:
-                            item['dateOfLoan'] = "none"
-                            item['dateOfReturn'] = "none"
-                            item['userOfItem'] = "none"
-                            item['isAvailable'] = True
+                    # jsontopy = data['loanItems']
+                    # for item in jsontopy: 
+                    #     if item['bookItem'].lower() == targetbook.lower() and item['userOfItem'] == targetusername:
+                    #         item['dateOfLoan'] = "none"
+                    #         item['dateOfReturn'] = "none"
+                    #         item['userOfItem'] = "none"
+                    #         item['isAvailable'] = True
 
-                            with open(abs_path + '/json/loanItems.json', 'w') as outfile:
-                                json.dump(jsontopy, outfile, indent = 4)
+                    #         with open(abs_path + '/json/loanItems.json', 'w') as outfile:
+                    #             json.dump(jsontopy, outfile, indent = 4)
+                    for item in data['loanItems']:
+                        if item['bookItem'].lower() == targetbook.lower() and item['userOfItem'] == targetusername:
+                            data['loanItems'].remove(item)
+                            BE.Backup.writeJson(abs_path + '/data/loanItems.json', data['loanItems'])
+
+                    for book in data['bookItems']:
+                        var = json.loads(json.dumps(book))
+                        if var['title'] == targetbook:
+                            book['copies'] += 1
+                            BE.Backup.writeJson(abs_path + '/data/bookItems.json', data['bookItems'])
+
+                    print(f"\nBook has been returned.")
+
                 except: 
                     print("Something went wrong. Try again.")
                     a = input("Press any key to continue ...")
