@@ -303,11 +303,11 @@ def findMember(member):
     return False
 
 def checkStatus():
-    input("Fill in the username of the member you want to check the loan status of: ")
+    user1 = input("Fill in the username of the member you want to check the loan status of: ")
     
     try:
         for item in data['loanItems']:
-            if item['userOfItem'] == input:
+            if item['userOfItem'].lower() == user1.lower():
                 print(f"{item['bookItem']} is loaned to {item['userOfItem']} from {item['dateOfLoan']} until {item['dateOfReturn']}")
     except:
         print("Something went wrong. Please try again.")
@@ -954,6 +954,7 @@ def lendBookItem():
             RunProgram()
 
     if decidedonbook:
+        print("\nThis book can be loaned for a maximum of 2 months (60 days)\n")
         dateLoan = input("From when will the book be loaned? (DD-MM-YYYY): ")
         datereturn = input("When does the book have to be returned? (DD-MM-YYYY): ")
         if currentUser == "members":
