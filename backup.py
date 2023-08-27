@@ -18,15 +18,11 @@ class Backup:
         now = str(d.now())[:10]
         now = now.replace(":","_")
         file = 'data/backup/'
+
         count = 0
         running = True
-
         while running:
-
-            print(os.path.exists(f"{file + now + '_' + str(count) + '_' + 'backupcatalog.json'}"))
-            print(f"{file} + {now + '_' + str(count) + '_' + 'backupcatalog.json'}")
-
-            if not os.path.exists(f"{file + now + '_' + str(count) + '_' + 'backupcatalog.json'}") == False:
+            if not os.path.exists(f"{file + now + '_' + str(count) + '_' + 'backupcatalog.json'}"):
                 shutil.copy('data/catalog.json', file + now + '_' + str(count) + '_' + 'backupcatalog.json')
                 running = False
             elif os.path.exists(f"{file + now + '_' + str(count) + '_' + 'backupcatalog.json'}"):
