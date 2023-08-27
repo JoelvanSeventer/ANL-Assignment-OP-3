@@ -359,9 +359,11 @@ def addBook():
         inp = input(">> ")
         if inp == "1":
             addBookItem()
+
         elif inp == "2":
             print("\n")
             functionCatalog()
+
     except:
         print("\nSomething went wrong. Please try again.")
         addBook()
@@ -1017,8 +1019,7 @@ def ReturnLoanItem():
                             BE.Backup.writeJson(abs_path + '/data/loanItems.json', data['loanItems'])
 
                     for book in data['bookItems']:
-                        var = json.loads(json.dumps(book))
-                        if var['title'] == targetbook:
+                        if book['title'] == targetbook:
                             book['copies'] += 1
                             BE.Backup.writeJson(abs_path + '/data/bookItems.json', data['bookItems'])
 
