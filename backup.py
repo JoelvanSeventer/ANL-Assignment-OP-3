@@ -118,7 +118,7 @@ class Backup:
                         running = False
                 
 
-                shutil.copy(file + now + '_' + str(copy_version) + '_' + "backupcatalog.json", 'data/catalog.json')
+                shutil.copy(file + now + '_' + str(copy_version - 1) + '_' + "backupcatalog.json", 'data/catalog.json')
 
                 print("\nRestore complete!\n")
 
