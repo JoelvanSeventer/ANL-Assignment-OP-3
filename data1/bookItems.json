@@ -8,8 +8,8 @@
         "pages": 209,
         "title": "Things Fall Apart",
         "ISBN": "9781234534597",
-        "year": 2023,
-        "copies": 5
+        "year": 1958,
+        "copies": 8
     },
     {
         "author": "Hans Christian Andersen",
@@ -513,7 +513,7 @@
         "title": "The Old Man and the Sea",
         "ISBN": "9781234095397",
         "year": 1952,
-        "copies": 5
+        "copies": 6
     },
     {
         "author": "Homer",

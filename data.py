@@ -56,7 +56,7 @@ except:
         # get all files in data/backup
         files = os.listdir(abs_path + '/data/backup')
 
-        filenames = ["members", "bookItems", "catalog"]
+        filenames = ["members", "bookItems", "catalog", "loanItems"]
 
         for name in filenames:
             version = 0

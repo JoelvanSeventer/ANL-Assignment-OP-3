@@ -303,7 +303,15 @@ def findMember(member):
     return False
 
 def checkStatus():
-    print("hoi")
+    input("Fill in the username of the member you want to check the loan status of: ")
+    
+    try:
+        for item in data['loanItems']:
+            if item['userOfItem'] == input:
+                print(f"{item['bookItem']} is loaned to {item['userOfItem']} from {item['dateOfLoan']} until {item['dateOfReturn']}")
+    except:
+        print("Something went wrong. Please try again.")
+        checkStatus()
 
 ############################################################################
 
@@ -325,7 +333,8 @@ def functionCatalog():
         elif answer == "5":
             searchBook()
         elif answer == "6":
-            importJSON()
+            jsonbookfile = input("Type the name of the file here to load the books from JSON : ")
+            importJSONCatalog(jsonbookfile)
         elif answer == "9":
             RunProgram()
 
@@ -611,14 +620,21 @@ def searchBook():
             print("\nInput not recognised. Please try again.")
             answer = ""
 
-def importJSON():
-    jsonbookfile = input("Type the name of the file here to load the books from JSON : ")
-        
+
+def importJSONCatalog(jsonbookfile):
     try:
-        with open(abs_path + f'//{jsonbookfile}.json') as f:
+        with open(abs_path + f'/{jsonbookfile}.json') as f:
             jsonbookfile2 = json.load(f)
 
         with open(abs_path + '/data/catalog.json', 'w') as json_file:
+            #print(jsonbookfile2)
+            json.dump(jsonbookfile2, json_file, indent = 4)
+
+        for item in jsonbookfile2:
+            item['copies'] = 5
+        
+        with open(abs_path + '/data/bookItems.json', 'w') as json_file:
+            #print(jsonbookfile2)
             json.dump(jsonbookfile2, json_file, indent = 4)
 
         with open(abs_path + '/data/catalog.json') as f:
@@ -629,10 +645,10 @@ def importJSON():
 
         with open(abs_path + '/data/loanItems.json') as f:
             data['loanItems'] = json.load(f)
-
-                
-        for item in data['catalog']:
-            AddToLoanItemsNew(item['title'], item['author'])
+        
+        with open(abs_path + '/data/bookItems.json') as f:
+            data['bookItems'] = json.load(f)
+        
         print("Load succesfull. Press any key to continue...")
         a = input()
         RunProgram()
