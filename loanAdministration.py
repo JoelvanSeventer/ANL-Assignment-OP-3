@@ -3,10 +3,6 @@ import json
 from data import data, abs_path
 
 class LoanAdministration: 
-    """
-    In deze class LoanAdministration staan de LoanItems oftewel de informatie over uitgeleende items.
-    Dat zijn uitgeleende boeken met bijbehorende informatie over wanneer ze terug moeten
-    """
 
     loanItems = []
 

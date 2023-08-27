@@ -82,7 +82,7 @@ def MenuMember(errorMessage = ""):
         elif answer == "4":
             searchBookItem()
         elif answer == "5":
-            availableBookItem()
+            lendBookItem()
         elif answer == "6":
             ReturnLoanItem()
         elif answer == "9":
