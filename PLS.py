@@ -921,7 +921,7 @@ def lendBookItem():
             RunProgram()
     
     for book in data['bookItems']:
-        var = json.loads(json.dumps(item))
+        var = json.loads(json.dumps(book))
         if var['title'] == targetbook and var['author'] == targetauthor and var['copies'] == 0:
             print("\nThis book is not available! Someone else has loaned this book.")
             decidedonbook = False
@@ -945,6 +945,10 @@ def lendBookItem():
         #         item['dateOfReturn'] = datereturn
         #         item['userOfItem'] = loanerusername
 
+        for book in data['bookItems']:
+            var = json.loads(json.dumps(book))
+            if var['title'] == targetbook and var['author'] == targetauthor:
+                book['copies'] -= 1
 
         with open(abs_path + '/data/loanItems.json', 'w') as outfile:
             json.dump(jsontopy, outfile, indent = 4)
