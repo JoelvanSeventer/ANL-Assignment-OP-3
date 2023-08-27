@@ -353,8 +353,15 @@ def addBook():
     
     try:
         BE.LibraryAdmin.registerBook(author, country, imageLink, language, link, pages, title, ISBN, year)
-        AddToLoanItemsNew(title, author)
         print("\nBook was succesfully added to the database.")
+        #AddToLoanItemsNew(title, author)
+        print("\nDo you also want to add copies? 1. Yes 2. No")
+        inp = input(">> ")
+        if inp == "1":
+            addBookItem()
+        elif inp == "2":
+            print("\n")
+            functionCatalog()
     except:
         print("\nSomething went wrong. Please try again.")
         addBook()
