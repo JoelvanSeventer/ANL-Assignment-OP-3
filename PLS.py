@@ -1019,7 +1019,7 @@ def ReturnLoanItem():
                             BE.Backup.writeJson(abs_path + '/data/loanItems.json', data['loanItems'])
 
                     for book in data['bookItems']:
-                        if book['title'] == targetbook:
+                        if book['title'].lower() == targetbook.lower():
                             book['copies'] += 1
                             BE.Backup.writeJson(abs_path + '/data/bookItems.json', data['bookItems'])
 
