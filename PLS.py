@@ -874,39 +874,38 @@ def searchBookItem():
 def lendBookItem():
     global currentUser, currentUserName
     Start()
-    if len(data['loanItems']) == 0:
+    if len(data['bookItems']) == 0:
         print("There are no books in the entire library. Add books first.")
         a = input("\nPress any key to return to the main menu.")
         RunProgram()
-    BE.Catalog.GetInfo()
+    #BE.Catalog.GetInfo()
     print("Loan a Book Menu\n\nType the title of the book you would like to loan. (Use the book browser to see available books)\n")
     booktitle = input(">> ")
     decidedonbook = False
-    foundbook = 0
+    foundbook = False
     
-    for item in data['loanItems']:
-        if booktitle.lower() == item['bookItem'].lower():
-            foundbook += 1
-            targetbook = item['bookItem'] 
+    for item in data['bookItems']:
+        if booktitle.lower() == item['title'].lower():
+            foundbook = True
+            targetbook = item['title'] 
             targetauthor = item['author']
-    if foundbook == 1:
+    if foundbook:
         print("\nYou have selected " + targetbook + " by " + targetauthor)
         decidedonbook = True
-    elif foundbook > 1: 
-        print(f"\nThere are multiple books by the name {targetbook}")
-        for item in data['loanItems']:
-            if targetbook == item['bookItem']:
-                print(f"{item['bookItem']} by {item['author']}")
-        targetauthor = input("Which author? ")     
-        authorcheck = False   
-        for item in data['loanItems']: 
-            if targetbook == item['bookItem'] and targetauthor.lower() == item['author'].lower():
-                print(f"{item['bookItem']} by {item['author']} it is. ")
-                authorcheck = True
-                decidedonbook = True
-        if authorcheck == False:
-            print("\nCould not find the author. Please try again.\n")
-
+    # elif foundbook > 1: 
+    #     print(f"\nThere are multiple books by the name {targetbook}")
+    #     for item in data['bookItems']:
+    #         if targetbook == item['title']:
+    #             print(f"{item['bookItem']} by {item['author']}")
+    #     targetauthor = input("Which author? ")     
+    #     authorcheck = False   
+    #     for item in data['bookItems']: 
+    #         if targetbook == item['title'] and targetauthor.lower() == item['author'].lower():
+    #             print(f"{item['title']} by {item['author']} it is.")
+    #             authorcheck = True
+    #             decidedonbook = True
+    #     if authorcheck == False:
+    #         print("\nCould not find the author. Please try again.\n")
     else: 
         print("\nCould not find book. Please try again\n")
         a = input(">> ")
@@ -914,13 +913,21 @@ def lendBookItem():
 
 
     for item in data['loanItems']:
-        
         checkvar = json.loads(json.dumps(item))
-        if checkvar['bookItem'] == targetbook and checkvar['author'] == targetauthor and checkvar['isAvailable'] == False:
-            print("\nThis book is not available! Please return this book before trying to loan it.")
+        if checkvar['bookItem'] == targetbook and checkvar['author'] == targetauthor and checkvar['userOfItem'] == currentUser:
+            print("\nThis book is not available! You have already loaned this book.")
             decidedonbook = False
             a = input("\nPress any key to return to the menu")
             RunProgram()
+    
+    for book in data['bookItems']:
+        var = json.loads(json.dumps(item))
+        if var['title'] == targetbook and var['author'] == targetauthor and var['copies'] == 0:
+            print("\nThis book is not available! Someone else has loaned this book.")
+            decidedonbook = False
+            a = input("\nPress any key to return to the menu")
+            RunProgram()
+
     if decidedonbook:
         dateLoan = input("From when will the book be loaned? (DD-MM-YYYY): ")
         datereturn = input("When does the book have to be returned? (DD-MM-YYYY): ")
@@ -930,13 +937,13 @@ def lendBookItem():
             loanerusername = input("What is the username of the person who will loan this book?: ")
 
         jsontopy = data['loanItems']
+        jsontopy.append({"bookItem": targetbook, "author": targetauthor, "dateOfLoan" : dateLoan, "dateOfReturn" : datereturn, "userOfItem" : loanerusername})
 
-        for item in jsontopy: 
-            if item['bookItem'] == targetbook and item['author'] == targetauthor:
-                item['dateOfLoan'] = dateLoan
-                item['dateOfReturn'] = datereturn
-                item['userOfItem'] = loanerusername
-                item['isAvailable'] = False
+        # for item in jsontopy: 
+        #     if item['bookItem'] == targetbook and item['author'] == targetauthor:
+        #         item['dateOfLoan'] = dateLoan
+        #         item['dateOfReturn'] = datereturn
+        #         item['userOfItem'] = loanerusername
 
 
         with open(abs_path + '/data/loanItems.json', 'w') as outfile:
@@ -948,7 +955,7 @@ def lendBookItem():
 ############################################################################
 
 def AddToLoanItemsNew(title, author):
-    newloanitemdict = {"bookItem": title, "author": author, "dateOfLoan" : "none", "dateOfReturn" : "none", "userOfItem" : "none", "isAvailable" : True}
+    newloanitemdict = {"bookItem": title, "author": author, "dateOfLoan" : "none", "dateOfReturn" : "none", "userOfItem" : "none"}
     for item in data['loanItems']:
         if (item['bookItem'] == title) and (item['author'] == author) :
             print(f"{item['bookItem']} already exists")
