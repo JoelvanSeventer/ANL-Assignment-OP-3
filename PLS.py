@@ -37,7 +37,7 @@ def loginMenu(errorMessage = ""):
     possibleAnswers = ["1", "2"]
     while answer not in possibleAnswers:
         Start()
-        print(f"{errorMessage}\nLogin Menu\n\n 1. Log in as Member.\n 2. Log in as LibraryAdmin.\n 9. Return to the main menu.\n")
+        print(f"{errorMessage}\nLogin Menu\n\n 1. Log in as Member.\n 2. Log in as LibraryAdmin.\n")
         answer = input(">> ")
         if answer == "1":
             Start()
@@ -59,8 +59,8 @@ def loginMenu(errorMessage = ""):
                 RunProgram()
             else:
                 loginMenu("\nLogin failed. Please try again\n")
-        elif answer == "9":
-            RunProgram()
+        # elif answer == "9":
+        #     RunProgram()
         else:
             loginMenu("\nCommand not recognized, please try again.\n")
 
