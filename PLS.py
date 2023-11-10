@@ -115,7 +115,6 @@ def MenuLibraryAdmin(errorMessage = ""):
                 a = input()
                 RunProgram()
             except:
-                print("Make Backup failed. \nPress any key to continue... ")
                 a = input()
                 RunProgram()
                 
